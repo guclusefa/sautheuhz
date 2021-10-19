@@ -23,7 +23,7 @@ mysqlconnexion.connect((err) => {
     else console.log('BDD connexion échouée \n Erreur: ' + JSON.stringify(err))
 })
 
-app.listen(3000, () => console.log('le serveur Livre d\'Or est prêt.'))
+app.listen(3000, () => console.log('Le serveur sautheuhz est actif'))
 // utiliser les routesrs
 app.get('/', (req, res) => {
     res.send('Le serveur sautheuhz est actif')
