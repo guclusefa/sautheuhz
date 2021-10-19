@@ -1,0 +1,18 @@
+.navbar-brand {
+    max-height: 50px;
+    max-width: 50px;
+}
+
+.navbar-brand img{
+    height: 70px;
+    margin-top: -13px;
+    margin-left: -20px;
+}
+
+.dropdown-toggle {
+    font-size: x-large;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
