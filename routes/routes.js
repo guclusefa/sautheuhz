@@ -1,21 +1,14 @@
 // création du routeur Express pour ce module
 const express = require('express');
 const routeur = express.Router();
-let app = express()
-const LivreControle = require('../controllers/LivreController');
+const affichageControl = require('../controllers/ctrlAffichage');
 
-
-// voir tous les messages
-routeur.get('/')
-    .get('/formulaire', LivreControle.livreOr_form)
-    .get('/search', LivreControle.livreOr_recherche)
-    .get('/:id', LivreControle.livreOr_selection)
-    .get('/delete/:id', LivreControle.livreOr_suppression)
-    .post('/', LivreControle.livreOr_creation);
-
-// afficher le formulaire
-
-
-
+// afficher les pages
+routeur.get('/', affichageControl.afficher_accueil)
+    .get('/accueil', affichageControl.afficher_accueil)
+    .get('/liste_clients', affichageControl.afficher_liste_clients)
+    .get('/liste_ordonnances', affichageControl.afficher_liste_ordonnances)
+    .get('/liste_stocks', affichageControl.afficher_liste_stocks)
+    .get('/liste_commandes', affichageControl.afficher_liste_commandes)
 
 module.exports = routeur;
