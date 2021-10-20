@@ -11,4 +11,10 @@ routeur.get('/', affichageControl.afficher_accueil)
     .get('/liste_stocks', affichageControl.afficher_liste_stocks)
     .get('/liste_commandes', affichageControl.afficher_liste_commandes)
 
+    .get('/form_client', affichageControl.afficher_form_client)
+    .get('/form_ordonnance', affichageControl.afficher_form_ordonnance)
+    .get('/form_stock', affichageControl.afficher_form_stock)
+    .get('/form_commande', affichageControl.afficher_form_commande)
+
+    // .get('/:dir', affichageControl.afficher_dir)
 module.exports = routeur;
