@@ -31,3 +31,6 @@ app.get('/', (req, res) => {
 app.get('/sautheuhz', (req, res) => {
     res.render('accueil')
 })
+app.get('/sautheuhz/liste_clients', (req, res) => {
+    res.render('liste_clients')
+})
