@@ -28,3 +28,7 @@ html {
     margin-left: 20px;
     font-size: x-large;
 }
+
+.hide {
+  display: none;
+}
