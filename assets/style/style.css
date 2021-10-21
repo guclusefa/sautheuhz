@@ -24,10 +24,7 @@ html {
     margin-left: -20px;
 }
 
-.dropdown-toggle {
-    font-size: x-large;
-}
-
 .nav-item {
     margin-left: 20px;
+    font-size: x-large;
 }

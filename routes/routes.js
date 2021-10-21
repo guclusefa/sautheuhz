@@ -6,6 +6,9 @@ const affichageControl = require('../controllers/ctrlAffichage');
 // afficher les pages
 routeur.get('/', affichageControl.afficher_accueil)
     .get('/accueil', affichageControl.afficher_accueil)
+    .get('/connexion', affichageControl.afficher_connexion)
+
+
     .get('/liste_clients', affichageControl.afficher_liste_clients)
     .get('/liste_ordonnances', affichageControl.afficher_liste_ordonnances)
     .get('/liste_stocks', affichageControl.afficher_liste_stocks)

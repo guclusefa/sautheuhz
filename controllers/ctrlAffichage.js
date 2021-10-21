@@ -2,6 +2,11 @@
 const afficher_accueil = (req, res) => {
     res.render('./accueil', {titre: "Accueil"})
 }
+
+const afficher_connexion = (req, res) => {
+    res.render('./connexion', {titre: "Connexion"})
+}
+
 // les listes
 const afficher_liste_clients = (req, res) => {
     res.render('./liste_clients', {titre: "Les clients"})
@@ -43,7 +48,8 @@ const afficher_dir = (req, res) => {
 
 module.exports = {
     afficher_accueil,
-
+    afficher_connexion,
+    
     afficher_liste_clients,
     afficher_liste_ordonnances,
     afficher_liste_stocks,
