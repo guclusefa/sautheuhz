@@ -20,10 +20,6 @@ const afficher_liste_stocks = (req, res) => {
     res.render('./liste_stocks', {titre: "Les stocks"})
 }
 
-const afficher_liste_commandes = (req, res) => {
-    res.render('./liste_commandes', {titre: "Les commandes"})
-}
-
 // les forumalires
 const afficher_form_client = (req, res) => {
     res.render('./form_client', {titre: "Formulaire client"})
@@ -35,10 +31,6 @@ const afficher_form_ordonnance = (req, res) => {
 
 const afficher_form_stock = (req, res) => {
     res.render('./form_stock', {titre: "Formulaire stock"})
-}
-
-const afficher_form_commande = (req, res) => {
-    res.render('./form_commande', {titre: "Formulaire commande"})
 }
 
 // afficher vue même nom que directory -> test
@@ -53,12 +45,10 @@ module.exports = {
     afficher_liste_clients,
     afficher_liste_ordonnances,
     afficher_liste_stocks,
-    afficher_liste_commandes,
 
     afficher_form_client,
     afficher_form_ordonnance,
     afficher_form_stock,
-    afficher_form_commande,
 
     afficher_dir
 }

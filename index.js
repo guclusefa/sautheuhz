@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 let test = "hello world";
 let test2 = "gdfkgdfjgfdjgh";
 =======
+=======
+>>>>>>> origin/sefa
 // inclure les dépendances et middlewares
 const mysql = require('mysql')
 const express = require('express')
@@ -34,4 +37,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/sautheuhz', Routeur)
+<<<<<<< HEAD
+>>>>>>> origin/sefa
+=======
 >>>>>>> origin/sefa
