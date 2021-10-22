@@ -49,6 +49,6 @@ module.exports = {
     afficher_form_client,
     afficher_form_ordonnance,
     afficher_form_stock,
-
-    afficher_dir
+    afficher_dir,
+    
 }

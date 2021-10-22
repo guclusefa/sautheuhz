@@ -1,0 +1,86 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <% contenu.forEach(function(user){ %>
+        <li>
+            <%= user.nom %> <%= user.prenom %>
+        </li>
+    <% })%>
+</body>
+</html>
+-->
+<%- include('header') %>
+    <div class="container">
+        <div class="row d-flex justify-content-center text-center">
+            <div class="col-xl-12 col-md-10 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="">Liste des clients</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-12 col-sm-12 col-12 text-center">
+                <button class="btn btn-primary"  style="width: 100%;" onclick="location.href = 'form_client';">Ajouter un client</button>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-12 col-md-10 mt-3">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="th-sm">id
+
+                            </th>
+                            <th class="th-sm">Nom
+
+                            </th>
+                            <th class="th-sm">Prenom
+
+                            </th>
+                            <th class="th-sm">Sexe
+
+                            </th>
+                            <th class="th-sm">Téléphone
+
+                            </th>
+                            <th class="th-sm">Adresse
+
+                            </th>
+                            <th class="th-sm">N°Sécu
+
+                            </th>
+                            <th class="th-sm">Mutuelle
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% contenu.forEach(function(user){ %>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td><%= user.cli_nom %></td>
+                            <td> <%= user.prenom %></td>
+                            <td><%= user.sexe %></td>
+                            <td>0<%= user.tel %></td>
+                            <td><%= user.adresse %>, <%= user.cp %> <%= user.ville %></td>
+                            <td><%= user.noSS %></td>
+                            <td><%= user.nom %></td>
+                        </tr>
+                        <% })%>
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') %>

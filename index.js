@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-let test = "hello world";
-let test2 = "gdfkgdfjgfdjgh";
-=======
-=======
->>>>>>> origin/sefa
+
 // inclure les dépendances et middlewares
 const mysql = require('mysql')
 const express = require('express')
@@ -36,8 +30,11 @@ app.get('/', (req, res) => {
     res.send('Le serveur sautheuhz est actif')
 })
 
+app.get('/sautheuhz/test', (req, res) => {
+    mysqlconnexion.query('SELECT Clients.id, Clients.idMutuelle, Clients.noSS, Clients.cli_nom, Clients.prenom, Clients.sexe, Clients.dateNaissance, Clients.tel, Clients.mail, Clients.adresse, Clients.ville, Clients.cp, Mutuelles.nom FROM Clients, Mutuelles', (err, lignes, champs) => {
+        if (!err) {
+            console.log(lignes)
+            res.render("test", {contenu : lignes , titre : "test"})        }
+    })
+})
 app.use('/sautheuhz', Routeur)
-<<<<<<< HEAD
->>>>>>> origin/sefa
-=======
->>>>>>> origin/sefa
