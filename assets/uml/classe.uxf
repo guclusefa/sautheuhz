@@ -42,12 +42,12 @@ quantite[0..1]:int
 --
 _id[0..1]:int_
 libelle[0..1]:varchar</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>196</x><y>120</y><w>180</w><h>390</h></coordinates><panel_attributes>lt=-
-m1=0..1
+m1=1..1
 
 m2=0..*
 
 </panel_attributes><additional_attributes>10;10;100;10;100;360;160;360</additional_attributes></element><element><id>Relation</id><coordinates><x>176</x><y>490</y><w>200</w><h>50</h></coordinates><panel_attributes>lt=-
-m1=0..1
+m1=1..1
 
 m2=0..*
 </panel_attributes><additional_attributes>10;20;180;20</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>300</y><w>160</w><h>50</h></coordinates><panel_attributes>lt=-
