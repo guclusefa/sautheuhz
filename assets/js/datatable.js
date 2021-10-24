@@ -1,3 +1,4 @@
+// datable en francais
 $(document).ready(function () {
     $('table').DataTable({
         "language": {

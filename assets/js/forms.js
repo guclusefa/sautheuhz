@@ -1,3 +1,4 @@
+// validation formulaire bootstrap
 (function () {
     'use strict';
     window.addEventListener('load', function () {
@@ -12,74 +13,163 @@
     }, false);
 })();
 
-$(document).ready(function () {
+// formulaires dynamiques
+var i = 1;
+$(function () {
+    $(document).on('click', '.btn-add', function (e) {
+        e.preventDefault();
+        i += 1
 
-    $(".add-more").click(function () {
-        var html = $(".copy").html();
-        $(".after-add-more").after(html);
-    });
+        var dynaForm = $('.formDynamique'),
+            currentEntry = $(this).parents('.entry');
+        newEntry = (currentEntry.clone()).appendTo(dynaForm);
 
-    $("body").on("click", ".remove", function () {
-        $(this).parents(".control-group").remove();
-    });
+        $("#compteur").attr("id", "compteur" + i);
+        $("#compteur" + i).html(i-1);
+        $("#compteur").attr("id", "compteur").html(i);
 
+        newEntry.find('input').val('');
+        dynaForm.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span>&times</span>');
+    })
+
+        .on('click', '.btn-remove', function (e) {
+/*             i = i - 1
+            $("#compteur").attr("id", "compteur").html(i); */
+            $(this).parents('.entry:first').remove();
+
+            e.preventDefault();
+            return false;
+        });
 });
 
 // https://github.com/jquery-validation/jquery-validation/tree/master/src/additional
+// jQuery validate formulaire client
 $(document).ready(function () {
-    $.validator.addMethod( "lettersonly", function( value, element ) {
-        return this.optional( element ) || /^[a-z]+$/i.test( value );
-    }, "Letters only please" );
+    $('input[name="number"]').keyup(function (e) {
+        if (/\D/g.test(this.value)) {
+            // Filter non-digits from input value.
+            this.value = this.value.replace(/\D/g, '');
+        }
+    });
 
-    $.validator.addMethod( "nowhitespace", function( value, element ) {
-        return this.optional( element ) || /^\S+$/i.test( value );
-    }, "No white space please" );
+    document.getElementById("inputTel").addEventListener('input', function (e) {
+        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{2})/g, '$1 ').trim();
+    })
 
-    $("#validation").validate({
+    document.getElementById("inputSS").addEventListener('input', function (e) {
+        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
+    })
+
+    jQuery.validator.addMethod("lettersonly", function (value, element) {
+        return this.optional(element) || /^[a-z\s]+$/i.test(value);
+    });
+
+    $.validator.addMethod("ville", function (value, element) {
+        return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(value);
+    }, "Veuillez fournir seulement des lettres, nombres et espaces.");
+
+    $("#client").validate({
         errorClass: "error fail-alert",
         validClass: "valid success-alert",
         rules: {
             inputNom: {
-                minlength: 1,
+                minlength: 2,
                 maxlength: 50,
                 lettersonly: true,
-                nowhitespace: true
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
             },
-            inputPreNom: {
-                minlength: 1,
-                maxlength: 50
+            inputPrenom: {
+                minlength: 2,
+                maxlength: 50,
+                lettersonly: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
             },
             inputEmail: {
-                email: true
+                email: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
             },
             inputTel: {
-                mobile: true
-            },
-            selectSexe: {
-
+                minlength: 14,
+                maxlength: 14,
             },
             inputDate: {
-
+                date: true,
+                min: "1997-01-01",
+                max: "2030-12-31"
             },
             inputVille: {
-
+                minlength: 2,
+                maxlength: 50,
+                lettersonly: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
             },
             inputCp: {
-
+                digits: true
             },
             inputAdresse: {
-
+                minlength: 2,
+                maxlength: 50,
+                ville: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
             },
             inputSS: {
-
-            },
-            selectMutuelle: {
-                
+                minlength: 18,
+                maxlength: 18,
             }
         }
     });
 });
 
+// jQuery validate formulaire connexion
+$(document).ready(function () {
+    $("#connexion").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            inputIdentifiant: {
+                minlength: 2,
+                maxlength: 50,
+                nowhitespace: true,
+                letterswithbasicpunc: true
+            },
+            inputPassword: {
+                minlength: 5,
+                maxlength: 50,
+                nowhitespace: true
+            }
+        }
+    });
+});
+
+// jQuery validate en français
 $.extend($.validator.messages, {
     required: "Ce champ est obligatoire.",
     remote: "Veuillez corriger ce champ.",

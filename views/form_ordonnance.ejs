@@ -3,7 +3,7 @@
     <div class="container">
         <!-- Titre -->
         <div class="row d-flex justify-content-center text-center">
-            <div class="col-xl-12 col-md-10 mt-3">
+            <div class="col-xl-12 col-md-12 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <h1 class="">Ajouter une ordonnance</h1>
@@ -67,9 +67,8 @@
                     <div class="col-lg-12 col-sm-12 col-12">
                         <div class="form-group">
                             <label class="text-inverse" for="inputDateDebut">Date de préscription</label>
-                            <input type="date" class="form-control" id="inputDateDebut" name="inputDateDebut" 
-                            pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-                            required>
+                            <input type="date" class="form-control" id="inputDateDebut" name="inputDateDebut"
+                                min="1997-01-01" max="2030-12-31" required>
                             <div class="invalid-feedback">
                                 Veuillez fournir une date de préscription valide.
                             </div>
@@ -77,126 +76,67 @@
                     </div>
                 </div>
 
-                <!-- Médicament - Quantité - Fréquence - Date de fin de préscription -->
-                <div class="row">
-                    <div class="input-group control-group after-add-more">
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="form-group">
-                                <label for="selectMedicament" class="form-label required">Médicaments(s)</label>
-                                <select name="selectMedicament[]" id="selectMedicament" class="form-control" required>
-                                    <option value="" disabled selected>Choisir un médicament</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Veuillez fournir un médicament valide.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="form-group">
-                                <label for="selectQte" class="form-label required">Quantité</label>
-                                <div class="input-group">
-                                    <select name="selectQte[]" id="selectQte" class="form-control" required>
-                                        <option value="" disabled selected>Choisir une quantité</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Veuillez fournir une quantité valide.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="form-group">
-                                <label for="selectFrequence" class="form-label required">Fréquence</label>
-                                <div class="input-group">
-                                    <select name="selectFrequence[]" id="selectFrequence" class="form-control" required>
-                                        <option value="" disabled selected>Choisir une fréquence</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Veuillez fournir une fréquence valide.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="form-group">
-                                <label for="selectDateMed" class="form-label required">Date de fin de
-                                    préscription</label>
-                                <div class="input-group">
-                                    <input type="date" class="form-control" id="selectDateMed" name="selectDateMed[]"
-                                    pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"    
-                                    required>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-success btn-add add-more"
-                                            type="button"><span>+</span></button>
-                                    </span>
-                                    <div class="invalid-feedback">
-                                        Veuillez fournir une date valide.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- DYNAMIQUE : Médicament - Quantité - Fréquence - Date de fin de préscription -->
-                <div class="row copy hide">
-                    <div class="input-group control-group">
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="form-group">
-                                <label for="selectMedicament" class="form-label required">Médicaments(s)</label>
-                                <select name="selectMedicament[]" id="selectMedicament" class="form-control" required>
-                                    <option value="" disabled selected>Choisir un médicament</option>
-                                </select>
+                <div class="formDynamique">
+                    <div class="entry mb-5">
+                        <fieldset class="border p-2">
+                            <legend class="w-auto">Préscription n°<span id="compteur">1</span></legend>
+
+                            <div class="row">
+                                <div class="form-group  col-sm-12 col-xl-6">
+                                    <label for="selectMedicament" class="form-label required">Médicaments(s)</label>
+                                    <select name="selectMedicament[]" id="selectMedicament" class="form-control"
+                                        required>
+                                        <option value="" disabled selected>Choisir un médicament</option>
+                                        <option value="test">test</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Veuillez fournir un médicament valide.
+                                    </div>
+                                </div>
+
+                                <div class="form-group  col-sm-12 col-xl-6">
+                                    <label for="selectQte" class="form-label required">Quantité</label>
+                                    <div class="input-group">
+                                        <input type="number" name="selectQte[]" id="selectQte" class="form-control"
+                                            placeholder="Quantité" min="1" max="20" required>
+                                        <div class="invalid-feedback">
+                                            Veuillez fournir une quantité valide.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                            <div class="form-group  col-sm-12 col-xl-6">
+                                <label for="inputFrequence" class="form-label required">Fréquence / jour</label>
+                                <input type="number" name="inputFrequence[]" id="inputFrequence" class="form-control"
+                                    placeholder="Fréquence / jour" min="1" max="10" required>
                                 <div class="invalid-feedback">
-                                    Veuillez fournir un médicament valide.
+                                    Veuillez fournir une fréquence valide.
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="form-group">
-                                <label for="selectQte" class="form-label required">Quantité</label>
-                                <div class="input-group">
-                                    <select name="selectQte[]" id="selectQte" class="form-control" required>
-                                        <option value="" disabled selected>Choisir une quantité</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Veuillez fournir une quantité valide.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="form-group">
-                                <label for="selectFrequence" class="form-label required">Fréquence</label>
-                                <div class="input-group">
-                                    <select name="selectFrequence[]" id="selectFrequence" class="form-control" required>
-                                        <option value="" disabled selected>Choisir une fréquence</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Veuillez fournir une fréquence valide.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-6">
-                            <div class="form-group">
-                                <label for="selectDateMed" class="form-label required">Date de fin de
+
+                            <div class="form-group  col-sm-12 col-xl-6">
+                                <label for="selectDateMed" class="form-label required">Fin de
                                     préscription</label>
                                 <div class="input-group">
                                     <input type="date" class="form-control" id="selectDateMed" name="selectDateMed[]"
-                                    pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"    
-                                    required>
+                                        min="1997-01-01" max="2030-12-31" required>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-danger remove" type="button"><i
-                                                class="glyphicon glyphicon-remove"></i> x</button>
+                                        <button class="btn btn-success btn-add btnevent" type="button">
+                                            <span>+</span>
+                                        </button>
                                     </span>
                                     <div class="invalid-feedback">
                                         Veuillez fournir une date valide.
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            </div>
+
                     </div>
+                    </fieldset>
                 </div>
 
                 <!-- Validation du formulaire -->

@@ -21,7 +21,6 @@ html {
 .navbar-brand img{
     height: 70px;
     margin-top: -13px;
-    margin-left: -20px;
 }
 
 .nav-item {
@@ -33,9 +32,21 @@ html {
   display: none;
 }
 
+#inputPrenom, #inputVille, #inputAdresse {
+  text-transform: capitalize;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 1rem;
+}
+
+.input-error {
+  border: red 1px solid;
+}
 
 
-label.error {
+label.error{
   color: red;
   font-size: 1rem;
   display: block;
@@ -45,6 +56,10 @@ label.error {
 input.error, select.error {
   border: 1px solid red;
   font-weight: 300;
+  color: red;
+}
+
+input.error::placeholder {
   color: red;
 }
 
