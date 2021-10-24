@@ -31,10 +31,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/sautheuhz/test', (req, res) => {
-    mysqlconnexion.query('SELECT Clients.id, Clients.idMutuelle, Clients.noSS, Clients.cli_nom, Clients.prenom, Clients.sexe, Clients.dateNaissance, Clients.tel, Clients.mail, Clients.adresse, Clients.ville, Clients.cp, Mutuelles.nom FROM Clients, Mutuelles', (err, lignes, champs) => {
-        if (!err) {
+    mysqlconnexion.query('SELECT clients_id, idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville , clients_cp FROM Clients', (err, lignes, champs) => {
+        if (!err) { 
             console.log(lignes)
-            res.render("test", {contenu : lignes , titre : "test"})        }
+            res.render("test", {contenu : lignes , titre : "test"})}
     })
 })
+
 app.use('/sautheuhz', Routeur)

@@ -1,21 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-
-    <% contenu.forEach(function(user){ %>
-        <li>
-            <%= user.nom %> <%= user.prenom %>
-        </li>
-    <% })%>
-</body>
-</html>
--->
 <%- include('header') %>
     <div class="container">
         <div class="row d-flex justify-content-center text-center">
@@ -66,14 +48,14 @@
                     <tbody>
                         <% contenu.forEach(function(user){ %>
                         <tr>
-                            <td><%= user.id %></td>
-                            <td><%= user.cli_nom %></td>
-                            <td> <%= user.prenom %></td>
-                            <td><%= user.sexe %></td>
-                            <td>0<%= user.tel %></td>
-                            <td><%= user.adresse %>, <%= user.cp %> <%= user.ville %></td>
-                            <td><%= user.noSS %></td>
-                            <td><%= user.nom %></td>
+                            <td><%= user.clients_id %></td>
+                            <td><%= user.clients_nom %></td>
+                            <td> <%= user.clients_prenom %></td>
+                            <td><%= user.clients_sexe %></td>
+                            <td>0<%= user.clients_tel %></td>
+                            <td><%= user.clients_adresse %>, <%= user.clients_cp %> <%= user.clients_ville %></td>
+                            <td><%= user.clients_noSS %></td>
+                            <td><%= user.clients_nom %></td>
                         </tr>
                         <% })%>
                     </tbody>

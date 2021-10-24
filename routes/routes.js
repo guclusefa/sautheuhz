@@ -16,5 +16,6 @@ routeur.get('/', affichageControl.afficher_accueil)
     .get('/form_client', affichageControl.afficher_form_client)
     .get('/form_ordonnance', affichageControl.afficher_form_ordonnance)
     .get('/form_stock', affichageControl.afficher_form_stock)
+   // .get('/test', affichageControl.afficher_test)
     // .get('/:dir', affichageControl.afficher_dir)
 module.exports = routeur;
