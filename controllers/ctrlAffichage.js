@@ -1,4 +1,22 @@
+// inclure les dépendances et middlewares
+const mysql = require('mysql')
+const express = require('express')
+const iniparser = require('iniparser')
 
+// activer les dépendances
+let app = express()
+app.set('view engine', 'ejs')
+app.use(express.static('assets'))
+app.use(express.static('views'))
+
+// connexion mysql
+let configDB = iniparser.parseSync('config/DB.ini')
+let mysqlconnexion = mysql.createConnection({
+    host: configDB['dev']['host'],
+    user: configDB['dev']['user'],
+    password: configDB['dev']['password'],
+    database: configDB['dev']['dbname']
+})
 // afficher page
 const afficher_accueil = (req, res) => {
     res.render('./accueil', {titre: "Accueil"})
@@ -10,7 +28,11 @@ const afficher_connexion = (req, res) => {
 
 // les listes
 const afficher_liste_clients = (req, res) => {
-    res.render('./liste_clients', {titre: "Les clients"})
+    mysqlconnexion.query('SELECT clients_id, idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville , clients_cp, idMutuelle, Mutuelles_id, Mutuelles_Nom FROM Clients, Mutuelles WHERE idMutuelle = Mutuelles_id', (err, lignes, champs) => {
+        if (!err) { 
+            console.log(lignes)
+            res.render("test", {contenu : lignes , titre : "test"})}
+    })
 }
 
 const afficher_liste_ordonnances = (req, res) => {
@@ -20,6 +42,8 @@ const afficher_liste_ordonnances = (req, res) => {
 const afficher_liste_stocks = (req, res) => {
     res.render('./liste_stocks', {titre: "Les stocks"})
 }
+
+
 
 // les forumalires
 const afficher_form_client = (req, res) => {
@@ -39,25 +63,6 @@ const afficher_dir = (req, res) => {
     res.render('./'+req.params.dir)
 }
 
-/*const afficher_test = (req,res) => {
-    res.render("./test", { titre : "test" })
-
-    mysqlconnexion.query('SELECT Clients.clients_id, Clients.idMutuelle, Clients.clients_noSS, Clients.clients_nom, Clients.clients_prenom, Clients.clients_sexe, Clients.clients_dateNaissance, Clients.clients_tel, Clients.clients_mail, Clients.clients_adresse, Clients.clients_ville, Clients.clients_cp, Mutuelles.nom FROM Clients, Mutuelles',(err, lignes, champs) => {
-        if (!err) { 
-            console.log(lignes)
-            res.send(lignes)}
-            //res.render("./test", { titre : "test", contenu : lignes })
-    })
-}*/
-
-/*app.get('/test', (req, res) => {
-    mysqlconnexion.query('SELECT clients.id, clients.idMutuelle, cients.noSS, clients.cli_nom, clients.prenom, clients.sexe, clients.dateNaissance, clients.tel, clients.mail, clients.adresse, clients.ville, clients.cp, Mutuelles.nom FROM Clients, Mutuelles', (err, lignes, champs) => {
-        if (!err) { 
-            console.log(lignes)
-            res.render("test", {contenu : lignes , titre : "test"})}
-    })
-    res.send("fzfz")
-})*/
 
 module.exports = {
     afficher_accueil,

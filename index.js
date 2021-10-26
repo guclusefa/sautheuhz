@@ -30,12 +30,6 @@ app.get('/', (req, res) => {
     res.send('Le serveur sautheuhz est actif')
 })
 
-app.get('/sautheuhz/test', (req, res) => {
-    mysqlconnexion.query('SELECT clients_id, idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville , clients_cp FROM Clients', (err, lignes, champs) => {
-        if (!err) { 
-            console.log(lignes)
-            res.render("test", {contenu : lignes , titre : "test"})}
-    })
-})
+
 
 app.use('/sautheuhz', Routeur)
