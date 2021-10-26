@@ -11,6 +11,7 @@ let app = express()
 app.set('view engine', 'ejs')
 app.use(express.static('assets'))
 app.use(express.static('views'))
+app.use(express.urlencoded());
 
 // connexion mysql
 let configDB = iniparser.parseSync('config/DB.ini')
