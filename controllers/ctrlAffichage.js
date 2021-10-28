@@ -37,6 +37,8 @@ const afficher_liste_clients = (req, res) => {
 }
 
 const afficher_liste_ordonnances = (req, res) => {
+
+   
     res.render('./liste_ordonnances', { titre: "Les ordonnances" })
 }
 
@@ -91,8 +93,6 @@ const executer_form_client = (req, res) => {
     let requeteSQL = "INSERT INTO Clients (idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville, clients_cp) VALUES"
     requeteSQL += ` (${clientMutuelle},'${clientNoSS}','${clientNom}','${clientPrenom}' , '${clientSexe}' ,'${clientBirthday}', ${clientTel},'${clientMail}', '${clientAdresse}', '${clientVille}', '${clientCp}')`
     
-    console.log("requete : "+requeteSQL)
-
     mysqlconnexion.query( requeteSQL, (err, lignes, champs) => {
         if (!err) {
             console.log("Insertion terminé");
