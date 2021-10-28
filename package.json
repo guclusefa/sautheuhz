@@ -1,20 +1,31 @@
 {
   "name": "sautheuhz",
   "version": "1.0.0",
-  "description": "",
+  "description": "- [IlianCode](https://github.com/IlianCode)\r - [guclusefa](https://github.com/guclusefa)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guclusefa/sautheuhz.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guclusefa/sautheuhz/issues"
+  },
+  "homepage": "https://github.com/guclusefa/sautheuhz#readme",
   "dependencies": {
-    "boostrap": "^2.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "iniparser": "^1.0.5",
+<<<<<<< HEAD
     "jquery": "^3.6.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.14"
+=======
+    "mysql": "^2.18.1"
+>>>>>>> origin/sefa
   }
 }

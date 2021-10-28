@@ -21,7 +21,6 @@ html {
 .navbar-brand img{
     height: 70px;
     margin-top: -13px;
-    margin-left: -20px;
 }
 
 .nav-item {
@@ -31,4 +30,58 @@ html {
 
 .hide {
   display: none;
+<<<<<<< HEAD
+=======
+}
+
+#inputPrenom, #inputVille, #inputAdresse {
+  text-transform: capitalize;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 1rem;
+}
+
+.input-error {
+  border: red 1px solid;
+}
+
+
+label.error{
+  color: red;
+  font-size: 1rem;
+  display: block;
+  margin-top: 5px;
+}
+
+input.error, select.error {
+  border: 1px solid red;
+  font-weight: 300;
+  color: red;
+}
+
+input.error::placeholder {
+  color: red;
+}
+
+input.error:focus, select.error:focus{
+  border-color: #FF0000;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+input.valid.success-alert, select.valid.success-alert {
+  border: 2px solid #4CAF50;
+  color: green;
+}
+
+input.valid.success-alert:focus, select.valid.success-alert:focus {
+  border-color: #4CAF50;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(6, 138, 17, 0.6);
+}
+
+.btn-primary, .btn-primary:hover{
+  color: white;
+  cursor: pointer;
+>>>>>>> origin/sefa
 }

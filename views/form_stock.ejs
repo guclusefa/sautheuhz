@@ -2,7 +2,7 @@
 
     <div class="container">
         <div class="row d-flex justify-content-center text-center">
-            <div class="col-xl-12 col-md-10 mt-3">
+            <div class="col-xl-12 col-md-12 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <h1 class="">Ajouter du stock</h1>
@@ -10,7 +10,9 @@
                 </div>
             </div>
         </div>
+
         <div class="row mt-3">
+<<<<<<< HEAD
             <form action="/sautheuhz/form_client" class="container" id="needs-validation" novalidate>
                 <div class="row">
                     <div class="col-lg-6 col-sm-6 col-12 after-add-more">
@@ -40,10 +42,46 @@
                                 </span>
                                 <div class="invalid-feedback">
                                     Veuillez fournir une quantité valide.
+=======
+            <form action="/sautheuhz/form_stock" class="container" id="needs-validation" novalidate>
+                <!-- DYNAMIQUE : médciament et qte-->
+                <div class="formDynamique">
+                    <div class="entry mb-5">
+                        <fieldset class="border p-2">
+                            <legend class="w-auto">Médciament n°<span id="compteur">1</span></legend>
+
+                            <div class="row">
+                            <div class="form-group  col-sm-12 col-xl-6">
+                                <label for="selectMed" class="form-label required">Médicament</label>
+                                <div class="input-group">
+                                    <select name="selectMed[]" id="selectMed" class="form-control" required>
+                                        <option value="" disabled selected>Choisir un médicament</option>
+                                        <option value="">test</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Veuillez fournir un médicament valide.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 col-xl-6">
+                                <label for="inputQte" class="form-label required">Quantité</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="inputQte" name="inputQte[]"
+                                        placeholder="Quantité" min="2" max="20" required>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success btn-add btnevent" type="button">
+                                            <span>+</span>
+                                        </button>
+                                    </span>
+                                    <div class="invalid-feedback">
+                                        Veuillez fournir une quantité valide.
+                                    </div>
+>>>>>>> origin/sefa
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </fieldset>
                 </div>
                 <hr>
                 <div class="row">

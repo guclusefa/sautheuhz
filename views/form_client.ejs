@@ -2,7 +2,7 @@
 
     <div class="container">
         <div class="row d-flex justify-content-center text-center">
-            <div class="col-xl-12 col-md-10 mt-3">
+            <div class="col-xl-12 col-md-12 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <h1 class="">Ajouter un client</h1>
@@ -11,7 +11,12 @@
             </div>
         </div>
         <div class="row mt-3">
+<<<<<<< HEAD
             <form action="/sautheuhz/form_client" method="POST" enctype="application/x-www-form-urlencoded" class="container" id="needs-validation" novalidate>
+=======
+            <form action="/sautheuhz/form_client" class="container" id="client" name="form_client" novalidate>
+                <!-- Nom et prénom -->
+>>>>>>> origin/sefa
                 <div class="row">
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
@@ -26,11 +31,16 @@
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label class="text-inverse" for="inputPrenom">Prénom</label>
+<<<<<<< HEAD
                             <input type="text" class="form-control" id="inputPrenom" name="inputPrenom"
                                 placeholder="Prénom" required>
                             <div class="invalid-feedback">
                                 Veuillez fournir un prénom valide.
                             </div>
+=======
+                            <input type="text" class="form-control" id="inputPrenom" name="inputPrenom" 
+                            placeholder="Prénom" required>
+>>>>>>> origin/sefa
                         </div>
                     </div>
                 </div>
@@ -47,12 +57,18 @@
                     </div>
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
+<<<<<<< HEAD
                             <label class="text-inverse" for="inputMdp">Tél</label>
                             <input type="tel" class="form-control" id="inputTel" name="inputTel" placeholder="Téléphone"
                                 required>
                             <div class="invalid-feedback">
                                 Veuillez fournir un numéro de téléphone valide.
                             </div>
+=======
+                            <label class="text-inverse" for="inputTel">Tél</label>
+                            <input type="tel" minlength="14" maxlength="14" class="form-control" id="inputTel" name="inputTel" placeholder="Téléphone"
+                            required>
+>>>>>>> origin/sefa
                         </div>
                     </div>
                 </div>
@@ -77,9 +93,12 @@
                         <div class="form-group">
                             <label class="text-inverse" for="inputDate">Date de naissance</label>
                             <input type="date" class="form-control" id="inputDate" name="inputDate" required>
+<<<<<<< HEAD
                             <div class="invalid-feedback">
                                 Veuillez fournir une date de naissance valide.
                             </div>
+=======
+>>>>>>> origin/sefa
                         </div>
                     </div>
                 </div>
@@ -122,6 +141,7 @@
                         <div class="form-group">
                             <label class="text-inverse" for="inputSS">N° de sécurité social</label>
                             <input type="text" class="form-control" id="inputSS" name="inputSS"
+                            minlength="18" maxlength="18"
                                 placeholder="N° de sécurité social" required>
                             <div class="invalid-feedback">
                                 Veuillez fournir un numéro de sécurité social valide.
