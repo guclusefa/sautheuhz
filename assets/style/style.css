@@ -86,3 +86,15 @@ input.valid.success-alert:focus, select.valid.success-alert:focus {
   color: white;
   cursor: pointer;
 }
+
+legend {
+  width:inherit; /* Or auto */
+  padding:0 10px; /* To give a bit of padding on the left and right */
+  border-bottom:none;
+}
+
+.rounded-0 {
+  height: 20px;
+  width: 20px;
+  margin-left: 0px;
+}
