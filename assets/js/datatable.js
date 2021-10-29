@@ -30,6 +30,7 @@ $(document).ready(function () {
                 }
             }
         }, 
-        responsive: true
+        responsive: true,
+        "pageLength": 25
     });
 });

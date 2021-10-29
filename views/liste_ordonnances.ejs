@@ -29,54 +29,91 @@
                             <th scope="col">Médecin</th>
                             <th scope="col">Pathologie</th>
                             <th scope="col">Durée</th>
-                            <th scope="col">Détails</th>
-                            <th scope="col">Fiche</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>GUCLU Sefa (18)</td>
                             <td>test</td>
                             <td>test</td>
                             <td>test</td>
-                            <td>test</td>
-                            <td><a href="" data-toggle="modal" data-target="#detail_id">Détails</a></td>
-                            <td>test</td>
+                            <td>
+                                <ul class="list-inline m-0">
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-primary btn-sm rounded-0" type="button"
+                                            data-toggle="modal" data-target="#detail_id" title="Détails"><i
+                                                class="fa fa-eye"></i></button>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-success btn-sm rounded-0" type="button"
+                                            title="Modifier" onclick="location.href = 'fiche_ordonnance/id';"><i class="fa fa-edit"></i></button>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                            data-toggle="modal" data-target="#supprimer_id" title="Supprimer"><i
+                                                class="fa fa-trash"></i></button>
+                                    </li>
+                                </ul>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="detail_id">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Détails ordonnance n°</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" style="cursor: pointer;">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row" style="font-weight: bold;">
-                            <div class="col">Médicament</div>
-                            <div class="col">Quantité</div>
-                            <div class="col">Fréquence</div>
-                            <div class="col">Durée</div>
-                        </div>
-                        <hr>
+                <!-- Détails -->
+                <div class="modal fade" id="detail_id">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Détails ordonnance n°</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row" style="font-weight: bold;">
+                                    <div class="col">Médicament</div>
+                                    <div class="col">Quantité</div>
+                                    <div class="col">Fréquence</div>
+                                    <div class="col">Durée</div>
+                                </div>
+                                <hr>
 
-                        <div class="row">
-                            <div class="col">Doliprane</div>
-                            <div class="col">15</div>
-                            <div class="col">2</div>
-                            <div class="col">6 mois</div>
+                                <div class="row">
+                                    <div class="col">Doliprane</div>
+                                    <div class="col">15</div>
+                                    <div class="col">2</div>
+                                    <div class="col">6 mois</div>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-primary">Fiche</button>
+                            </div>
                         </div>
-                        <hr>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-primary">Fiche</button>
+                </div>
+
+                <!-- Supprimer -->
+                <div class="modal fade" id="supprimer_id">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Supprimer ordonnance n°</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Êtes-vous sûr de vouloir supprimer cette ordonnance ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Non</button>
+                                <button type="button" class="btn btn-danger">Oui</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
