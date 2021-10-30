@@ -29,7 +29,8 @@ $(document).ready(function () {
                     "1": "1 ligne sélectionnée"
                 }
             }
-        },
-        responsive: true
+        }, 
+        responsive: true,
+        "pageLength": 25
     });
 });

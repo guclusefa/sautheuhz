@@ -45,6 +45,7 @@
         <!-- Tableau -->
         <div class="row d-flex justify-content-center">
             <div class="col-xl-12 col-md-12 mt-3">
+<<<<<<< HEAD
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
@@ -542,3 +543,98 @@
   </div>
 </div>
 <%- include('footer') %>
+=======
+                <!-- Tableau -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xl-12 col-md-12 mt-3">
+                        <table class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Médicament</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">En demande</th>
+                                    <th scope="col">Stock à garder?(trouve un nom)</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GUCLU Sefa (18)</td>
+                                    <td>15</td>
+                                    <td>-5</td>
+                                    <td>10</td>
+                                    <td>
+                                        <ul class="list-inline m-0">
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-primary btn-sm rounded-0" type="button"
+                                                    data-toggle="modal" data-target="#detail_id" title="Détails"><i
+                                                        class="fa fa-eye"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-success btn-sm rounded-0" type="button"
+                                                    title="Modifier" onclick="location.href = 'fiche_client/id';"><i class="fa fa-edit"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                                    data-toggle="modal" data-target="#supprimer_id" title="Supprimer"><i
+                                                        class="fa fa-trash"></i></button>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Détails -->
+                        <div class="modal fade" id="detail_id">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Détails stoick n°</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><b>Médicament : </b></p>
+                                        <p><b>Stock : </b></p>
+                                        <p><b>En demande : </b></p>
+                                        <p><b>Stock à garder : </b></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Fermer</button>
+                                        <button type="button" class="btn btn-primary">Fiche</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Supprimer -->
+                        <div class="modal fade" id="supprimer_id">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Supprimer stock n°</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Êtes-vous sûr de vouloir supprimer ce stock ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Non</button>
+                                        <button type="button" class="btn btn-danger">Oui</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('footer') %>
+>>>>>>> origin/sefa
