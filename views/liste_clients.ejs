@@ -1,5 +1,6 @@
-<%- include('header') %>
+    <%- include('header') %>
     <div class="container">
+        <!-- Titre -->
         <div class="row d-flex justify-content-center text-center">
             <div class="col-xl-12 col-md-12 mt-3">
                 <div class="card">
@@ -9,58 +10,125 @@
                 </div>
             </div>
         </div>
+
+        <!-- Bouton -->
         <div class="row mt-3">
             <div class="col-lg-12 col-sm-12 col-12 text-center">
-                <button class="btn btn-primary"  style="width: 100%;" onclick="location.href = 'form_client';">Ajouter un client</button>
+                <button class="btn btn-primary" style="width: 100%;" onclick="location.href = 'form_client';">Ajouter un
+                    client</button>
             </div>
         </div>
+
+        <!-- Tableau -->
         <div class="row d-flex justify-content-center">
             <div class="col-xl-12 col-md-12 mt-3">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th class="th-sm">ID
+                <!-- Tableau -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xl-12 col-md-12 mt-3">
+                        <table class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Tél</th>
+                                    <th scope="col">Sexe</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Ville</th>
+                                    <th scope="col">Mutuelle</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% contenu.forEach(function(user){ %>
+                                <tr>
+                                    <td><%= user.clients_id %></td>
+                                    <td><%= user.clients_nom %></td>
+                                    <td> <%= user.clients_prenom %></td>
+                                    <td><%= user.clients_sexe %></td>
+                                    <td>0<%= user.clients_tel %></td>
+                                    <td><%= user.clients_adresse %>, <%= user.clients_cp %> <%= user.clients_ville %></td>
+                                    <td><%= user.clients_noSS %></td>
+                                    <td><%= user.Mutuelles_Nom %></td>
+                                    <td>
+                                        <ul class="list-inline m-0">
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-primary btn-sm rounded-0" type="button"
+                                                    data-toggle="modal" data-target="#detail_id" title="Détails" id="<%= user.clients_id %>"><i
+                                                        class="fa fa-eye"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-success btn-sm rounded-0" type="button"
+                                                    title="Modifier" onclick="location.href = 'fiche_client/id';"><i class="fa fa-edit"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                                    data-toggle="modal" data-target="#supprimer_id" title="Supprimer"><i
+                                                        class="fa fa-trash"></i></button>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <% })%>
+                            </tbody>
+                        </table>
 
-                            </th>
-                            <th class="th-sm">Nom
+                        <!-- Détails -->
+                        <div class="modal fade" id="detail_id">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <% console.log("contenu : ") %>
+                                        <% console.log(contenu)%>
+                                        <h5 class="modal-title">Détails client n° </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><b>Nom : </b></p>
+                                        <p><b>Prénom : </b></p>
+                                        <p><b>Email : </b></p>
+                                        <p><b>Tél : </b></p>
+                                        <p><b>Sexe : </b></p>
+                                        <p><b>Date de naissance : </b></p>
+                                        <p><b>Ville : </b></p>
+                                        <p><b>Code postal : </b></p>
+                                        <p><b>Adresse : </b></p>
+                                        <p><b>N° sécurité social : </b></p>
+                                        <p><b>Mutuelle: </b></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Fermer</button>
+                                        <button type="button" class="btn btn-primary">Fiche</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                            </th>
-                            <th class="th-sm">Prenom
-
-                            </th>
-                            <th class="th-sm">Sexe
-
-                            </th>
-                            <th class="th-sm">Téléphone
-
-                            </th>
-                            <th class="th-sm">Adresse
-
-                            </th>
-                            <th class="th-sm">N° Sécurité Sociale
-
-                            </th>
-                            <th class="th-sm">Nom de la mutuelle
-
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% contenu.forEach(function(user){ %>
-                        <tr>
-                            <td><%= user.clients_id %></td>
-                            <td><%= user.clients_nom %></td>
-                            <td> <%= user.clients_prenom %></td>
-                            <td><%= user.clients_sexe %></td>
-                            <td>0<%= user.clients_tel %></td>
-                            <td><%= user.clients_adresse %>, <%= user.clients_cp %> <%= user.clients_ville %></td>
-                            <td><%= user.clients_noSS %></td>
-                            <td><%= user.Mutuelles_Nom %></td>
-                        </tr>
-                        <% })%>
-                    </tbody>
-                   
-                </table>
+                        <!-- Supprimer -->
+                        <div class="modal fade" id="supprimer_id">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Supprimer client n°</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Êtes-vous sûr de vouloir supprimer ce client ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Non</button>
+                                        <button type="button" class="btn btn-danger">Oui</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
