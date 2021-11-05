@@ -19,6 +19,11 @@ routeur.get('/', affichageControl.afficher_accueil)
     // .get('/:dir', affichageControl.afficher_dir)
     
     //executer les formulaires
-
+    .post('/form_ordonnance', affichageControl.executer_form_ordonnance)
     .post('/form_client', affichageControl.executer_form_client)
 module.exports = routeur;
+
+
+
+
+

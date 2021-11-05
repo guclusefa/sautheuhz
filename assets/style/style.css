@@ -34,8 +34,7 @@ html {
 
 .hide {
   display: none;
-<<<<<<< HEAD
-=======
+
 }
 
 #inputPrenom, #inputVille, #inputAdresse {
@@ -87,9 +86,7 @@ input.valid.success-alert:focus, select.valid.success-alert:focus {
 .btn-primary, .btn-primary:hover, .btn-secondary, .btn-danger, .btn-success{
   color: white;
   cursor: pointer;
-<<<<<<< HEAD
->>>>>>> origin/sefa
-=======
+
 }
 
 legend {
@@ -109,5 +106,5 @@ legend {
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(255, 117, 72, 1);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(255, 117, 72, 1);
->>>>>>> origin/sefa
+
 }

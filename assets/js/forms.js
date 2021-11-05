@@ -13,20 +13,6 @@
     }, false);
 })();
 
-<<<<<<< HEAD
-$(document).ready(function() {  
-  
-    $(".add-more").click(function(){   
-        var html = $(".copy").html();  
-        $(".after-add-more").after(html);  
-    });  
-
-    $("body").on("click",".remove",function(){   
-        $(this).parents(".control-group").remove();  
-    });  
-
-  });  
-=======
 // formulaires dynamiques
 var i = 1;
 $(function () {
@@ -232,4 +218,3 @@ $.extend($.validator.messages, {
     postalCodeCA: "Veuillez fournir un code postal valide.",
     pattern: "Format non valide."
 });
->>>>>>> origin/sefa
