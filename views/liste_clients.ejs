@@ -51,10 +51,10 @@
                                     <td><%= user.clients_noSS %></td>
                                     <td><%= user.Mutuelles_Nom %></td>
                                     <td>
-                                        <ul class="list-inline m-0">
+                                        <ul class="list-inline m-0"  id="<%= user.clients_id %>">
                                             <li class="list-inline-item">
                                                 <button class="btn btn-primary btn-sm rounded-0" type="button"
-                                                    data-toggle="modal" data-target="#detail_id" title="Détails" id="<%= user.clients_id %>"><i
+                                                    data-toggle="modal" data-target="#detail_id" title="Détails"><i
                                                     data-toggle="modal" data-target="#detail_id" title="Détails"><i
                                                         class="fa fa-eye"></i></button>
                                             </li>
@@ -127,7 +127,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-success" data-dismiss="modal">Non</button>
-                                        <button type="button" class="btn btn-danger">Oui</button>
+                                        <a href="supprimer_client/id"><button type="button" class="btn btn-danger">Oui</button></a>
                                     </div>
                                 </div>
                             </div>

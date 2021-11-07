@@ -201,6 +201,10 @@ const executer_form_client = (req, res) => {
     //reverse la date de naissance pour la mettre au format mysql
     clientBirthday = clientBirthday.split("/").reverse().join("/");
 
+    clientTel = clientTel.split(' ').join('')
+    clientNoSS = clientNoSS.split(' ').join('')
+
+
     let requeteSQL = "INSERT INTO Clients (idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville, clients_cp) VALUES"
     requeteSQL += ` (${clientMutuelle},'${clientNoSS}','${clientNom}','${clientPrenom}' , '${clientSexe}' ,'${clientBirthday}', ${clientTel},'${clientMail}', '${clientAdresse}', '${clientVille}', '${clientCp}')`
 
@@ -209,6 +213,8 @@ const executer_form_client = (req, res) => {
             console.log("Insertion terminé");
             res.redirect('./liste_clients')
         } else {
+            console.log("Insertion echouée");
+
             console.log("Erreur lors de l'enregistrment")
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
