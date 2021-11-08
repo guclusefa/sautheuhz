@@ -39,7 +39,7 @@ const afficher_liste_clients = (req, res) => {
 const afficher_liste_ordonnances = (req, res) => {
     mysqlconnexion.query('SELECT idClient, clients_nom, clients_prenom, idMedecin, Medecins_nom, Medecins_prenom, idPath, Pathologies_libelle FROM Clients, Medecins, Pathologies, Ordonnances WHERE idClient = clients_id AND idMedecin = Medecins_id AND idPath = Pathologies_id', (err, contenuordo, champs) => {
         if (!err) {
- 
+
             mysqlconnexion.query('SELECT idOrdo, Prescriptions_dateFin - Ordonnances_date as dureeOrdonnance FROM Ordonnances, Prescriptions WHERE idOrdo = Ordonnances_id ORDER BY dureeOrdonnance DESC', (err, contenudate, champs) => {
                 if (!err) {
                     console.log(contenuordo)
@@ -50,7 +50,7 @@ const afficher_liste_ordonnances = (req, res) => {
         }
     })
 
-    
+
 }
 
 const afficher_liste_stocks = (req, res) => {
@@ -106,7 +106,8 @@ const afficher_form_stock = (req, res) => {
 const afficher_dir = (req, res) => {
     res.render('./' + req.params.dir)
 }
-const executer_form_ordonnance = (req, res) => {
+
+const executer_form_ordonnance2 = (req, res) => {
 
     let prescriptionMedicament = []
     let prescriptionQuantite = []
@@ -122,7 +123,7 @@ const executer_form_ordonnance = (req, res) => {
     prescriptionQuantite[0] = req.body.selectQte
     prescriptionFrequence[0] = req.body.inputFrequence
     prescriptionDateFin[0] = req.body.selectDateMed
-     
+
     console.log(prescriptionMedicament[0][0])
     ordonnanceDateDebut = ordonnanceDateDebut.split("/").reverse().join("/");
     //prescriptionDateFin = prescriptionDateFin.split("/").reverse().join("/");
@@ -183,6 +184,66 @@ const executer_form_ordonnance = (req, res) => {
     ordonnanceId = ordonnanceId[0]
 
 
+}
+
+const executer_form_ordonnance = (req, res) => {
+
+    let prescriptionMedicament = []
+    let prescriptionQuantite = []
+    let prescriptionFrequence = []
+    let prescriptionDateFin = []
+
+    let ordonnanceId = ""
+    let ordonnanceClient = req.body.selectClient
+    let ordonnanceMedecin = req.body.selectMedecin
+    let ordonnancePathologie = req.body.selectPathologie
+    let ordonnanceDateDebut = req.body.inputDateDebut
+
+    for (i in req.body.selectMedicament) {
+        console.log(req.body.selectMedicament[i])
+    }
+    console.log(prescriptionMedicament[0][0])
+    ordonnanceDateDebut = ordonnanceDateDebut.split("/").reverse().join("/");
+    //prescriptionDateFin = prescriptionDateFin.split("/").reverse().join("/");
+
+    let requeteSQL = "INSERT INTO Ordonnances (idPath, idMedecin, idClient, Ordonnances_date) VALUES"
+    requeteSQL += ` (${ordonnancePathologie},'${ordonnanceMedecin}','${ordonnanceClient}','${ordonnanceDateDebut}')`
+    mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
+        if (!err) {
+            console.log("Insertion terminé");
+
+            let requeteSQL2 = 'SELECT Ordonnances_id FROM Ordonnances ORDER BY Ordonnances_id DESC'
+            mysqlconnexion.query(requeteSQL2, (err, idOrdo, champs) => {
+                if (!err) {
+                    idOrdo = JSON.parse(JSON.stringify(idOrdo))
+                    ordonnanceId = idOrdo[0].Ordonnances_id
+                } else {
+                    console.log("Erreur lors de l'enregistrement")
+                    res.send("Erreur ajout : " + JSON.stringify(err))
+                }
+            })
+
+            for (i in req.body.selectMedicament) {
+                prescriptionMedicament = req.body.selectMedicament[i]
+                prescriptionQuantite = req.body.selectQte[i]
+                prescriptionFrequence = req.body.inputFrequence[i]
+                prescriptionDateFin = req.body.selectDateMed[i]
+
+                let requeteSQL3 = "INSERT INTO Prescriptions (idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin) VALUES"
+                requeteSQL3 += ` (${ordonnanceId},${prescriptionMedicament},${prescriptionQuantite},${prescriptionFrequence},'${prescriptionDateFin}')`
+                mysqlconnexion.query(requeteSQL3, (err, lignes, champs) => {
+                    if (!err) {
+                        console.log("Insertion terminé");
+                    } else {
+                        console.log("Erreur lors de l'enregistrement")
+                    }
+                })
+            }
+        } else {
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
 }
 
 const executer_form_client = (req, res) => {
