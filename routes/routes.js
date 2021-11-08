@@ -8,6 +8,7 @@ routeur.get('/', affichageControl.afficher_accueil)
     .get('/accueil', affichageControl.afficher_accueil)
     .get('/connexion', affichageControl.afficher_connexion)
 
+
     .get('/liste_clients', affichageControl.afficher_liste_clients)
     .get('/liste_ordonnances', affichageControl.afficher_liste_ordonnances)
     .get('/liste_stocks', affichageControl.afficher_liste_stocks)
@@ -15,6 +16,14 @@ routeur.get('/', affichageControl.afficher_accueil)
     .get('/form_client', affichageControl.afficher_form_client)
     .get('/form_ordonnance', affichageControl.afficher_form_ordonnance)
     .get('/form_stock', affichageControl.afficher_form_stock)
-
     // .get('/:dir', affichageControl.afficher_dir)
+    
+    //executer les formulaires
+    .post('/form_ordonnance', affichageControl.executer_form_ordonnance)
+    .post('/form_client', affichageControl.executer_form_client)
 module.exports = routeur;
+
+
+
+
+

@@ -1,3 +1,4 @@
+
 // inclure les dépendances et middlewares
 const mysql = require('mysql')
 const express = require('express')
@@ -10,6 +11,7 @@ let app = express()
 app.set('view engine', 'ejs')
 app.use(express.static('assets'))
 app.use(express.static('views'))
+app.use(express.urlencoded());
 
 // connexion mysql
 let configDB = iniparser.parseSync('config/DB.ini')
@@ -28,5 +30,7 @@ app.listen(3000, () => console.log('Le serveur sautheuhz est actif'))
 app.get('/', (req, res) => {
     res.send('Le serveur sautheuhz est actif')
 })
+
+
 
 app.use('/sautheuhz', Routeur)
