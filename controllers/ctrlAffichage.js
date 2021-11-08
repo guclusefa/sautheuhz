@@ -42,7 +42,6 @@ const afficher_liste_ordonnances = (req, res) => {
 
             mysqlconnexion.query('SELECT idOrdo, Prescriptions_dateFin - Ordonnances_date as dureeOrdonnance FROM Ordonnances, Prescriptions WHERE idOrdo = Ordonnances_id ORDER BY dureeOrdonnance DESC', (err, contenudate, champs) => {
                 if (!err) {
-                    console.log(contenuordo)
                     console.log(contenudate)
                     res.render('./liste_ordonnances', { contenu: contenuordo, date: contenudate, titre: "Les ordonnances" })
                 }
@@ -188,21 +187,11 @@ const executer_form_ordonnance2 = (req, res) => {
 
 const executer_form_ordonnance = (req, res) => {
 
-    let prescriptionMedicament = []
-    let prescriptionQuantite = []
-    let prescriptionFrequence = []
-    let prescriptionDateFin = []
-
-    let ordonnanceId = ""
     let ordonnanceClient = req.body.selectClient
     let ordonnanceMedecin = req.body.selectMedecin
     let ordonnancePathologie = req.body.selectPathologie
     let ordonnanceDateDebut = req.body.inputDateDebut
 
-    for (i in req.body.selectMedicament) {
-        console.log(req.body.selectMedicament[i])
-    }
-    console.log(prescriptionMedicament[0][0])
     ordonnanceDateDebut = ordonnanceDateDebut.split("/").reverse().join("/");
     //prescriptionDateFin = prescriptionDateFin.split("/").reverse().join("/");
 
@@ -217,28 +206,31 @@ const executer_form_ordonnance = (req, res) => {
                 if (!err) {
                     idOrdo = JSON.parse(JSON.stringify(idOrdo))
                     ordonnanceId = idOrdo[0].Ordonnances_id
+
+                    for (i in req.body.selectMedicament) {
+                        prescriptionMedicament = req.body.selectMedicament[i]
+                        prescriptionQuantite = req.body.selectQte[i]
+                        prescriptionFrequence = req.body.inputFrequence[i]
+                        prescriptionDateFin = req.body.selectDateMed[i]
+
+                        let requeteSQL3 = "INSERT INTO Prescriptions (idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin) VALUES"
+                        requeteSQL3 += ` (${ordonnanceId},${prescriptionMedicament},${prescriptionQuantite},${prescriptionFrequence},'${prescriptionDateFin}')`
+                        console.log(requeteSQL)
+                        console.log(requeteSQL3)
+
+                        mysqlconnexion.query(requeteSQL3, (err, lignes, champs) => {
+                            if (!err) {
+                                console.log("Insertion terminé");
+                            } else {
+                                console.log("Erreur lors de l'enregistrement")
+                            }
+                        })
+                    }
                 } else {
                     console.log("Erreur lors de l'enregistrement")
                     res.send("Erreur ajout : " + JSON.stringify(err))
                 }
             })
-
-            for (i in req.body.selectMedicament) {
-                prescriptionMedicament = req.body.selectMedicament[i]
-                prescriptionQuantite = req.body.selectQte[i]
-                prescriptionFrequence = req.body.inputFrequence[i]
-                prescriptionDateFin = req.body.selectDateMed[i]
-
-                let requeteSQL3 = "INSERT INTO Prescriptions (idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin) VALUES"
-                requeteSQL3 += ` (${ordonnanceId},${prescriptionMedicament},${prescriptionQuantite},${prescriptionFrequence},'${prescriptionDateFin}')`
-                mysqlconnexion.query(requeteSQL3, (err, lignes, champs) => {
-                    if (!err) {
-                        console.log("Insertion terminé");
-                    } else {
-                        console.log("Erreur lors de l'enregistrement")
-                    }
-                })
-            }
         } else {
             console.log("Erreur lors de l'enregistrment")
             res.send("Erreur ajout : " + JSON.stringify(err))

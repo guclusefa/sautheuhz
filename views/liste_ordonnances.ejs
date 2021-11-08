@@ -33,17 +33,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                       
                         <% let compteur = 0 %>
-                        <% contenu.forEach(function(user){ %>
-                            
+                        <% contenu.forEach(function(user, i){ %>
                             <tr>
                             <td><%= user.clients_nom %>  <%= user.clients_prenom %></td>
                             <td><%= user.Medecins_nom %> <%= user.Medecins_prenom %></td>
                             <td><%= user.Pathologies_libelle %></td>
-                            <td><%= date[compteur].dureeOrdonnance %> jour(s)</td>
-                            <% console.log(date.length) %>
-                            <span style="display: none;"><%= compteur = compteur+1 %></span>
+                            <td><%= date[0].dureeOrdonnance %> jour(s)</td>
+                            <%= compteur = compteur+1 %>
                             <td>
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
