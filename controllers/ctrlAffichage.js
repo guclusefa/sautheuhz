@@ -107,17 +107,10 @@ const afficher_form_stock = (req, res) => {
 
 const afficher_fiche_client = (req, res) => {
     id = req.params.id
-    mysqlconnexion.query('SELECT * FROM Clients WHERE clients_id ='+id, (err, info_client, champs) => {
+    mysqlconnexion.query('SELECT *, DATE_FORMAT(clients_dateNaissance, "%Y-%m-%d") as dateN FROM Clients WHERE clients_id ='+id, (err, info_client, champs) => {
         mysqlconnexion.query('SELECT Mutuelles_nom, Mutuelles_id FROM Mutuelles', (err, lignes, champs) => {
             if (!err) {
-                console.log(info_client)
-                dateN = info_client[0].clients_dateNaissance
-                var d = new Date(dateN)
-                dateN=d.getUTCFullYear()+"-"+d.getUTCMonth()+"-"+d.getUTCDate()       
-                var testdate = new Date(dateN)         
-                console.log(dateN)
-
-                res.render('./fiche_client', { dateNaissance: dateN, info_client: info_client, contenu: lignes, titre: "Fiche client"})
+                res.render('./fiche_client', {info_client: info_client, contenu: lignes, titre: "Fiche client"})
             }
         })
     })
@@ -221,6 +214,44 @@ const executer_form_client = (req, res) => {
 
 }
 
+const update_form_client = (req, res) => {
+    id = req.params.id
+
+
+    let clientNom = req.body.inputNom
+    let clientPrenom = req.body.inputPrenom
+    let clientMail = req.body.inputEmail
+    let clientTel = req.body.inputTel
+    let clientSexe = req.body.selectSexe
+    let clientBirthday = req.body.inputDate
+    let clientAdresse = req.body.inputAdresse
+    let clientVille = req.body.inputVille
+    let clientCp = req.body.inputCp
+    let clientNoSS = req.body.inputSS
+    let clientMutuelle = req.body.selectMutuelle
+    let clientId = req.body.idIencli
+    //reverse la date de naissance pour la mettre au format mysql
+    clientBirthday = clientBirthday.split("/").reverse().join("/");
+
+    clientTel = clientTel.split(' ').join('')
+    clientNoSS = clientNoSS.split(' ').join('')
+
+    let requeteSQL = `UPDATE Clients SET idMutuelle = ${clientMutuelle} , clients_noSS ='${clientNoSS}' , clients_nom = '${clientNom}', clients_prenom = '${clientPrenom}', clients_sexe = '${clientSexe}', clients_dateNaissance = '${clientBirthday}', clients_tel = ${clientTel}, clients_mail = '${clientMail}', clients_adresse = '${clientAdresse}', clients_ville = '${clientVille}', clients_cp = '${clientCp}' WHERE clients_id = `+id
+    
+
+    mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
+        if (!err) {
+            console.log("Insertion terminé");
+            res.redirect('./../liste_clients')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+
+}
 
 
 module.exports = {
@@ -239,6 +270,8 @@ module.exports = {
     afficher_fiche_client,
 
     executer_form_ordonnance,
-    executer_form_client
+    executer_form_client,
+
+    update_form_client
 
 }

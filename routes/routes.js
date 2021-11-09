@@ -23,6 +23,10 @@ routeur.get('/', affichageControl.afficher_accueil)
     //executer les formulaires
     .post('/form_ordonnance', affichageControl.executer_form_ordonnance)
     .post('/form_client', affichageControl.executer_form_client)
+
+    //modifier données
+    .post('/fiche_client/:id', affichageControl.update_form_client)
+
 module.exports = routeur;
 
 

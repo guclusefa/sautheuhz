@@ -14,7 +14,7 @@
         </div>
 
         <div class="row mt-3">
-            <form action="/sautheuhz/form_client" method="POST" class="container" id="client" name="form_client"
+            <form action="/sautheuhz/fiche_client/<%= info_client[0].clients_id%>" method="POST" class="container" id="client" name="form_client"
                 novalidate>
                 <!-- Nom et prénom -->
                 <div class="row">
@@ -73,7 +73,7 @@
                         <div class="form-group">
                             <label class="text-inverse" for="inputDate">Date de naissance</label>
                             <input type="date" class="form-control" id="inputDate" name="inputDate"
-                                value="<%= dateN %>" required>
+                                value="<%= info_client[0].dateN %>" required>
                         </div>
                     </div>
                 </div>
