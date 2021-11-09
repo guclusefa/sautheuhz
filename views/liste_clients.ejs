@@ -76,14 +76,16 @@
                                                 <li class="list-inline-item">
                                                     <button class="btn btn-success btn-sm rounded-0" type="button"
                                                         title="Modifier"
-                                                        onclick="location.href = 'fiche_client/<%= user.clients_id %>';"><i
+                                                        onclick="location.href = '/sautheuhz/fiche_client/<%= user.clients_id %>';"><i
                                                             class="fa fa-edit"></i></button>
                                                 </li>
                                                 <li class="list-inline-item">
+                                                    
                                                     <button class="btn btn-danger btn-sm rounded-0" type="button"
                                                         data-toggle="modal"
                                                         data-target="#supprimer_<%= user.clients_id %>"
-                                                        title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                        title="Supprimer" ><i class="fa fa-trash"></i></button>
+                                                    </form>
                                                 </li>
                                             </ul>
                                         </td>
@@ -166,8 +168,9 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-success"
                                                 data-dismiss="modal">Non</button>
-                                            <button type="button" class="btn btn-danger"
-                                                onclick="location.href = 'delete_client/<%= user.clients_id %>';">Oui</button>
+                                            <form action="/sautheuhz/delete_client/<%= user.clients_id %>" method="post">
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="location.href = 'delete_client/<%= user.clients_id %>';" name="supp" value="supp">Oui</button></form>
                                         </div>
                                     </div>
                                 </div>

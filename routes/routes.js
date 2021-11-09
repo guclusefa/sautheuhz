@@ -24,8 +24,9 @@ routeur.get('/', affichageControl.afficher_accueil)
     .post('/form_ordonnance', affichageControl.executer_form_ordonnance)
     .post('/form_client', affichageControl.executer_form_client)
 
-    //modifier données
+    //modifier / supprimer données
     .post('/fiche_client/:id', affichageControl.update_form_client)
+    .post('/delete_client/:id', affichageControl.delete_fiche_client)
 
 module.exports = routeur;
 

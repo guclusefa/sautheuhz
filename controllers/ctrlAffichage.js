@@ -228,7 +228,7 @@ const update_form_client = (req, res) => {
     let clientCp = req.body.inputCp
     let clientNoSS = req.body.inputSS
     let clientMutuelle = req.body.selectMutuelle
-    let clientId = req.body.idIencli
+    
     //reverse la date de naissance pour la mettre au format mysql
     clientBirthday = clientBirthday.split("/").reverse().join("/");
 
@@ -252,6 +252,23 @@ const update_form_client = (req, res) => {
 
 }
 
+//delete client
+const delete_fiche_client = (req, res) => {
+    id = req.params.id
+
+    let requeteSQL = `DELETE FROM Clients WHERE clients_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
+        if (!err) {
+            console.log("Suppression  terminé");
+            res.redirect('./../liste_clients')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    }  ) 
+}
 
 module.exports = {
     afficher_accueil,
@@ -267,10 +284,12 @@ module.exports = {
     afficher_dir,
 
     afficher_fiche_client,
+ //   afficher_delete_client,
 
     executer_form_ordonnance,
     executer_form_client,
 
-    update_form_client
+    update_form_client,
+    delete_fiche_client
 
 }
