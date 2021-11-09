@@ -62,13 +62,9 @@
                             <select class="custom-select d-block form-control" id="selectSexe" name="selectSexe"
                                 required>
                                 <option value="" disabled selected>Choisir un sexe</option>
-                                <% if(info_client[0].clients_sexe == 'N') { %>
-                                <option value="N">Non binaire</option>
-                                <% } else if(info_client[0].clients_sexe == 'M') {%>
-                                <option value="M">Masculin</option>
-                                <% } else {%>
-                                <option value="F">Féminin</option>
-                                <% } %>
+                                <option value="N" <% if(info_client[0].clients_sexe == 'N') { %>selected <% } %>>Non binaire</option>
+                                <option value="M" <% if(info_client[0].clients_sexe == 'M') { %>selected <% } %>>Masculin</option>
+                                <option value="F" <% if(info_client[0].clients_sexe == 'F') { %>selected <% } %>>Féminin</option>
                             </select>
                         </div>
                     </div>
