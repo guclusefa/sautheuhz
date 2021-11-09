@@ -71,6 +71,10 @@ $(document).ready(function () {
     format_ss = format_ss.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
     document.getElementById("inputSS").value = format_ss
 
+    format_ss = document.getElementById("dispSS").innerHTML
+    format_ss = format_ss.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
+    document.getElementById("inputSS").innerHTML = format_ss
+
     jQuery.validator.addMethod("lettersonly", function (value, element) {
         return this.optional(element) || /^[a-z\s]+$/i.test(value);
     });
