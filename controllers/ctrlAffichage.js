@@ -106,6 +106,8 @@ const afficher_fiche_client = (req, res) => {
         mysqlconnexion.query('SELECT Mutuelles_nom, Mutuelles_id FROM Mutuelles', (err, lignes, champs) => {
             if (!err) {
                 console.log(info_client)
+                dateN = info_client[0].clients_dateNaissance
+                console.log(dateN)
                 res.render('./fiche_client', { info_client: info_client, contenu: lignes, titre: "Fiche client"})
             }
         })
