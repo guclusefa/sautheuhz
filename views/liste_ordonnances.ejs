@@ -125,7 +125,9 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" data-dismiss="modal">Non</button>
-                                <button type="button" class="btn btn-danger" onclick="location.href = 'delete_ordonnance/<%= date[compteur].idOrdo %>';">Oui</button>
+
+                                <form action="/sautheuhz/delete_ordonnances/<%= date[compteur].idOrdo %>" method="post">
+                                <button type="submit" class="btn btn-danger" onclick="location.href = 'delete_ordonnance/<%= date[compteur].idOrdo %>';">Oui</button></form>
                             </div>
                         </div>
                     </div>

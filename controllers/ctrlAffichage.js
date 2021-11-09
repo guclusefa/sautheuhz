@@ -270,6 +270,23 @@ const delete_fiche_client = (req, res) => {
     }  ) 
 }
 
+const delete_fiche_ordonnance = (req, res) => {
+    id = req.params.id
+
+    let requeteSQL = `DELETE FROM Ordonnances WHERE Ordonnances_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
+        if (!err) {
+            console.log("Suppression  terminé");
+            res.redirect('./../liste_ordonnances')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    }  ) 
+}
+
 module.exports = {
     afficher_accueil,
     afficher_connexion,
@@ -284,12 +301,11 @@ module.exports = {
     afficher_dir,
 
     afficher_fiche_client,
- //   afficher_delete_client,
 
     executer_form_ordonnance,
     executer_form_client,
 
     update_form_client,
-    delete_fiche_client
-
+    delete_fiche_client,
+    delete_fiche_ordonnance
 }
