@@ -34,39 +34,41 @@
                     </thead>
                     <tbody>
                         <% let compteur = 0 %>
-                        <% contenu.forEach(function(user, i){ %>
+                        <% contenu.forEach(function(user){ %>
                             <tr>
                             <td><%= user.clients_nom %>  <%= user.clients_prenom %></td>
                             <td><%= user.Medecins_nom %> <%= user.Medecins_prenom %></td>
                             <td><%= user.Pathologies_libelle %></td>
                             <td><%= date[compteur].dureeOrdonnance %> jour(s)</td>
-                            <span style="display: none;"><%= compteur = compteur+1 %></span>
                             <td>
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
                                         <button class="btn btn-primary btn-sm rounded-0" type="button"
-                                            data-toggle="modal" data-target="#detail_id" title="Détails"><i
+                                            data-toggle="modal" data-target="#detail_<%= date[compteur].idOrdo %>" title="Détails"><i
                                                 class="fa fa-eye"></i></button>
                                     </li>
                                     <li class="list-inline-item">
                                         <button class="btn btn-success btn-sm rounded-0" type="button"
-                                            title="Modifier" onclick="location.href = 'fiche_ordonnance/id';"><i class="fa fa-edit"></i></button>
+                                            title="Modifier" onclick="location.href = 'fiche_ordonnance/<%= date[compteur].idOrdo %>';"><i class="fa fa-edit"></i></button>
                                     </li>
                                     <li class="list-inline-item">
                                         <button class="btn btn-danger btn-sm rounded-0" type="button"
-                                            data-toggle="modal" data-target="#supprimer_id" title="Supprimer"><i
+                                            data-toggle="modal" data-target="#supprimer_<%= date[compteur].idOrdo %>" title="Supprimer"><i
                                                 class="fa fa-trash"></i></button>
                                     </li>
                                 </ul>
                             </td>
                         </tr>
+                        <% compteur = compteur+1 %>
                         <% })%>
 
                     </tbody>
                 </table>
 
+                <% compteur = 0 %>
+                <% contenu.forEach(function(user){ %>
                 <!-- Détails -->
-                <div class="modal fade" id="detail_id">
+                <div class="modal fade" id="detail_<%= date[compteur].idOrdo %>">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -84,13 +86,16 @@
                                 </div>
                                 <hr>
 
+                                <% prescriptions.forEach(function(presc){ 
+                                    if(date[compteur].idOrdo == presc.idOrdo) { %>
                                 <div class="row">
-                                    <div class="col">Doliprane</div>
-                                    <div class="col">15</div>
-                                    <div class="col">2</div>
-                                    <div class="col">6 mois</div>
+                                    <div class="col"><%= presc.Medicaments_libelle %></div>
+                                    <div class="col"><%= presc.Prescriptions_quantite %></div>
+                                    <div class="col"><%= presc.Prescriptions_frequence %></div>
+                                    <div class="col"><%= presc.duree %> jours</div>
                                 </div>
                                 <hr>
+                                <% } })%>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -101,7 +106,7 @@
                 </div>
 
                 <!-- Supprimer -->
-                <div class="modal fade" id="supprimer_id">
+                <div class="modal fade" id="supprimer_<%= date[compteur].idOrdo %>">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -121,6 +126,8 @@
                         </div>
                     </div>
                 </div>
+                <% compteur = compteur+1 %>
+                <% })%>
             </div>
         </div>
     </div>
