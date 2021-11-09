@@ -6,29 +6,31 @@
             <div class="col-xl-12 col-md-12 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="">Fiche client <%= info_client[0].clients_id %></h1>
+                        <h1 class="">Fiche client <%= info_client[0].clients_id %>
+                        </h1>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row mt-3">
-            <form action="/sautheuhz/form_client" method="POST" class="container" id="client" name="form_client" novalidate>
+            <form action="/sautheuhz/form_client" method="POST" class="container" id="client" name="form_client"
+                novalidate>
                 <!-- Nom et prénom -->
                 <div class="row">
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label class="text-inverse" for="inputNom">Nom</label>
                             <input type="text" class="form-control" id="inputNom" name="inputNom" placeholder="Nom"
-                            onkeyup="this.value = this.value.toUpperCase();"    
-                            value="<%= info_client[0].clients_nom %>" required>
+                                onkeyup="this.value = this.value.toUpperCase();"
+                                value="<%= info_client[0].clients_nom %>" required>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label class="text-inverse" for="inputPrenom">Prénom</label>
-                            <input type="text" class="form-control" id="inputPrenom" name="inputPrenom" 
-                            placeholder="Prénom" required>
+                            <input type="text" class="form-control" id="inputPrenom" name="inputPrenom"
+                                value="<%= info_client[0].clients_prenom %>" placeholder="Prénom" required>
                         </div>
                     </div>
                 </div>
@@ -39,15 +41,15 @@
                         <div class="form-group">
                             <label class="text-inverse" for="inputEmail">Email</label>
                             <input type="email" class="form-control" id="inputEmail" name="inputEmail"
-                            placeholder="Email" required>
-
+                                placeholder="Email" value="<%= info_client[0].clients_mail %>" required>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label class="text-inverse" for="inputTel">Tél</label>
-                            <input type="tel" minlength="14" maxlength="14" class="form-control" id="inputTel" name="inputTel" placeholder="Téléphone"
-                            required>
+                            <input type="tel" minlength="14" maxlength="14" class="form-control" id="inputTel"
+                                name="inputTel" placeholder="Téléphone" value="0<%= info_client[0].clients_tel %>"
+                                required>
                         </div>
                     </div>
                 </div>
@@ -60,9 +62,13 @@
                             <select class="custom-select d-block form-control" id="selectSexe" name="selectSexe"
                                 required>
                                 <option value="" disabled selected>Choisir un sexe</option>
+                                <% if(info_client[0].clients_sexe == 'N') { %>
                                 <option value="N">Non binaire</option>
+                                <% } else if(info_client[0].clients_sexe == 'M') {%>
                                 <option value="M">Masculin</option>
+                                <% } else {%>
                                 <option value="F">Féminin</option>
+                                <% } %>
                             </select>
                         </div>
                     </div>
@@ -70,7 +76,8 @@
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label class="text-inverse" for="inputDate">Date de naissance</label>
-                            <input type="date" class="form-control" id="inputDate" name="inputDate" required>
+                            <input type="date" class="form-control" id="inputDate" name="inputDate"
+                                value="<%= info_client[0].clients_dateNaissance %>" required>
                         </div>
                     </div>
                 </div>
@@ -81,14 +88,14 @@
                         <div class="form-group">
                             <label class="text-inverse" for="inputVille">Ville</label>
                             <input type="text" class="form-control" id="inputVille" name="inputVille"
-                                placeholder="Ville" required>
+                                placeholder="Ville" value="<%= info_client[0].clients_ville %>" required>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label class="text-inverse" for="inputCp">Code postal</label>
                             <input type="text" class="form-control" id="inputCp" name="inputCp"
-                                placeholder="Code postal" required>
+                                placeholder="Code postal" value="<%= info_client[0].clients_cp %>" required>
                         </div>
                     </div>
                 </div>
@@ -99,7 +106,7 @@
                         <div class="form-group">
                             <label class="text-inverse" for="inputAdresse">Adresse</label>
                             <input type="text" class="form-control" id="inputAdresse" name="inputAdresse"
-                                placeholder="Adresse" required>
+                                placeholder="Adresse" value="<%= info_client[0].clients_adresse %>" required>
                         </div>
                     </div>
                 </div>
@@ -109,9 +116,9 @@
                     <div class="col-lg-12 col-sm-12 col-12">
                         <div class="form-group">
                             <label class="text-inverse" for="inputSS">N° de sécurité social</label>
-                            <input type="text" class="form-control" id="inputSS" name="inputSS"
-                            minlength="18" maxlength="18"
-                                placeholder="N° de sécurité social" required>
+                            <input type="text" class="form-control" id="inputSS" name="inputSS" minlength="18"
+                                maxlength="18" placeholder="N° de sécurité social"
+                                value="<%= info_client[0].clients_noSS %>" required>
                         </div>
                     </div>
                 </div>
@@ -124,9 +131,16 @@
                             <select class="custom-select d-block form-control" id="selectMutuelle" name="selectMutuelle"
                                 required>
                                 <option value="" disabled selected>Choisir une mutuelle</option>
-                                <% contenu.forEach(function(user){ %>
-                                    <option value="<%= user.Mutuelles_id %>"><%= user.Mutuelles_nom %></option>
-                                        <% })%>
+                                <% contenu.forEach(function(user){ 
+                                    if(user.Mutuelles_id == info_client[0].idMutuelle) { %>
+                                    <option value="<%= user.Mutuelles_id %>" selected>
+                                        <%= user.Mutuelles_nom %>
+                                    </option>
+                                    <% } else {%>
+                                        <option value="<%= user.Mutuelles_id %>">
+                                            <%= user.Mutuelles_nom %>
+                                        </option>
+                                    <% }})%>
                             </select>
                         </div>
                     </div>

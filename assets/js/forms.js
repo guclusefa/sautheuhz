@@ -59,9 +59,17 @@ $(document).ready(function () {
         e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{2})/g, '$1 ').trim();
     })
 
+    format_tel = document.getElementById("inputTel").value
+    format_tel = format_tel.replace(/[^\dA-Z]/g, '').replace(/(.{2})/g, '$1 ').trim();
+    document.getElementById("inputTel").value = format_tel
+
     document.getElementById("inputSS").addEventListener('input', function (e) {
         e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
     })
+
+    format_ss = document.getElementById("inputSS").value
+    format_ss = format_ss.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
+    document.getElementById("inputSS").value = format_ss
 
     jQuery.validator.addMethod("lettersonly", function (value, element) {
         return this.optional(element) || /^[a-z\s]+$/i.test(value);
