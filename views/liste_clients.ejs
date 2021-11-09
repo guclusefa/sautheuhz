@@ -99,7 +99,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Détails client n°</h5>
+                                            <h5 class="modal-title">Détails client n°<%= user.clients_id %></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true" style="cursor: pointer;">&times;</span>
                                             </button>
@@ -115,7 +115,7 @@
                                                 <%= user.clients_mail %>
                                             </p>
                                             <p><b>Tél : </b>
-                                                <%= user.clients_tel %>
+                                                <span id="dispTel">0<%= user.clients_tel %></span>
                                             </p>
                                             <p><b>Sexe : </b>
                                                 <%= user.clients_sexe %>
@@ -133,7 +133,7 @@
                                                 <%= user.clients_adresse %>
                                             </p>
                                             <p><b>N° sécurité social : </b>
-                                                <%= user.clients_noSS %>
+                                                <span id="dispSS"><%= user.clients_noSS %></span>
                                             </p>
                                             <p><b>Mutuelle: </b>
                                                 <%= user.Mutuelles_Nom %>
@@ -154,7 +154,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Supprimer client n°</h5>
+                                            <h5 class="modal-title">Supprimer client n°<%= user.clients_id %></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true" style="cursor: pointer;">&times;</span>
                                             </button>

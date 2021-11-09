@@ -105,3 +105,9 @@ legend {
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(255, 117, 72, 1);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(255, 117, 72, 1);
 }
+
+@media screen and (min-width: 676px) {
+  .modal-dialog {
+    max-width: 676px; /* New width for default modal */
+  }
+}

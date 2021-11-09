@@ -28,7 +28,7 @@ const afficher_connexion = (req, res) => {
 
 // les listes
 const afficher_liste_clients = (req, res) => {
-    mysqlconnexion.query('SELECT clients_id, idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville , clients_cp, idMutuelle, Mutuelles_id, Mutuelles_Nom FROM Clients, Mutuelles WHERE idMutuelle = Mutuelles_id', (err, lignes, champs) => {
+    mysqlconnexion.query('SELECT clients_id, idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, DATE_FORMAT(clients_dateNaissance, "%d/%m/%Y") as clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville , clients_cp, idMutuelle, Mutuelles_id, Mutuelles_Nom FROM Clients, Mutuelles WHERE idMutuelle = Mutuelles_id', (err, lignes, champs) => {
         if (!err) {
             console.log(lignes)
             res.render('./liste_clients', { contenu: lignes, titre: "Liste des clients" })
@@ -40,12 +40,11 @@ const afficher_liste_ordonnances = (req, res) => {
     mysqlconnexion.query('SELECT idClient, clients_nom, clients_prenom, idMedecin, Medecins_nom, Medecins_prenom, idPath, Pathologies_libelle FROM Clients, Medecins, Pathologies, Ordonnances WHERE idClient = clients_id AND idMedecin = Medecins_id AND idPath = Pathologies_id', (err, contenuordo, champs) => {
         if (!err) {
 
-            mysqlconnexion.query('SELECT idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance FROM Ordonnances, Prescriptions WHERE idOrdo = Ordonnances_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
+            mysqlconnexion.query('SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance FROM Ordonnances, Prescriptions WHERE idOrdo = Ordonnances_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
                 if (!err) {
-                    mysqlconnexion.query('SELECT *, Prescriptions_dateFin - Ordonnances_date as duree FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id', (err, contenupresciptions, champs) => {
+                    mysqlconnexion.query('SELECT *, Prescriptions_dateFin - Ordonnances_date as duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id', (err, contenupresciptions, champs) => {
                         if (!err) {
                             console.log(contenudate)
-                            console.log(contenupresciptions)
                             res.render('./liste_ordonnances', { prescriptions: contenupresciptions, contenu: contenuordo, date: contenudate, titre: "Les ordonnances" })
                         }
                     })

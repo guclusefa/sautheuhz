@@ -28,6 +28,7 @@
                             <th scope="col">Client</th>
                             <th scope="col">Médecin</th>
                             <th scope="col">Pathologie</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Durée</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -39,6 +40,7 @@
                             <td><%= user.clients_nom %>  <%= user.clients_prenom %></td>
                             <td><%= user.Medecins_nom %> <%= user.Medecins_prenom %></td>
                             <td><%= user.Pathologies_libelle %></td>
+                            <td><%= date[compteur].dateOrdo %></td>
                             <td><%= date[compteur].dureeOrdonnance %> jour(s)</td>
                             <td>
                                 <ul class="list-inline m-0">
@@ -72,7 +74,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Détails ordonnance n°</h5>
+                                <h5 class="modal-title">Détails ordonnance n°<%= date[compteur].idOrdo %></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" style="cursor: pointer;">&times;</span>
                                 </button>
@@ -82,6 +84,7 @@
                                     <div class="col">Médicament</div>
                                     <div class="col">Quantité</div>
                                     <div class="col">Fréquence</div>
+                                    <div class="col">Date fin</div>
                                     <div class="col">Durée</div>
                                 </div>
                                 <hr>
@@ -92,6 +95,7 @@
                                     <div class="col"><%= presc.Medicaments_libelle %></div>
                                     <div class="col"><%= presc.Prescriptions_quantite %></div>
                                     <div class="col"><%= presc.Prescriptions_frequence %></div>
+                                    <div class="col"><%= presc.dateFin %></div>
                                     <div class="col"><%= presc.duree %> jours</div>
                                 </div>
                                 <hr>
@@ -110,7 +114,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Supprimer ordonnance n°</h5>
+                                <h5 class="modal-title">Supprimer ordonnance n°<%= date[compteur].idOrdo %></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" style="cursor: pointer;">&times;</span>
                                 </button>
@@ -121,7 +125,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" data-dismiss="modal">Non</button>
-                                <button type="button" class="btn btn-danger">Oui</button>
+                                <button type="button" class="btn btn-danger" onclick="location.href = 'delete_ordonnance/<%= date[compteur].idOrdo %>';">Oui</button>
                             </div>
                         </div>
                     </div>
