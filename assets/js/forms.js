@@ -177,6 +177,37 @@ $(document).ready(function () {
     });
 });
 
+// jQuery validate formulaire connexion
+$(document).ready(function () {
+    $("#form_stock").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            inputMed: {
+                minlength: 2,
+                maxlength: 50,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            },
+            inputQte: {
+                min: 0,
+                max: 999,
+                nowhitespace: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            }
+        }
+    });
+});
+
 // jQuery validate en français
 $.extend($.validator.messages, {
     required: "Ce champ est obligatoire.",
