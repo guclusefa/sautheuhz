@@ -14,25 +14,22 @@
 
         <div class="row mt-3">
             <form action="/sautheuhz/form_stock" class="container" id="form_stock" novalidate>
-                <!-- DYNAMIQUE : médciament et qte-->
-                <div class="formDynamique">
-                    <div class="entry mb-5">
-                        <div class="row">
-                            <div class="form-group  col-sm-12 col-xl-6">
-                                <label for="inputMed" class="form-label required">Médicament</label>
-                                <input type="text" class="form-control" id="inputMed" name="inputMed" placeholder="Nom du médicament" required>
-                                <div class="invalid-feedback">
-                                    Veuillez fournir un médicament valide.
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-12 col-xl-6">
-                                <label for="inputQte" class="form-label required">Quantité</label>
-                                <input type="number" class="form-control" id="inputQte" name="inputQte"
-                                    placeholder="Quantité" min="2" max="20" required>
-                                <div class="invalid-feedback">
-                                    Veuillez fournir une quantité valide.
-                                </div>
-                            </div>
+                <!-- médciament et qte-->
+                <div class="row">
+                    <div class="form-group  col-sm-12 col-xl-6">
+                        <label for="inputMed" class="form-label required">Médicament</label>
+                        <input type="text" class="form-control" id="inputMed" name="inputMed"
+                            placeholder="Nom du médicament" required>
+                        <div class="invalid-feedback">
+                            Veuillez fournir un médicament valide.
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 col-xl-6">
+                        <label for="inputQte" class="form-label required">Quantité</label>
+                        <input type="number" class="form-control" id="inputQte" name="inputQte" placeholder="Quantité"
+                            min="2" max="20" required>
+                        <div class="invalid-feedback">
+                            Veuillez fournir une quantité valide.
                         </div>
                     </div>
                 </div>

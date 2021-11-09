@@ -42,8 +42,13 @@ const afficher_liste_ordonnances = (req, res) => {
 
             mysqlconnexion.query('SELECT idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance FROM Ordonnances, Prescriptions WHERE idOrdo = Ordonnances_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
                 if (!err) {
-                    console.log(contenudate)
-                    res.render('./liste_ordonnances', { contenu: contenuordo, date: contenudate, titre: "Les ordonnances" })
+                    mysqlconnexion.query('SELECT *, Prescriptions_dateFin - Ordonnances_date as duree FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id', (err, contenupresciptions, champs) => {
+                        if (!err) {
+                            console.log(contenudate)
+                            console.log(contenupresciptions)
+                            res.render('./liste_ordonnances', { prescriptions: contenupresciptions, contenu: contenuordo, date: contenudate, titre: "Les ordonnances" })
+                        }
+                    })
                 }
             })
         }
