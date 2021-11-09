@@ -40,7 +40,7 @@ const afficher_liste_ordonnances = (req, res) => {
     mysqlconnexion.query('SELECT idClient, clients_nom, clients_prenom, idMedecin, Medecins_nom, Medecins_prenom, idPath, Pathologies_libelle FROM Clients, Medecins, Pathologies, Ordonnances WHERE idClient = clients_id AND idMedecin = Medecins_id AND idPath = Pathologies_id', (err, contenuordo, champs) => {
         if (!err) {
 
-            mysqlconnexion.query('SELECT idOrdo, Prescriptions_dateFin - Ordonnances_date as dureeOrdonnance FROM Ordonnances, Prescriptions WHERE idOrdo = Ordonnances_id ORDER BY dureeOrdonnance DESC', (err, contenudate, champs) => {
+            mysqlconnexion.query('SELECT idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance FROM Ordonnances, Prescriptions WHERE idOrdo = Ordonnances_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
                 if (!err) {
                     console.log(contenudate)
                     res.render('./liste_ordonnances', { contenu: contenuordo, date: contenudate, titre: "Les ordonnances" })
@@ -221,6 +221,7 @@ const executer_form_ordonnance = (req, res) => {
                         mysqlconnexion.query(requeteSQL3, (err, lignes, champs) => {
                             if (!err) {
                                 console.log("Insertion terminé");
+                                res.redirect('./liste_ordonnances')
                             } else {
                                 console.log("Erreur lors de l'enregistrement")
                             }

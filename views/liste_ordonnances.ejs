@@ -39,8 +39,8 @@
                             <td><%= user.clients_nom %>  <%= user.clients_prenom %></td>
                             <td><%= user.Medecins_nom %> <%= user.Medecins_prenom %></td>
                             <td><%= user.Pathologies_libelle %></td>
-                            <td><%= date[0].dureeOrdonnance %> jour(s)</td>
-                            <%= compteur = compteur+1 %>
+                            <td><%= date[compteur].dureeOrdonnance %> jour(s)</td>
+                            <span style="display: none;"><%= compteur = compteur+1 %></span>
                             <td>
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
