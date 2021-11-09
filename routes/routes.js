@@ -18,6 +18,8 @@ routeur.get('/', affichageControl.afficher_accueil)
     .get('/form_stock', affichageControl.afficher_form_stock)
     // .get('/:dir', affichageControl.afficher_dir)
     
+    .get('/fiche_client/:id', affichageControl.afficher_fiche_client)
+
     //executer les formulaires
     .post('/form_ordonnance', affichageControl.executer_form_ordonnance)
     .post('/form_client', affichageControl.executer_form_client)

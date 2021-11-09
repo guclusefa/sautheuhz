@@ -97,8 +97,19 @@ const afficher_form_ordonnance = (req, res) => {
 }
 
 const afficher_form_stock = (req, res) => {
-
     res.render('./form_stock', { titre: "Formulaire stock" })
+}
+
+const afficher_fiche_client = (req, res) => {
+    id = req.params.id
+    mysqlconnexion.query('SELECT * FROM Clients WHERE clients_id ='+id, (err, info_client, champs) => {
+        mysqlconnexion.query('SELECT Mutuelles_nom, Mutuelles_id FROM Mutuelles', (err, lignes, champs) => {
+            if (!err) {
+                console.log(info_client)
+                res.render('./fiche_client', { info_client: info_client, contenu: lignes, titre: "Fiche client"})
+            }
+        })
+    })
 }
 
 // afficher vue même nom que directory -> test
@@ -290,6 +301,8 @@ module.exports = {
     afficher_form_ordonnance,
     afficher_form_stock,
     afficher_dir,
+
+    afficher_fiche_client,
 
     executer_form_ordonnance,
     executer_form_client
