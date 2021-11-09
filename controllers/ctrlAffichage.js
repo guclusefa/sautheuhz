@@ -112,8 +112,12 @@ const afficher_fiche_client = (req, res) => {
             if (!err) {
                 console.log(info_client)
                 dateN = info_client[0].clients_dateNaissance
+                var d = new Date(dateN)
+                dateN=d.getUTCFullYear()+"-"+d.getUTCMonth()+"-"+d.getUTCDate()       
+                var testdate = new Date(dateN)         
                 console.log(dateN)
-                res.render('./fiche_client', { info_client: info_client, contenu: lignes, titre: "Fiche client"})
+
+                res.render('./fiche_client', { dateNaissance: dateN, info_client: info_client, contenu: lignes, titre: "Fiche client"})
             }
         })
     })
@@ -124,84 +128,7 @@ const afficher_dir = (req, res) => {
     res.render('./' + req.params.dir)
 }
 
-const executer_form_ordonnance2 = (req, res) => {
 
-    let prescriptionMedicament = []
-    let prescriptionQuantite = []
-    let prescriptionFrequence = []
-    let prescriptionDateFin = []
-
-    let ordonnanceId = ""
-    let ordonnanceClient = req.body.selectClient
-    let ordonnanceMedecin = req.body.selectMedecin
-    let ordonnancePathologie = req.body.selectPathologie
-    let ordonnanceDateDebut = req.body.inputDateDebut
-    prescriptionMedicament[0] = req.body.selectMedicament
-    prescriptionQuantite[0] = req.body.selectQte
-    prescriptionFrequence[0] = req.body.inputFrequence
-    prescriptionDateFin[0] = req.body.selectDateMed
-
-    console.log(prescriptionMedicament[0][0])
-    ordonnanceDateDebut = ordonnanceDateDebut.split("/").reverse().join("/");
-    //prescriptionDateFin = prescriptionDateFin.split("/").reverse().join("/");
-
-
-    let requeteSQL = "INSERT INTO Ordonnances (idPath, idMedecin, idClient, Ordonnances_date) VALUES"
-    requeteSQL += ` (${ordonnancePathologie},'${ordonnanceMedecin}','${ordonnanceClient}','${ordonnanceDateDebut}')`
-    mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
-        if (!err) {
-            console.log("Insertion terminé");
-
-            let requeteSQL2 = 'SELECT Ordonnances_id FROM Ordonnances ORDER BY Ordonnances_id DESC'
-            mysqlconnexion.query(requeteSQL2, (err, idOrdo, champs) => {
-                if (!err) {
-                    idOrdo = JSON.parse(JSON.stringify(idOrdo))
-                    ordonnanceId = idOrdo[0].Ordonnances_id
-
-                    console.log(ordonnanceId);
-
-                    let requeteSQL3 = "INSERT INTO Prescriptions (idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin) VALUES"
-                    requeteSQL3 += ` (${ordonnanceId},${prescriptionMedicament[0][0]},${prescriptionQuantite[0][0]},${prescriptionFrequence[0][0]},'${prescriptionDateFin[0][0]}')`
-                    mysqlconnexion.query(requeteSQL3, (err, lignes, champs) => {
-                        if (!err) {
-                            console.log("Insertion terminé");
-
-                            let requeteSQL3 = "INSERT INTO Prescriptions (idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin) VALUES"
-                            requeteSQL3 += ` (${ordonnanceId},${prescriptionMedicament[0][1]},${prescriptionQuantite[0][1]},${prescriptionFrequence[0][1]},'${prescriptionDateFin[0][1]}')`
-                            mysqlconnexion.query(requeteSQL3, (err, lignes, champs) => {
-                                if (!err) {
-                                    console.log("Insertion terminé");
-                                    res.redirect('./liste_ordonnances')
-                                } else {
-                                    console.log("Erreur lors de l'enregistrement")
-                                    res.send("Erreur ajout : " + JSON.stringify(err))
-                                }
-                            })
-
-                        } else {
-                            console.log("Erreur lors de l'enregistrement")
-                            res.send("Erreur ajout : " + JSON.stringify(err))
-                        }
-                    })
-
-                } else {
-                    console.log("Erreur lors de l'enregistrement")
-                    res.send("Erreur ajout : " + JSON.stringify(err))
-                }
-            })
-
-        } else {
-            console.log("Erreur lors de l'enregistrment")
-            res.send("Erreur ajout : " + JSON.stringify(err))
-        }
-    })
-
-
-
-    ordonnanceId = ordonnanceId[0]
-
-
-}
 
 const executer_form_ordonnance = (req, res) => {
 
