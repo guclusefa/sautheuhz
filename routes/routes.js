@@ -27,8 +27,9 @@ routeur.get('/', affichageControl.afficher_accueil)
 
     //modifier / supprimer données
     .post('/fiche_client/:id', affichageControl.update_form_client)
-    .post('/delete_client/:id', affichageControl.delete_fiche_client)
-    
+    .post('/fiche_ordonnances/:id', affichageControl.update_form_ordonnance)
+
+    .post('/delete_client/:id', affichageControl.delete_fiche_client) 
     .post('/delete_ordonnances/:id', affichageControl.delete_fiche_ordonnance)
 
     

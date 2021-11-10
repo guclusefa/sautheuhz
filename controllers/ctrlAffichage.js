@@ -170,7 +170,7 @@ const executer_form_ordonnance = (req, res) => {
             mysqlconnexion.query(requeteSQL2, (err, idOrdo, champs) => {
                 if (!err) {
                     idOrdo = JSON.parse(JSON.stringify(idOrdo))
-                    ordonnanceId = idOrdo[0].Ordonnances_id
+                    id = idOrdo[0].Ordonnances_id
 
                     for (i in req.body.selectMedicament) {
                         prescriptionMedicament = req.body.selectMedicament[i]
@@ -179,7 +179,7 @@ const executer_form_ordonnance = (req, res) => {
                         prescriptionDateFin = req.body.selectDateMed[i]
 
                         let requeteSQL3 = "INSERT INTO Prescriptions (idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin) VALUES"
-                        requeteSQL3 += ` (${ordonnanceId},${prescriptionMedicament},${prescriptionQuantite},${prescriptionFrequence},'${prescriptionDateFin}')`
+                        requeteSQL3 += ` (${id},${prescriptionMedicament},${prescriptionQuantite},${prescriptionFrequence},'${prescriptionDateFin}')`
                         console.log(requeteSQL)
                         console.log(requeteSQL3)
 
@@ -280,6 +280,63 @@ const update_form_client = (req, res) => {
 
 }
 
+const update_form_ordonnance = (req, res) => {
+    let id = req.params.id
+
+    let ordonnanceClient = req.body.selectClient
+    let ordonnanceMedecin = req.body.selectMedecin
+    let ordonnancePathologie = req.body.selectPathologie
+    let ordonnanceDateDebut = req.body.inputDateDebut
+
+    ordonnanceDateDebut = ordonnanceDateDebut.split("/").reverse().join("/");
+    //prescriptionDateFin = prescriptionDateFin.split("/").reverse().join("/");
+
+    let requeteSQL = `UPDATE Ordonnances SET idPath = ${ordonnancePathologie} , idMedecin = '${ordonnanceMedecin}', idClient = '${ordonnanceClient}' , Ordonnances_date = '${ordonnanceDateDebut}' WHERE Ordonnances_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
+        if (!err) {
+            console.log("Insertion terminé");
+
+            let requetDel = 'DELETE FROM Prescriptions WHERE idOrdo = ' + id
+            mysqlconnexion.query(requetDel, (err, lignes, champs) => {
+                if (!err) {
+                    for (i in req.body.selectMedicament) {
+                        prescriptionMedicament = req.body.selectMedicament[i]
+                        prescriptionQuantite = req.body.selectQte[i]
+                        prescriptionFrequence = req.body.inputFrequence[i]
+                        prescriptionDateFin = req.body.selectDateMed[i]
+
+                        let requeteSQL3 = "INSERT INTO Prescriptions (idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin) VALUES"
+                        requeteSQL3 += ` (${id},${prescriptionMedicament},${prescriptionQuantite},${prescriptionFrequence},'${prescriptionDateFin}')`
+                        console.log(requeteSQL)
+                        console.log(requeteSQL3)
+
+                        mysqlconnexion.query(requeteSQL3, (err) => {
+                            if (!err) {
+                                console.log("Insertion terminé");
+                                res.redirect('./../')
+                                
+                            } else {
+                                console.log("Erreur lors de l'enregistrement")
+                            }
+                        })
+                    }
+                } else {
+                    console.log("Insertion echouée");
+
+                    console.log("Erreur lors de l'enregistrment")
+                    res.send("Erreur ajout : " + JSON.stringify(err))
+                }
+            })
+        } else {
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+
+
+}
+
+
 //delete client
 const delete_fiche_client = (req, res) => {
     id = req.params.id
@@ -312,7 +369,7 @@ const delete_fiche_ordonnance = (req, res) => {
             console.log("Erreur lors de l'enregistrment")
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
-    }  ) 
+    })
 }
 
 module.exports = {
@@ -329,13 +386,14 @@ module.exports = {
     afficher_dir,
 
     afficher_fiche_client,
-    //   afficher_delete_client,
     afficher_fiche_ordonnance,
 
     executer_form_ordonnance,
     executer_form_client,
 
     update_form_client,
+    update_form_ordonnance,
+
     delete_fiche_client,
     delete_fiche_ordonnance
 }
