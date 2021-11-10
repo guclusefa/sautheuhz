@@ -25,7 +25,7 @@ $(function () {
         newEntry = (currentEntry.clone()).appendTo(dynaForm);
 
         $("#compteur").attr("id", "compteur" + i);
-        $("#compteur" + i).html(i-1);
+        $("#compteur" + i).html(i - 1);
         $("#compteur").attr("id", "compteur").html(i);
 
         newEntry.find('input').val('');
@@ -36,8 +36,8 @@ $(function () {
     })
 
         .on('click', '.btn-remove', function (e) {
-/*             i = i - 1
-            $("#compteur").attr("id", "compteur").html(i); */
+            /*             i = i - 1
+                        $("#compteur").attr("id", "compteur").html(i); */
             $(this).parents('.entry:first').remove();
 
             e.preventDefault();
@@ -59,28 +59,16 @@ $(document).ready(function () {
         e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{2})/g, '$1 ').trim();
     })
 
-    format_tel = document.getElementById("inputTel").value
-    format_tel = format_tel.replace(/[^\dA-Z]/g, '').replace(/(.{2})/g, '$1 ').trim();
-    document.getElementById("inputTel").value = format_tel
-
     document.getElementById("inputSS").addEventListener('input', function (e) {
         e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
     })
-
-    format_ss = document.getElementById("inputSS").value
-    format_ss = format_ss.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
-    document.getElementById("inputSS").value = format_ss
-
-    format_ss = document.getElementById("dispSS").innerHTML
-    format_ss = format_ss.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
-    document.getElementById("inputSS").innerHTML = format_ss
 
     jQuery.validator.addMethod("lettersonly", function (value, element) {
         return this.optional(element) || /^[a-z\s]+$/i.test(value);
     });
 
     $.validator.addMethod("ville", function (value, element) {
-        return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(value);
+        return this.optional(element) || /^[a-zA-ZÀ-ÿ0-9'\-\s]+$/i.test(value);
     }, "Veuillez fournir seulement des lettres, nombres et espaces.");
 
     $("#client").validate({
@@ -261,3 +249,15 @@ $.extend($.validator.messages, {
     postalCodeCA: "Veuillez fournir un code postal valide.",
     pattern: "Format non valide."
 });
+
+format_tel = document.getElementById("inputTel").value;
+format_tel = format_tel.replace(/[^\dA-Z]/g, '').replace(/(.{2})/g, '$1 ').trim();
+document.getElementById("inputTel").value = format_tel;
+
+format_ss = document.getElementById("inputSS").value;
+format_ss = format_ss.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
+document.getElementById("inputSS").value = format_ss;
+
+format_ss = document.getElementById("dispSS").innerHTML;
+format_ss = format_ss.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
+document.getElementById("inputSS").innerHTML = format_ss;

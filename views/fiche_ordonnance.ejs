@@ -1,0 +1,212 @@
+<%- include('header') %>
+
+    <div class="container">
+        <!-- Titre -->
+        <div class="row d-flex justify-content-center text-center">
+            <div class="col-xl-12 col-md-12 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="">Modifier ordonnance <%= info_ordo[0].idOrdo %>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <form action="/sautheuhz/form_ordonnance" method="POST" class="container" id="needs-validation"
+                name="form_ordonnance" novalidate>
+                <!-- Client -->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="selectClient">Client</label>
+                            <select class="custom-select d-block form-control" id="selectClient" name="selectClient"
+                                required>
+                                <option value="" disabled selected>Choisir un client</option>
+                                <% contenu.forEach(function(user){ %>
+                                    <% if (user.clients_id==info_ordo[0].idClient) { %>
+                                        <option value="<%= user.clients_id %>" selected>
+                                            <%= user.clients_nom %>
+                                                <%= user.clients_prenom %>
+                                        </option>
+                                        <% } else { %>
+                                            <option value="<%= user.clients_id %>">
+                                                <%= user.clients_nom %>
+                                                    <%= user.clients_prenom %>
+                                            </option>
+                                            <% } %>
+                                                <% })%>
+                            </select>
+                            <div class="invalid-feedback">
+                                Veuillez fournir un(e) client(e) valide.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Médecin -->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="selectMedecin">Médecin</label>
+                            <select class="custom-select d-block form-control" id="selectMedecin" name="selectMedecin"
+                                required>
+                                <option value="" disabled selected>Choisir un médecin</option>
+                                <% medcontenu.forEach(function(user){ %>
+                                    <% if (user.Medecins_id==info_ordo[0].idMedecin) { %>
+                                        <option value="<%= user.Medecins_id %>" selected>
+                                            <%= user.Medecins_nom %>
+                                                <%= user.Medecins_prenom %>
+                                        </option>
+                                        <% } else { %>
+                                            <option value="<%= user.Medecins_id %>">
+                                                <%= user.Medecins_nom %>
+                                                    <%= user.Medecins_prenom %>
+                                            </option>
+                                            <% } %>
+                                                <% })%>
+                            </select>
+                            <div class="invalid-feedback">
+                                Veuillez fournir un médecin valide.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pathologie -->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="selectPathologie">Pathologie</label>
+                            <select class="custom-select d-block form-control" id="selectPathologie"
+                                name="selectPathologie" required>
+                                <option value="" disabled selected>Choisir une pathologie</option>
+                                <% pathcontenu.forEach(function(user){ %>
+                                    <% if (user.Pathologies_id==info_ordo[0].idPath) { %>
+                                        <option value="<%= user.Pathologies_id %>" selected>
+                                            <%= user.Pathologies_libelle %>
+                                        </option>
+                                        <% } else { %>
+                                            <option value="<%= user.Pathologies_id %>">
+                                                <%= user.Pathologies_libelle %>
+                                            </option>
+                                            <% } %>
+                                                <% })%>
+                            </select>
+                            <div class="invalid-feedback">
+                                Veuillez fournir un(e) client(e) valide.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date de préscription -->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputDateDebut">Date de préscription</label>
+                            <input type="date" class="form-control" id="inputDateDebut" name="inputDateDebut"
+                                min="1997-01-01" max="2030-12-31"  value="<%= info_ordo[0].dateOrdo %>" required>
+                            <div class="invalid-feedback">
+                                Veuillez fournir une date de préscription valide.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DYNAMIQUE : Médicament - Quantité - Fréquence - Date de fin de préscription -->
+                <div class="formDynamique">
+                    <% info_ordo.forEach(function(user, i, idx){ %>
+                        <div class="entry mb-5">
+                            <fieldset class="border p-2">
+                                <legend class="w-auto">Préscription n°<span id="compteur">
+                                    </span></legend>
+
+                                <div class="row">
+                                    <div class="form-group  col-sm-12 col-xl-6">
+                                        <label for="selectMedicament" class="form-label required">Médicaments(s)</label>
+                                        <select name="selectMedicament[]" id="selectMedicament" class="form-control"
+                                            required>
+                                            <option value="" disabled selected>Choisir un médicament</option>
+                                            <% medicamentcontenu.forEach(function(med){ %>
+                                                <% if(med.Medicaments_id == user.idMedicament) { %>
+                                                <option value="<%= med.Medicaments_id %>" selected> 
+                                                    <%= med.Medicaments_libelle %>
+                                                </option>
+                                                <% } else { %>
+                                                    <option value="<%= med.Medicaments_id %>">
+                                                        <%= med.Medicaments_libelle %>
+                                                    </option>
+                                                <% }})%>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Veuillez fournir un médicament valide.
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group  col-sm-12 col-xl-6">
+                                        <label for="selectQte" class="form-label required">Quantité</label>
+                                        <div class="input-group">
+                                            <input type="number" name="selectQte[]" id="selectQte" class="form-control"
+                                                placeholder="Quantité" min="1" max="20" value="<%= user.Prescriptions_quantite %>"  required>
+                                            <div class="invalid-feedback">
+                                                Veuillez fournir une quantité valide.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group  col-sm-12 col-xl-6">
+                                        <label for="inputFrequence" class="form-label required">Fréquence / jour</label>
+                                        <input type="number" name="inputFrequence[]" id="inputFrequence"
+                                            class="form-control" placeholder="Fréquence / jour" min="1" max="10"
+                                            value="<%= user.Prescriptions_frequence %>" required>
+                                        <div class="invalid-feedback">
+                                            Veuillez fournir une fréquence valide.
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group  col-sm-12 col-xl-6">
+                                        <label for="selectDateMed" class="form-label required">Fin de
+                                            préscription</label>
+                                        <div class="input-group">
+                                            <input style="height: 39px;" type="date" class="form-control"
+                                                id="selectDateMed" name="selectDateMed[]" min="1997-01-01"
+                                                max="2030-12-31" value="<%= user.datePresc %>" required>
+                                            <span class="input-group-btn">
+                                                <% if (i===info_ordo.length - 1){ %>
+                                                    <button class="btn btn-success btn-add btnevent" type="button">
+                                                        <span>+</span>
+                                                    </button>
+                                                    <% } else { %>
+                                                        <button class="btn btnevent btn-remove btn-danger"
+                                                            type="button">
+                                                            <span>×</span>
+                                                        </button>
+                                                        <% } %>
+                                            </span>
+                                            <div class="invalid-feedback">
+                                                Veuillez fournir une date valide.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <% })%>
+                </div>
+
+                <!-- Validation du formulaire -->
+                <hr>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12 text-center">
+                        <button class="btn btn-primary" style="width: 100%;" type="submit">Valider le
+                            formulaire</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <%- include('footer') %>

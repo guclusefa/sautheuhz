@@ -19,6 +19,7 @@ routeur.get('/', affichageControl.afficher_accueil)
     // .get('/:dir', affichageControl.afficher_dir)
     
     .get('/fiche_client/:id', affichageControl.afficher_fiche_client)
+    .get('/fiche_ordonnance/:id', affichageControl.afficher_fiche_ordonnance)
 
     //executer les formulaires
     .post('/form_ordonnance', affichageControl.executer_form_ordonnance)
