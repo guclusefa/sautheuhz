@@ -106,12 +106,40 @@ const afficher_form_stock = (req, res) => {
 
 const afficher_fiche_client = (req, res) => {
     id = req.params.id
-    mysqlconnexion.query('SELECT *, DATE_FORMAT(clients_dateNaissance, "%Y-%m-%d") as dateN FROM Clients WHERE clients_id ='+id, (err, info_client, champs) => {
+    mysqlconnexion.query('SELECT *, DATE_FORMAT(clients_dateNaissance, "%Y-%m-%d") as dateN FROM Clients WHERE clients_id =' + id, (err, info_client, champs) => {
         mysqlconnexion.query('SELECT Mutuelles_nom, Mutuelles_id FROM Mutuelles', (err, lignes, champs) => {
             if (!err) {
-                res.render('./fiche_client', {info_client: info_client, contenu: lignes, titre: "Fiche client"})
+                res.render('./fiche_client', { info_client: info_client, contenu: lignes, titre: "Fiche client" })
             }
         })
+    })
+}
+
+const afficher_fiche_ordonnance = (req, res) => {
+    id = req.params.id
+    mysqlconnexion.query('SELECT clients_id, clients_nom, clients_prenom FROM Clients', (err, lignes, champs) => {
+        if (!err) {
+            mysqlconnexion.query('SELECT *, DATE_FORMAT(Ordonnances_date, "%Y-%m-%d") as dateOrdo, DATE_FORMAT(Prescriptions_dateFin, "%Y-%m-%d") as datePresc FROM Ordonnances, Prescriptions WHERE idOrdo = Ordonnances_id AND idOrdo =' + id, (err, info_ordo, champs) => {
+                if (!err) {
+                    mysqlconnexion.query('SELECT Medecins_id, Medecins_nom, Medecins_prenom FROM Medecins', (err, medlignes, champs) => {
+                        if (!err) {
+                            mysqlconnexion.query('SELECT Pathologies_id, Pathologies_libelle FROM Pathologies', (err, pathlignes, champs) => {
+                                if (!err) {
+                                    mysqlconnexion.query('SELECT Medicaments_id, Medicaments_libelle FROM Medicaments', (err, medicamentlignes, champs) => {
+                                        if (!err) {
+                                            console.log(info_ordo)
+                                            res.render('./fiche_ordonnance', { contenu: lignes, info_ordo: info_ordo, medcontenu: medlignes, pathcontenu: pathlignes, medicamentcontenu: medicamentlignes, titre: "Formulaire ordonnance" })
+                                        }
+                                    })
+
+                                }
+                            })
+
+                        }
+                    })
+                }
+            })
+        }
     })
 }
 
@@ -228,15 +256,15 @@ const update_form_client = (req, res) => {
     let clientCp = req.body.inputCp
     let clientNoSS = req.body.inputSS
     let clientMutuelle = req.body.selectMutuelle
-    
+
     //reverse la date de naissance pour la mettre au format mysql
     clientBirthday = clientBirthday.split("/").reverse().join("/");
 
     clientTel = clientTel.split(' ').join('')
     clientNoSS = clientNoSS.split(' ').join('')
 
-    let requeteSQL = `UPDATE Clients SET idMutuelle = ${clientMutuelle} , clients_noSS ='${clientNoSS}' , clients_nom = '${clientNom}', clients_prenom = '${clientPrenom}', clients_sexe = '${clientSexe}', clients_dateNaissance = '${clientBirthday}', clients_tel = ${clientTel}, clients_mail = '${clientMail}', clients_adresse = '${clientAdresse}', clients_ville = '${clientVille}', clients_cp = '${clientCp}' WHERE clients_id = `+id
-    
+    let requeteSQL = `UPDATE Clients SET idMutuelle = ${clientMutuelle} , clients_noSS ='${clientNoSS}' , clients_nom = '${clientNom}', clients_prenom = '${clientPrenom}', clients_sexe = '${clientSexe}', clients_dateNaissance = '${clientBirthday}', clients_tel = ${clientTel}, clients_mail = '${clientMail}', clients_adresse = '${clientAdresse}', clients_ville = '${clientVille}', clients_cp = '${clientCp}' WHERE clients_id = ` + id
+
 
     mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
         if (!err) {
@@ -267,7 +295,7 @@ const delete_fiche_client = (req, res) => {
             console.log("Erreur lors de l'enregistrment")
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
-    }  ) 
+    })
 }
 
 module.exports = {
@@ -284,7 +312,8 @@ module.exports = {
     afficher_dir,
 
     afficher_fiche_client,
- //   afficher_delete_client,
+    //   afficher_delete_client,
+    afficher_fiche_ordonnance,
 
     executer_form_ordonnance,
     executer_form_client,
