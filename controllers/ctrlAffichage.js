@@ -186,12 +186,12 @@ const executer_form_ordonnance = (req, res) => {
                         mysqlconnexion.query(requeteSQL3, (err, lignes, champs) => {
                             if (!err) {
                                 console.log("Insertion terminé");
-                                res.redirect('./liste_ordonnances')
                             } else {
                                 console.log("Erreur lors de l'enregistrement")
                             }
                         })
                     }
+                    res.redirect('./liste_ordonnances')
                 } else {
                     console.log("Erreur lors de l'enregistrement")
                     res.send("Erreur ajout : " + JSON.stringify(err))
@@ -313,13 +313,13 @@ const update_form_ordonnance = (req, res) => {
                         mysqlconnexion.query(requeteSQL3, (err) => {
                             if (!err) {
                                 console.log("Insertion terminé");
-                                res.redirect('./../')
                                 
                             } else {
                                 console.log("Erreur lors de l'enregistrement")
                             }
                         })
                     }
+                    res.redirect('.././liste_ordonnances')
                 } else {
                     console.log("Insertion echouée");
 
