@@ -261,3 +261,8 @@ document.getElementById("inputSS").value = format_ss;
 format_ss = document.getElementById("dispSS").innerHTML;
 format_ss = format_ss.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
 document.getElementById("inputSS").innerHTML = format_ss;
+
+format_tel = document.getElementById("dispTel").value;
+format_tel = format_tel.replace(/[^\dA-Z]/g, '').replace(/(.{2})/g, '$1 ').trim();
+document.getElementById("dispTel").value = format_tel;
+$("td.dispTel").html("new content");
