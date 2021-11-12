@@ -36,12 +36,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% contenu.forEach(function(med){ %>
+                                <% contenu.forEach(function(med,i){ %>
                                 <tr>
                                     <td> <%= med.Medicaments_libelle %> </td>
                                     <td><%= med.Stocks_quantite %></td>
-                                    <td></td>
-                                    <td></td>
+                                    
+                                    <td><%= contenud[i].stock_necessaire %></td>                                 
+
+                                    <td><%= med.Stocks_quantite - contenud[i].stock_necessaire %> </td>
                                     <td>
                                         <ul class="list-inline m-0">
                                             <li class="list-inline-item">

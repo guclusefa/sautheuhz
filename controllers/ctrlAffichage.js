@@ -61,7 +61,7 @@ const afficher_liste_stocks = (req, res) => {
         if (!err) {
             console.log(lignes)
 
-            mysqlconnexion.query('SELECT Prescriptions_dateFin - Ordonnances_date as duree,Prescriptions_quantite*Prescriptions_frequence  AS stock_necessaire, idMedicament, Medicaments_libelle FROM Prescriptions, Medicaments, Ordonnances WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id', (err, lignesd, champs) => {
+            mysqlconnexion.query('SELECT idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(Prescriptions_dateFin - Ordonnances_date)) as stock_necessaire FROM Prescriptions, Ordonnances WHERE idOrdo = Ordonnances_id GROUP BY idMedicament', (err, lignesd, champs) => {
                 if (!err) {
                     console.log(lignesd)
                     res.render('./liste_stocks', { contenu: lignes, contenud: lignesd, titre: "Les stocks" })
