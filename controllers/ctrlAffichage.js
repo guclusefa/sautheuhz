@@ -397,3 +397,4 @@ module.exports = {
     delete_fiche_client,
     delete_fiche_ordonnance
 }
+
