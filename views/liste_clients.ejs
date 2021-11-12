@@ -54,17 +54,18 @@
                                                             class="fa fa-edit"></i></button>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    
+
                                                     <button class="btn btn-danger btn-sm rounded-0" type="button"
                                                         data-toggle="modal"
                                                         data-target="#supprimer_<%= user.clients_id %>"
-                                                        title="Supprimer" ><i class="fa fa-trash"></i></button>
+                                                        title="Supprimer"><i class="fa fa-trash"></i></button>
                                                     </form>
                                                 </li>
                                             </ul>
                                         </td>
                                         <td>
-                                            <%= user.clients_nom %> <%= user.clients_prenom %>
+                                            <%= user.clients_nom %>
+                                                <%= user.clients_prenom %>
                                         </td>
                                         <td>
                                             <%= user.clients_sexe %>
@@ -72,8 +73,9 @@
                                         <td class="dispTel">
                                             0<%= user.clients_tel %>
                                         </td>
-                                        <td><%= user.clients_cp %>
-                                                    <%= user.clients_ville %>
+                                        <td>
+                                            <%= user.clients_cp %>
+                                                <%= user.clients_ville %>
                                         </td>
                                         <td>
                                             <%= user.clients_noSS %>
@@ -93,7 +95,8 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Détails client n°<%= user.clients_id %></h5>
+                                            <h5 class="modal-title">Détails client n°<%= user.clients_id %>
+                                            </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true" style="cursor: pointer;">&times;</span>
                                             </button>
@@ -127,7 +130,9 @@
                                                 <%= user.clients_adresse %>
                                             </p>
                                             <p><b>N° sécurité social : </b>
-                                                <span id="dispSS"><%= user.clients_noSS %></span>
+                                                <span class="dispSS">
+                                                    <%= user.clients_noSS %>
+                                                </span>
                                             </p>
                                             <p><b>Mutuelle: </b>
                                                 <%= user.Mutuelles_Nom %>
@@ -148,7 +153,8 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Supprimer client n°<%= user.clients_id %></h5>
+                                            <h5 class="modal-title">Supprimer client n°<%= user.clients_id %>
+                                            </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true" style="cursor: pointer;">&times;</span>
                                             </button>
@@ -160,9 +166,11 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-success"
                                                 data-dismiss="modal">Non</button>
-                                            <form action="/sautheuhz/delete_client/<%= user.clients_id %>" method="post">
-                                            <button type="submit" class="btn btn-danger"
-                                                 name="supp" value="supp">Oui</button></form>
+                                            <form action="/sautheuhz/delete_client/<%= user.clients_id %>"
+                                                method="post">
+                                                <button type="submit" class="btn btn-danger" name="supp"
+                                                    value="supp">Oui</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -173,5 +181,12 @@
             </div>
         </div>
     </div>
-
+    <script>
+        var slides = document.getElementsByClassName("dispSS");
+        for (var i = 0; i < slides.length; i++) {
+            console.log(document.getElementsByClassName("dispSS")[i].innerHTML)
+            document.getElementsByClassName("dispSS")[i].innerHTML = "test"
+            console.log(document.getElementsByClassName("dispSS")[i].innerHTML)
+        }
+    </script>
     <%- include('footer') %>
