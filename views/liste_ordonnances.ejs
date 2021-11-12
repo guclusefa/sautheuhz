@@ -37,9 +37,9 @@
                         <% let compteur = 0 %>
                         <% contenu.forEach(function(user){ %>
                             <tr>
-                            <td><%= user.clients_nom %>  <%= user.clients_prenom %></td>
-                            <td><%= user.Medecins_nom %> <%= user.Medecins_prenom %></td>
-                            <td><%= user.Pathologies_libelle %></td>
+                            <td><%= date[compteur].clients_nom %>  <%= date[compteur].clients_prenom %></td>
+                            <td><%= date[compteur].Medecins_nom %> <%= date[compteur].Medecins_prenom %></td>
+                            <td><%= date[compteur].Pathologies_libelle %></td>
                             <td><%= date[compteur].dateOrdo %></td>
                             <td><%= date[compteur].dureeOrdonnance %> jour(s)</td>
                             <td>

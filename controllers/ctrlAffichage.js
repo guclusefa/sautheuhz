@@ -37,10 +37,10 @@ const afficher_liste_clients = (req, res) => {
 }
 
 const afficher_liste_ordonnances = (req, res) => {
-    mysqlconnexion.query('SELECT idClient, clients_nom, clients_prenom, idMedecin, Medecins_nom, Medecins_prenom, idPath, Pathologies_libelle FROM Clients, Medecins, Pathologies, Ordonnances WHERE idClient = clients_id AND idMedecin = Medecins_id AND idPath = Pathologies_id', (err, contenuordo, champs) => {
+    mysqlconnexion.query('SELECT * FROM Ordonnances', (err, contenuordo, champs) => {
         if (!err) {
 
-            mysqlconnexion.query('SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance FROM Ordonnances, Prescriptions WHERE idOrdo = Ordonnances_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
+            mysqlconnexion.query('SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
                 if (!err) {
                     mysqlconnexion.query('SELECT *, Prescriptions_dateFin - Ordonnances_date as duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id', (err, contenupresciptions, champs) => {
                         if (!err) {
@@ -57,7 +57,19 @@ const afficher_liste_ordonnances = (req, res) => {
 }
 
 const afficher_liste_stocks = (req, res) => {
-    res.render('./liste_stocks', { titre: "Les stocks" })
+    mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
+        if (!err) {
+            console.log(lignes)
+
+            mysqlconnexion.query('SELECT Prescriptions_dateFin - Ordonnances_date as duree,Prescriptions_quantite*Prescriptions_frequence  AS stock_necessaire, idMedicament, Medicaments_libelle FROM Prescriptions, Medicaments, Ordonnances WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id', (err, lignesd, champs) => {
+                if (!err) {
+                    console.log(lignesd)
+                    res.render('./liste_stocks', { contenu: lignes, contenud: lignesd, titre: "Les stocks" })
+                }
+            })
+
+        }
+    })
 }
 
 

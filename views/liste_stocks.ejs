@@ -31,16 +31,17 @@
                                     <th scope="col">Médicament</th>
                                     <th scope="col">Stock</th>
                                     <th scope="col">En demande</th>
-                                    <th scope="col">Stock à garder?(trouve un nom)</th>
+                                    <th scope="col">Stock Effectif </th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <% contenu.forEach(function(med){ %>
                                 <tr>
-                                    <td>GUCLU Sefa (18)</td>
-                                    <td>15</td>
-                                    <td>-5</td>
-                                    <td>10</td>
+                                    <td> <%= med.Medicaments_libelle %> </td>
+                                    <td><%= med.Stocks_quantite %></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>
                                         <ul class="list-inline m-0">
                                             <li class="list-inline-item">
@@ -60,6 +61,7 @@
                                         </ul>
                                     </td>
                                 </tr>
+                                <% })%>
                             </tbody>
                         </table>
 
