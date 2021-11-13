@@ -36,7 +36,7 @@ html {
   display: none;
 }
 
-#inputPrenom, #inputVille, #inputAdresse {
+#inputPrenom, #inputVille, #inputAdresse, #inputNomMutu {
   text-transform: capitalize;
 }
 

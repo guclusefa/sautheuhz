@@ -17,6 +17,13 @@ let mysqlconnexion = mysql.createConnection({
     password: configDB['dev']['password'],
     database: configDB['dev']['dbname']
 })
+
+// afficher vue même nom que directory -> test
+const afficher_dir = (req, res) => {
+    res.render('./' + req.params.dir)
+}
+
+
 // afficher page
 const afficher_accueil = (req, res) => {
     res.render('./accueil', { titre: "Accueil" })
@@ -72,6 +79,18 @@ const afficher_liste_stocks = (req, res) => {
     })
 }
 
+const afficher_liste_medecins = (req, res) => {
+    res.render('./liste_medecins', { titre: "Les médecins" })
+}
+
+const afficher_liste_mutuelles = (req, res) => {
+    res.render('./liste_mutuelles', { titre: "Les mutuelles" })
+}
+
+const afficher_liste_pathologies = (req, res) => {
+    res.render('./liste_pathologies', { titre: "Les pathologies" })
+}
+
 
 
 // les forumalires
@@ -116,6 +135,19 @@ const afficher_form_stock = (req, res) => {
     res.render('./form_stock', { titre: "Formulaire stock" })
 }
 
+const afficher_form_medecin = (req, res) => {
+    res.render('./form_medecin', { titre: "Formulaire médecin" })
+}
+
+const afficher_form_mutuelle = (req, res) => {
+    res.render('./form_mutuelle', { titre: "Formulaire mutuelle" })
+}
+
+const afficher_form_pathologie = (req, res) => {
+    res.render('./form_pathologie', { titre: "Formulaire pathologie" })
+}
+
+// les fiches
 const afficher_fiche_client = (req, res) => {
     id = req.params.id
     mysqlconnexion.query('SELECT *, DATE_FORMAT(clients_dateNaissance, "%Y-%m-%d") as dateN FROM Clients WHERE clients_id =' + id, (err, info_client, champs) => {
@@ -155,12 +187,17 @@ const afficher_fiche_ordonnance = (req, res) => {
     })
 }
 
-// afficher vue même nom que directory -> test
-const afficher_dir = (req, res) => {
-    res.render('./' + req.params.dir)
+const afficher_fiche_medecin = (req, res) => {
+    res.render('./fiche_medecin', { titre: "Fiche médecin" })
 }
 
+const afficher_fiche_mutuelle = (req, res) => {
+    res.render('./fiche_mutuelle', { titre: "Fiche mutuelle" })
+}
 
+const afficher_fiche_pathologie = (req, res) => {
+    res.render('./fiche_pathologie', { titre: "Fiche pathologie" })
+}
 
 const executer_form_ordonnance = (req, res) => {
 
@@ -391,14 +428,23 @@ module.exports = {
     afficher_liste_clients,
     afficher_liste_ordonnances,
     afficher_liste_stocks,
+    afficher_liste_medecins,
+    afficher_liste_mutuelles,
+    afficher_liste_pathologies,
 
     afficher_form_client,
     afficher_form_ordonnance,
     afficher_form_stock,
+    afficher_form_medecin,
+    afficher_form_mutuelle,
+    afficher_form_pathologie,
     afficher_dir,
 
     afficher_fiche_client,
     afficher_fiche_ordonnance,
+    afficher_fiche_medecin,
+    afficher_fiche_mutuelle,
+    afficher_fiche_pathologie,
 
     executer_form_ordonnance,
     executer_form_client,

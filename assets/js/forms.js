@@ -148,6 +148,95 @@ $(document).ready(function () {
     });
 });
 
+//form medecin
+$(document).ready(function () {
+    $("#medecin").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            inputNom: {
+                minlength: 2,
+                maxlength: 50,
+                lettersonly: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            },
+            inputPrenom: {
+                minlength: 2,
+                maxlength: 50,
+                lettersonly: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            },
+            inputEmail: {
+                email: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            },
+            inputTel: {
+                minlength: 14,
+                maxlength: 14,
+            },
+            inputOrdre: {
+                number: true,
+                min: 0
+            }
+        }
+    });
+});
+
+//form mutuelle
+$(document).ready(function () {
+    $("#mutuelle").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            inputNom: {
+                minlength: 2,
+                maxlength: 50,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            }
+        }
+    });
+});
+
+//form pathologie
+$(document).ready(function () {
+    $("#pathologie").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            inputNom: {
+                minlength: 2,
+                maxlength: 50,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            }
+        }
+    });
+});
+
 // jQuery validate formulaire connexion
 $(document).ready(function () {
     $("#connexion").validate({
@@ -167,6 +256,8 @@ $(document).ready(function () {
             }
         }
     });
+
+
 });
 
 // jQuery validate formulaire connexion
