@@ -23,7 +23,9 @@
                                 required>
                                 <option value="" disabled selected>Choisir un client</option>
                                 <% contenu.forEach(function(user){ %>
+                                    <% if(user.clients_id != 29){ %>
                                     <option value="<%= user.clients_id %>"><%= user.clients_nom %> <%= user.clients_prenom %></option>
+                                    <% } %>
                                         <% })%>
                             </select>
                             <div class="invalid-feedback">

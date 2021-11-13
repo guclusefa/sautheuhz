@@ -37,10 +37,11 @@ const afficher_liste_clients = (req, res) => {
 }
 
 const afficher_liste_ordonnances = (req, res) => {
-    mysqlconnexion.query('SELECT * FROM Ordonnances', (err, contenuordo, champs) => {
+    // 73 = numero variable en fonction du numero de l'ordonnance test (de preference la mettre en 1)
+    mysqlconnexion.query('SELECT * FROM Ordonnances WHERE Ordonnances_id >73', (err, contenuordo, champs) => {
         if (!err) {
 
-            mysqlconnexion.query('SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
+            mysqlconnexion.query('SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id AND Ordonnances_id >73 GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
                 if (!err) {
                     mysqlconnexion.query('SELECT *, Prescriptions_dateFin - Ordonnances_date as duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id', (err, contenupresciptions, champs) => {
                         if (!err) {
@@ -277,7 +278,18 @@ const executer_form_stock = (req,res) => {
                         if (!err) {
                             console.log("insertion  terminé");
                             
-                            res.redirect('./form_ordonnance')
+                            let requeteSQL4 = `INSERT INTO Prescriptions (idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin) VALUES (73,${idm}, 0, 0, '2099-11-01')`
+                            mysqlconnexion.query(requeteSQL4, (err, champs) => {
+                                if (!err) {
+                                    console.log("insertion  terminé");
+                            
+                                    res.redirect('./liste_stocks')
+                                } else {
+                        
+                                    console.log("Erreur lors de l'enregistrment")
+                                    res.send("Erreur ajout : " + JSON.stringify(err))
+                                }
+                            })
                         } else {
                 
                             console.log("Erreur lors de l'enregistrment")
