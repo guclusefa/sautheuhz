@@ -37,12 +37,12 @@ const afficher_liste_clients = (req, res) => {
 }
 
 const afficher_liste_ordonnances = (req, res) => {
-    mysqlconnexion.query('SELECT * FROM Ordonnances WHERE Ordonnances_id <> 2', (err, contenuordo, champs) => {
+    mysqlconnexion.query('SELECT * FROM Ordonnances WHERE Ordonnances_id', (err, contenuordo, champs) => {
         if (!err) {
 
             mysqlconnexion.query('SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
                 if (!err) {
-                    mysqlconnexion.query('SELECT *, Prescriptions_dateFin - Ordonnances_date as duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id AND Ordonnances_id <> 2', (err, contenupresciptions, champs) => {
+                    mysqlconnexion.query('SELECT *, Prescriptions_dateFin - Ordonnances_date as duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id', (err, contenupresciptions, champs) => {
                         if (!err) {
                             console.log(contenudate)
                             res.render('./liste_ordonnances', { prescriptions: contenupresciptions, contenu: contenuordo, date: contenudate, titre: "Les ordonnances" })
@@ -277,7 +277,7 @@ const executer_form_stock = (req,res) => {
                         if (!err) {
                             console.log("insertion  terminé");
                             
-                            res.redirect('./liste_stocks')
+                            res.redirect('./form_ordonnance')
                         } else {
                 
                             console.log("Erreur lors de l'enregistrment")
