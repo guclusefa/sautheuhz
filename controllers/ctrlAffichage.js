@@ -37,7 +37,7 @@ const afficher_liste_clients = (req, res) => {
 }
 
 const afficher_liste_ordonnances = (req, res) => {
-    mysqlconnexion.query('SELECT * FROM Ordonnances WHERE Ordonnances_id', (err, contenuordo, champs) => {
+    mysqlconnexion.query('SELECT * FROM Ordonnances', (err, contenuordo, champs) => {
         if (!err) {
 
             mysqlconnexion.query('SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
