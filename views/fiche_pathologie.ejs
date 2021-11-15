@@ -1,0 +1,39 @@
+<%- include('header') %>
+
+    <div class="container">
+        <!-- Tittre -->
+        <div class="row d-flex justify-content-center text-center">
+            <div class="col-xl-12 col-md-12 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="">Modifier la pathologie n°<%= contenu[0].Pathologies_id %></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <form action="/sautheuhz/fiche_pathologie/<%= contenu[0].Pathologies_id %>" method="POST" class="container" id="pathologie" name="form_pathologie" novalidate>
+                <!-- Nom et prénom -->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputNomMutu">Libellé</label>
+                            <input type="text" class="form-control" id="inputNomMutu" name="inputNomMutu" placeholder="Nom"  
+                            value="<%= contenu[0].Pathologies_libelle %>" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Validation du formulaire -->
+                <hr>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12 text-center">
+                        <button class="btn btn-primary" style="width: 100%;" type="submit">Valider le
+                            formulaire</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <%- include('footer') %>

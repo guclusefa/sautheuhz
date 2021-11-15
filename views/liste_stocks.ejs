@@ -48,16 +48,16 @@
                                         <ul class="list-inline m-0">
                                             <li class="list-inline-item">
                                                 <button class="btn btn-primary btn-sm rounded-0" type="button"
-                                                    data-toggle="modal" data-target="#detail_id" title="Détails"><i
+                                                    data-toggle="modal" data-target="#detail_<%= med.Medicaments_id %>" title="Détails"><i
                                                         class="fa fa-eye"></i></button>
                                             </li>
                                             <li class="list-inline-item">
                                                 <button class="btn btn-success btn-sm rounded-0" type="button"
-                                                    title="Modifier" onclick="location.href = 'fiche_client/id';"><i class="fa fa-edit"></i></button>
+                                                    title="Modifier" onclick="location.href = 'fiche_stock/<%= med.Medicaments_id %>';"><i class="fa fa-edit"></i></button>
                                             </li>
                                             <li class="list-inline-item">
                                                 <button class="btn btn-danger btn-sm rounded-0" type="button"
-                                                    data-toggle="modal" data-target="#supprimer_id" title="Supprimer"><i
+                                                    data-toggle="modal" data-target="#supprimer_<%= med.Medicaments_id %>" title="Supprimer"><i
                                                         class="fa fa-trash"></i></button>
                                             </li>
                                         </ul>
@@ -66,9 +66,10 @@
                                 <% })%>
                             </tbody>
                         </table>
+                        <% contenu.forEach(function(med,i){ %>
 
                         <!-- Détails -->
-                        <div class="modal fade" id="detail_id">
+                        <div class="modal fade" id="detail_<%= med.Medicaments_id %>">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -78,10 +79,10 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p><b>Médicament : </b></p>
-                                        <p><b>Stock : </b></p>
-                                        <p><b>En demande : </b></p>
-                                        <p><b>Stock à garder : </b></p>
+                                        <p><b>Médicament : </b> <%= med.Medicaments_libelle %></p>
+                                        <p><b>Stock : </b><%= med.Stocks_quantite %></p>
+                                        <p><b>En demande : </b><%= contenud[i].stock_necessaire %></p>
+                                        <p><b>Stock à garder : </b><%= med.Stocks_quantite - contenud[i].stock_necessaire %></p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
@@ -93,7 +94,7 @@
                         </div>
 
                         <!-- Supprimer -->
-                        <div class="modal fade" id="supprimer_id">
+                        <div class="modal fade" id="supprimer_<%= med.Medicaments_id %>">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -113,6 +114,8 @@
                                 </div>
                             </div>
                         </div>
+                        <% })%>
+
                     </div>
                 </div>
             </div>

@@ -35,71 +35,77 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <% contenu.forEach(function(user){ %>
                                     <tr>
                                         <td>
                                             <ul class="list-inline m-0">
                                                 <li class="list-inline-item">
                                                     <button class="btn btn-primary btn-sm rounded-0" type="button"
-                                                        data-toggle="modal" data-target="#detail_"
+                                                        data-toggle="modal" data-target="#detail_<%= user.Mutuelles_id %>"
                                                         title="Détails"><i class="fa fa-eye"></i></button>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <button class="btn btn-success btn-sm rounded-0" type="button"
                                                         title="Modifier"
-                                                        onclick="location.href = '/sautheuhz/fiche_mutuelle/';"><i
+                                                        onclick="location.href = '/sautheuhz/fiche_mutuelle/<%= user.Mutuelles_id %>';"><i
                                                             class="fa fa-edit"></i></button>
                                                 </li>
                                                 <li class="list-inline-item">
 
                                                     <button class="btn btn-danger btn-sm rounded-0" type="button"
                                                         data-toggle="modal"
-                                                        data-target="#supprimer_"
+                                                        data-target="#supprimer_<%= user.Mutuelles_id %>"
                                                         title="Supprimer"><i class="fa fa-trash"></i></button>
                                                     </form>
                                                 </li>
                                             </ul>
                                         </td>
                                         <td>
+                                            <%= user.Mutuelles_nom %>
                                         </td>
-                                        <td>
+                                        <td>0<%= user.Mutuelles_tel %>
                                         </td>
-                                        <td>
+                                        <td><%= user.Mutuelles_mail %>
                                         </td>
                                     </tr>
+                                    <% })%>
+
                             </tbody>
                         </table>
+                        <% contenu.forEach(function(user){ %>
 
                             <!-- Détails -->
-                            <div class="modal fade" id="detail_">
+                            <div class="modal fade" id="detail_<%= user.Mutuelles_id %>">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Détails mutuelle n°
+                                            <h5 class="modal-title">Détails mutuelle n°<%= user.Mutuelles_id %>
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true" style="cursor: pointer;">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p><b>Nom : </b>
+                                            <p><b>Nom : </b> <%= user.Mutuelles_nom %>
+
                                             </p>
-                                            <p><b>Tél : </b>
+                                            <p><b>Tél : </b>0<%= user.Mutuelles_tel %>
                                             </p>
-                                            <p><b>Email : </b>
+                                            <p><b>Email : </b><%= user.Mutuelles_mail %>
                                             </p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Fermer</button>
                                             <button type="button" class="btn btn-primary"
-                                                onclick="location.href = 'fiche_mutuelle/';">Fiche</button>
+                                                onclick="location.href = 'fiche_mutuelle/<%= user.Mutuelles_id %>';">Fiche</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Supprimer -->
-                            <div class="modal fade" id="supprimer_">
+                            <div class="modal fade" id="supprimer_<%= user.Mutuelles_id %>">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -116,7 +122,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-success"
                                                 data-dismiss="modal">Non</button>
-                                            <form action="/sautheuhz/delete_mutuelle/"
+                                            <form action="/sautheuhz/delete_mutuelle/<%= user.Mutuelles_id %>"
                                                 method="post">
                                                 <button type="submit" class="btn btn-danger" name="supp"
                                                     value="supp">Oui</button>
@@ -125,6 +131,8 @@
                                     </div>
                                 </div>
                             </div>
+                            <% })%>
+
                     </div>
                 </div>
             </div>
