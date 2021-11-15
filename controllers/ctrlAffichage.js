@@ -81,15 +81,31 @@ const afficher_liste_stocks = (req, res) => {
 }
 
 const afficher_liste_medecins = (req, res) => {
-    res.render('./liste_medecins', { titre: "Les médecins" })
+    mysqlconnexion.query('SELECT * FROM Medecins ', (err, medinfo, champs) => {
+        if (!err) {
+            console.log(medinfo)
+            res.render('./liste_medecins', {contenu : medinfo,  titre: "Les médecins" })
+        }
+    })
 }
 
 const afficher_liste_mutuelles = (req, res) => {
-    res.render('./liste_mutuelles', { titre: "Les mutuelles" })
+    mysqlconnexion.query('SELECT * FROM Mutuelles ', (err, mutinfo, champs) => {
+        if (!err) {
+            console.log(mutinfo)
+            res.render('./liste_mutuelles', { contenu: mutinfo, titre: "Les mutuelles" })
+        }
+    })
 }
 
 const afficher_liste_pathologies = (req, res) => {
-    res.render('./liste_pathologies', { titre: "Les pathologies" })
+
+    mysqlconnexion.query('SELECT * FROM Pathologies ', (err, pathinfo, champs) => {
+        if (!err) {
+            console.log(pathinfo)
+            res.render('./liste_pathologies', { contenu: pathinfo, titre: "Les pathologies" })
+        }
+    })
 }
 
 
@@ -351,6 +367,69 @@ const executer_form_stock = (req,res) => {
     })
 }
 
+
+//ajouter un medecin 
+
+const executer_form_medecin = (req,res) => {
+    
+    let medecinNom = req.body.inputNom
+    let medecinPrenom = req.body.inputPrenom
+    let medecinMail  = req.body.inputEmail
+    let medecinTel = req.body.inputTel
+    let medecinOrdreNo = req.body.inputOrdre
+
+    medecinTel = medecinTel.split(' ').join('')
+
+    let requeteSQL = "INSERT INTO Medecins (Medecins_noOrdre, Medecins_nom, Medecins_prenom, Medecins_tel, Medecins_mail) VALUES"
+    requeteSQL += ` (${medecinOrdreNo},'${medecinNom}','${medecinPrenom}',${medecinTel} , '${medecinMail}' )`
+
+    mysqlconnexion.query(requeteSQL, (err, champs) => {
+        if (!err) {
+            console.log("Insertion terminé");
+            res.redirect('./liste_medecins')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+}
+
+//ajouter une mutuelle
+
+const executer_form_mutuelle = (req, res) => {
+
+    let mutuelleNom = req.body.inputNomMutu
+    let mutuelleMail = req.body.inputEmail
+    let mutuelleTel = req.body.inputTel
+    mutuelleTel = mutuelleTel.split(' ').join('')
+
+    
+    let requeteSQL = "INSERT INTO Mutuelles (Mutuelles_nom, Mutuelles_tel, Mutuelles_mail) VALUES"
+    requeteSQL += ` ('${mutuelleNom}',${mutuelleTel},'${mutuelleMail}')`
+
+    mysqlconnexion.query(requeteSQL, (err, champs) => {
+        if (!err) {
+            console.log("Insertion terminé");
+            res.redirect('./liste_mutuelles')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+
+}
+
+//ajouter une pathologie
+
+const executer_form_pathologie = (req, res) => {
+    
+}
+
+
 const update_form_client = (req, res) => {
     id = req.params.id
 
@@ -510,6 +589,9 @@ module.exports = {
     executer_form_ordonnance,
     executer_form_client,
     executer_form_stock,
+    executer_form_medecin,
+    executer_form_mutuelle,
+
 
     update_form_client,
     update_form_ordonnance,

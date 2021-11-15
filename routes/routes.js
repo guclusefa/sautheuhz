@@ -33,7 +33,9 @@ routeur.get('/', affichageControl.afficher_accueil)
     .post('/form_ordonnance', affichageControl.executer_form_ordonnance)
     .post('/form_client', affichageControl.executer_form_client)
     .post('/form_stock', affichageControl.executer_form_stock)
-
+    .post('/form_medecin', affichageControl.executer_form_medecin)
+    .post('/form_mutuelle', affichageControl.executer_form_mutuelle)
+    
     //modifier / supprimer données
     .post('/fiche_client/:id', affichageControl.update_form_client)
     .post('/fiche_ordonnances/:id', affichageControl.update_form_ordonnance)
