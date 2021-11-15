@@ -26,10 +26,10 @@ const afficher_dir = (req, res) => {
 
 // afficher page
 const afficher_accueil = (req, res) => {
-    mysqlconnexion.query('SELECT * Medicaments WHERE ', (err, lignes, champs) => {
+    mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
         if (!err) {
             console.log(lignes)
-            res.render('./accueil', { contenu: lignes, titre: "Accueil" })
+            res.render('./accueil', { contenu: lignes, titre: "Liste des clients" })
         }
     })
 }
