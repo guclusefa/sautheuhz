@@ -745,10 +745,10 @@ module.exports = {
 
     afficher_fiche_client,
     afficher_fiche_ordonnance,
+    afficher_fiche_stock,
     afficher_fiche_medecin,
     afficher_fiche_mutuelle,
     afficher_fiche_pathologie,
-    afficher_fiche_stock,
 
     executer_form_ordonnance,
     executer_form_client,
