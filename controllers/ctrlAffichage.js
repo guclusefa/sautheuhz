@@ -26,7 +26,12 @@ const afficher_dir = (req, res) => {
 
 // afficher page
 const afficher_accueil = (req, res) => {
-    res.render('./accueil', { titre: "Accueil" })
+    mysqlconnexion.query('SELECT * Medicaments WHERE ', (err, lignes, champs) => {
+        if (!err) {
+            console.log(lignes)
+            res.render('./accueil', { contenu: lignes, titre: "Accueil" })
+        }
+    })
 }
 
 const afficher_connexion = (req, res) => {
@@ -293,9 +298,9 @@ const executer_form_client = (req, res) => {
 
 //ajouter un medicament 
 
-const executer_form_stock = (req,res) => {
+const executer_form_stock = (req, res) => {
     let medicamentNom = req.body.inputMed
-    let medicamentQuantite= req.body.inputQte
+    let medicamentQuantite = req.body.inputQte
 
     let requeteSQL = `INSERT INTO Medicaments (Medicaments_libelle) VALUES ('${medicamentNom}') `
     mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
@@ -314,27 +319,27 @@ const executer_form_stock = (req,res) => {
                     mysqlconnexion.query(requeteSQL3, (err, champs) => {
                         if (!err) {
                             console.log("insertion  terminé");
-                            
+
                             let requeteSQL4 = `INSERT INTO Prescriptions (idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin) VALUES (73,${idm}, 0, 0, '2099-11-01')`
                             mysqlconnexion.query(requeteSQL4, (err, champs) => {
                                 if (!err) {
                                     console.log("insertion  terminé");
-                            
+
                                     res.redirect('./liste_stocks')
                                 } else {
-                        
+
                                     console.log("Erreur lors de l'enregistrment")
                                     res.send("Erreur ajout : " + JSON.stringify(err))
                                 }
                             })
                         } else {
-                
+
                             console.log("Erreur lors de l'enregistrment")
                             res.send("Erreur ajout : " + JSON.stringify(err))
                         }
                     })
                 } else {
-        
+
                     console.log("Erreur lors de l'enregistrment")
                     res.send("Erreur ajout : " + JSON.stringify(err))
                 }
@@ -342,7 +347,7 @@ const executer_form_stock = (req,res) => {
 
 
 
-            
+
         } else {
 
             console.log("Erreur lors de l'enregistrment")
@@ -423,7 +428,7 @@ const update_form_ordonnance = (req, res) => {
                         mysqlconnexion.query(requeteSQL3, (err) => {
                             if (!err) {
                                 console.log("Insertion terminé");
-                                
+
                             } else {
                                 console.log("Erreur lors de l'enregistrement")
                             }
