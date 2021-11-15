@@ -27,17 +27,44 @@ const afficher_dir = (req, res) => {
 // afficher page
 const afficher_accueil = (req, res) => {
     mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
-        if (!err) {
-            var lesMeds =[]
-            var lesDonnesMeds =[]
-            for(let i=0; i<lignes.length;i++){
-                lesMeds.push(lignes[i].Medicaments_libelle)
-                lesDonnesMeds.push(lignes[i].Stocks_quantite)
-            }
-            console.log(JSON.stringify(lesDonnesMeds))
-            console.log(JSON.parse(JSON.stringify(lesMeds)))
-            res.render('./accueil', { lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: lignes, titre: "Liste des clients" })
-        }
+        mysqlconnexion.query('SELECT  *, COUNT(*) as total FROM Pathologies, Ordonnances WHERE idPath = Pathologies_id GROUP BY idPath', (err, resPath, champs) => {
+            mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
+                if (!err) {
+                    // chart stock
+                    var lesMeds = []
+                    var lesDonnesMeds = []
+                    for (let i = 0; i < lignes.length; i++) {
+                        lesMeds.push(lignes[i].Medicaments_libelle)
+                        lesDonnesMeds.push(lignes[i].Stocks_quantite)
+                    }
+                    /* console.log(JSON.stringify(lesDonnesMeds))
+                    console.log(JSON.parse(JSON.stringify(lesMeds))) */
+
+                    // chart stock a prevoir
+                    lesMois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+                    var d = new Date();
+                    var prochainMois = [lesMois[d.getMonth()]]
+                    var prochainMoisEnNombre = [d.getMonth() + 1]
+                    for (let i = 0; i < 6; i++) {
+                        d.setMonth(d.getMonth() + 1);
+                        prochainMois.push(lesMois[d.getMonth()])
+                        prochainMoisEnNombre.push(d.getMonth() + 1)
+                    }
+                    /* console.log(prochainMois)
+                    console.log(prochainMoisEnNombre) */
+
+                    // chart pathologies
+                    var lesPath = []
+                    var lesDonnesPaths = []
+                    for (let i = 0; i < resPath.length; i++) {
+                        lesPath.push(resPath[i].Pathologies_libelle)
+                        lesDonnesPaths.push(resPath[i].total)
+                    }
+                    console.log(resPath)
+                    res.render('./accueil', { lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: lignes, titre: "Liste des clients" })
+                }
+            })
+        })
     })
 }
 
@@ -96,7 +123,7 @@ const afficher_liste_medecins = (req, res) => {
     mysqlconnexion.query('SELECT * FROM Medecins ', (err, medinfo, champs) => {
         if (!err) {
             console.log(medinfo)
-            res.render('./liste_medecins', {contenu : medinfo,  titre: "Les médecins" })
+            res.render('./liste_medecins', { contenu: medinfo, titre: "Les médecins" })
         }
     })
 }
@@ -164,9 +191,8 @@ const afficher_form_stock = (req, res) => {
     res.render('./form_stock', { titre: "Formulaire stock" })
 }
 
-const afficher_form_medecin = (req, res) => 
-{
-    res.render('./form_medecin', { contenu: medinfo, titre: "Formulaire médecin" })       
+const afficher_form_medecin = (req, res) => {
+    res.render('./form_medecin', { contenu: medinfo, titre: "Formulaire médecin" })
 }
 
 const afficher_form_mutuelle = (req, res) => {
@@ -220,7 +246,7 @@ const afficher_fiche_ordonnance = (req, res) => {
 const afficher_fiche_medecin = (req, res) => {
 
     id = req.params.id
-    requeteSQL = `SELECT* FROM Medecins WHERE Medecins_id =` +id
+    requeteSQL = `SELECT* FROM Medecins WHERE Medecins_id =` + id
     mysqlconnexion.query(requeteSQL, (err, medinfo, champs) => {
         if (!err) {
             console.log(medinfo)
@@ -232,7 +258,7 @@ const afficher_fiche_medecin = (req, res) => {
 
 const afficher_fiche_mutuelle = (req, res) => {
     id = req.params.id
-    requeteSQL = `SELECT * FROM Mutuelles WHERE Mutuelles_id =` +id
+    requeteSQL = `SELECT * FROM Mutuelles WHERE Mutuelles_id =` + id
     mysqlconnexion.query(requeteSQL, (err, mutinfo, champs) => {
         if (!err) {
             console.log(mutinfo)
@@ -245,7 +271,7 @@ const afficher_fiche_mutuelle = (req, res) => {
 const afficher_fiche_pathologie = (req, res) => {
 
     id = req.params.id
-    requeteSQL = `SELECT * FROM Pathologies WHERE Pathologies_id =` +id
+    requeteSQL = `SELECT * FROM Pathologies WHERE Pathologies_id =` + id
     mysqlconnexion.query(requeteSQL, (err, pathinfo) => {
         if (!err) {
             console.log(pathinfo)
@@ -256,7 +282,7 @@ const afficher_fiche_pathologie = (req, res) => {
 }
 const afficher_fiche_stock = (req, res) => {
     id = req.params.id
-    requeteSQL = `SELECT * FROM Stocks WHERE Stocks_id =` +id
+    requeteSQL = `SELECT * FROM Stocks WHERE Stocks_id =` + id
     mysqlconnexion.query(requeteSQL, (err, stockinfo) => {
         if (!err) {
             console.log(stockinfo)
@@ -420,11 +446,11 @@ const executer_form_stock = (req, res) => {
 
 //ajouter un medecin 
 
-const executer_form_medecin = (req,res) => {
-    
+const executer_form_medecin = (req, res) => {
+
     let medecinNom = req.body.inputNom
     let medecinPrenom = req.body.inputPrenom
-    let medecinMail  = req.body.inputEmail
+    let medecinMail = req.body.inputEmail
     let medecinTel = req.body.inputTel
     let medecinOrdreNo = req.body.inputOrdre
 
@@ -454,7 +480,7 @@ const executer_form_mutuelle = (req, res) => {
     let mutuelleMail = req.body.inputEmail
     let mutuelleTel = req.body.inputTel
     mutuelleTel = mutuelleTel.split(' ').join('')
-    
+
     let requeteSQL = "INSERT INTO Mutuelles (Mutuelles_nom, Mutuelles_tel, Mutuelles_mail) VALUES"
     requeteSQL += ` ('${mutuelleNom}',${mutuelleTel},'${mutuelleMail}')`
 
@@ -590,7 +616,7 @@ const update_form_medecin = (req, res) => {
 
     let medecinNom = req.body.inputNom
     let medecinPrenom = req.body.inputPrenom
-    let medecinMail  = req.body.inputEmail
+    let medecinMail = req.body.inputEmail
     let medecinTel = req.body.inputTel
     let medecinOrdreNo = req.body.inputOrdre
     //reverse la date de naissance pour la mettre au format mysql
@@ -634,10 +660,10 @@ const update_form_mutuelle = (req, res) => {
 
 }
 
-const update_form_pathologie= (req, res) => {
+const update_form_pathologie = (req, res) => {
     id = req.params.id
     let pathologieLibelle = req.body.inputNomMutu
-    
+
     let requeteSQL = `UPDATE Pathologies SET Pathologies_libelle = '${pathologieLibelle}' WHERE Pathologies_id = ` + id
     mysqlconnexion.query(requeteSQL, (err) => {
         if (!err) {
@@ -688,7 +714,7 @@ const delete_fiche_ordonnance = (req, res) => {
     })
 }
 
-const delete_fiche_medecin = (req,res) => {
+const delete_fiche_medecin = (req, res) => {
     id = req.params.id
     let requeteSQL = `DELETE FROM Medecins WHERE Medecins_id = ` + id
     mysqlconnexion.query(requeteSQL, (err, champs) => {
@@ -704,7 +730,7 @@ const delete_fiche_medecin = (req,res) => {
     })
 }
 
-const delete_fiche_mutuelle = (req,res) => {
+const delete_fiche_mutuelle = (req, res) => {
     id = req.params.id
     let requeteSQL = `DELETE FROM Mutuelles WHERE Mutuelles_id = ` + id
     mysqlconnexion.query(requeteSQL, (err, champs) => {
@@ -720,7 +746,7 @@ const delete_fiche_mutuelle = (req,res) => {
     })
 }
 
-const delete_fiche_pathologie = (req,res) => {
+const delete_fiche_pathologie = (req, res) => {
     id = req.params.id
     let requeteSQL = `DELETE FROM Pathologies WHERE Pathologies_id = ` + id
     mysqlconnexion.query(requeteSQL, (err, champs) => {
