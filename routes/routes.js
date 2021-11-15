@@ -28,6 +28,7 @@ routeur.get('/', affichageControl.afficher_accueil)
     .get('/fiche_medecin/:id', affichageControl.afficher_fiche_medecin)
     .get('/fiche_mutuelle/:id', affichageControl.afficher_fiche_mutuelle)
     .get('/fiche_pathologie/:id', affichageControl.afficher_fiche_pathologie)
+    .get('/fiche_stock/:id', affichageControl.afficher_fiche_stock)
 
     //executer les formulaires
     .post('/form_ordonnance', affichageControl.executer_form_ordonnance)
@@ -35,13 +36,21 @@ routeur.get('/', affichageControl.afficher_accueil)
     .post('/form_stock', affichageControl.executer_form_stock)
     .post('/form_medecin', affichageControl.executer_form_medecin)
     .post('/form_mutuelle', affichageControl.executer_form_mutuelle)
+    .post('/form_pathologie', affichageControl.executer_form_pathologie)
     
     //modifier / supprimer données
     .post('/fiche_client/:id', affichageControl.update_form_client)
     .post('/fiche_ordonnances/:id', affichageControl.update_form_ordonnance)
+    .post('/fiche_medecin/:id', affichageControl.update_form_medecin)
+    .post('/fiche_mutuelle/:id', affichageControl.update_form_mutuelle)
+    .post('/fiche_pathologie/:id', affichageControl.update_form_pathologie)
 
     .post('/delete_client/:id', affichageControl.delete_fiche_client) 
     .post('/delete_ordonnances/:id', affichageControl.delete_fiche_ordonnance)
+    .post('/delete_medecin/:id', affichageControl.delete_fiche_medecin)
+    .post('/delete_mutuelle/:id', affichageControl.delete_fiche_mutuelle)
+    .post('/delete_pathologie/:id', affichageControl.delete_fiche_pathologie)
+
 
     
 module.exports = routeur;

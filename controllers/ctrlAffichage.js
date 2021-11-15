@@ -152,8 +152,9 @@ const afficher_form_stock = (req, res) => {
     res.render('./form_stock', { titre: "Formulaire stock" })
 }
 
-const afficher_form_medecin = (req, res) => {
-    res.render('./form_medecin', { titre: "Formulaire médecin" })
+const afficher_form_medecin = (req, res) => 
+{
+    res.render('./form_medecin', { contenu: medinfo, titre: "Formulaire médecin" })       
 }
 
 const afficher_form_mutuelle = (req, res) => {
@@ -205,15 +206,52 @@ const afficher_fiche_ordonnance = (req, res) => {
 }
 
 const afficher_fiche_medecin = (req, res) => {
-    res.render('./fiche_medecin', { titre: "Fiche médecin" })
+
+    id = req.params.id
+    requeteSQL = `SELECT* FROM Medecins WHERE Medecins_id =` +id
+    mysqlconnexion.query(requeteSQL, (err, medinfo, champs) => {
+        if (!err) {
+            console.log(medinfo)
+            res.render('./fiche_medecin', { contenu: medinfo, titre: "Fiche médecin" })
+
+        }
+    })
 }
 
 const afficher_fiche_mutuelle = (req, res) => {
-    res.render('./fiche_mutuelle', { titre: "Fiche mutuelle" })
+    id = req.params.id
+    requeteSQL = `SELECT * FROM Mutuelles WHERE Mutuelles_id =` +id
+    mysqlconnexion.query(requeteSQL, (err, mutinfo, champs) => {
+        if (!err) {
+            console.log(mutinfo)
+            res.render('./fiche_mutuelle', { contenu: mutinfo, titre: "Fiche mutuelle" })
+
+        }
+    })
 }
 
 const afficher_fiche_pathologie = (req, res) => {
-    res.render('./fiche_pathologie', { titre: "Fiche pathologie" })
+
+    id = req.params.id
+    requeteSQL = `SELECT * FROM Pathologies WHERE Pathologies_id =` +id
+    mysqlconnexion.query(requeteSQL, (err, pathinfo) => {
+        if (!err) {
+            console.log(pathinfo)
+            res.render('./fiche_pathologie', { contenu: pathinfo, titre: "Fiche pathologie" })
+
+        }
+    })
+}
+const afficher_fiche_stock = (req, res) => {
+    id = req.params.id
+    requeteSQL = `SELECT * FROM Stocks WHERE Stocks_id =` +id
+    mysqlconnexion.query(requeteSQL, (err, stockinfo) => {
+        if (!err) {
+            console.log(stockinfo)
+            res.render('./fiche_stock', { contenu: stockinfo, titre: "Fiche stock" })
+
+        }
+    })
 }
 
 const executer_form_ordonnance = (req, res) => {
@@ -404,7 +442,6 @@ const executer_form_mutuelle = (req, res) => {
     let mutuelleMail = req.body.inputEmail
     let mutuelleTel = req.body.inputTel
     mutuelleTel = mutuelleTel.split(' ').join('')
-
     
     let requeteSQL = "INSERT INTO Mutuelles (Mutuelles_nom, Mutuelles_tel, Mutuelles_mail) VALUES"
     requeteSQL += ` ('${mutuelleNom}',${mutuelleTel},'${mutuelleMail}')`
@@ -420,13 +457,25 @@ const executer_form_mutuelle = (req, res) => {
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
     })
-
 }
 
 //ajouter une pathologie
-
 const executer_form_pathologie = (req, res) => {
-    
+    let pathologieNom = req.body.inputNomMutu
+    let requeteSQL = "INSERT INTO Pathologies (Pathologies_libelle) VALUES"
+    requeteSQL += ` ('${pathologieNom}')`
+
+    mysqlconnexion.query(requeteSQL, (err, champs) => {
+        if (!err) {
+            console.log("Insertion terminé");
+            res.redirect('./liste_pathologies')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
 }
 
 
@@ -521,10 +570,76 @@ const update_form_ordonnance = (req, res) => {
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
     })
+}
 
+
+const update_form_medecin = (req, res) => {
+    id = req.params.id
+
+    let medecinNom = req.body.inputNom
+    let medecinPrenom = req.body.inputPrenom
+    let medecinMail  = req.body.inputEmail
+    let medecinTel = req.body.inputTel
+    let medecinOrdreNo = req.body.inputOrdre
+    //reverse la date de naissance pour la mettre au format mysql
+    medecinTel = medecinTel.split(' ').join('')
+
+    let requeteSQL = `UPDATE Medecins SET Medecins_noOrdre = ${medecinOrdreNo} , Medecins_nom ='${medecinNom}' , Medecins_prenom = '${medecinPrenom}', Medecins_tel = '${medecinTel}', Medecins_mail = '${medecinMail}' WHERE Medecins_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
+        if (!err) {
+            console.log("Insertion terminé");
+            res.redirect('./../liste_medecins')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
 
 }
 
+const update_form_mutuelle = (req, res) => {
+    id = req.params.id
+    let mutuelleNom = req.body.inputNomMutu
+    let mutuelleMail = req.body.inputEmail
+    let mutuelleTel = req.body.inputTel
+    //reverse la date de naissance pour la mettre au format mysql
+    mutuelleTel = mutuelleTel.split(' ').join('')
+
+    let requeteSQL = `UPDATE Mutuelles SET Mutuelles_nom = '${mutuelleNom}' , Mutuelles_tel =${mutuelleTel} , Mutuelles_mail = '${mutuelleMail}' WHERE Mutuelles_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err) => {
+        if (!err) {
+            console.log("Insertion terminé");
+            res.redirect('./../liste_mutuelles')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+
+}
+
+const update_form_pathologie= (req, res) => {
+    id = req.params.id
+    let pathologieLibelle = req.body.inputNomMutu
+    
+    let requeteSQL = `UPDATE Pathologies SET Pathologies_libelle = '${pathologieLibelle}' WHERE Pathologies_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err) => {
+        if (!err) {
+            console.log("Insertion terminé");
+            res.redirect('./../liste_pathologies')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+
+}
 
 //delete client
 const delete_fiche_client = (req, res) => {
@@ -561,6 +676,54 @@ const delete_fiche_ordonnance = (req, res) => {
     })
 }
 
+const delete_fiche_medecin = (req,res) => {
+    id = req.params.id
+    let requeteSQL = `DELETE FROM Medecins WHERE Medecins_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err, champs) => {
+        if (!err) {
+            console.log("Suppression  terminé");
+            res.redirect('./../liste_medecins')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+}
+
+const delete_fiche_mutuelle = (req,res) => {
+    id = req.params.id
+    let requeteSQL = `DELETE FROM Mutuelles WHERE Mutuelles_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err, champs) => {
+        if (!err) {
+            console.log("Suppression  terminé");
+            res.redirect('./../liste_mutuelles')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+}
+
+const delete_fiche_pathologie = (req,res) => {
+    id = req.params.id
+    let requeteSQL = `DELETE FROM Pathologies WHERE Pathologies_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err, champs) => {
+        if (!err) {
+            console.log("Suppression  terminé");
+            res.redirect('./../liste_pathologies')
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+}
+
 module.exports = {
     afficher_accueil,
     afficher_connexion,
@@ -585,18 +748,26 @@ module.exports = {
     afficher_fiche_medecin,
     afficher_fiche_mutuelle,
     afficher_fiche_pathologie,
+    afficher_fiche_stock,
 
     executer_form_ordonnance,
     executer_form_client,
     executer_form_stock,
     executer_form_medecin,
     executer_form_mutuelle,
+    executer_form_pathologie,
 
 
     update_form_client,
     update_form_ordonnance,
+    update_form_medecin,
+    update_form_mutuelle,
+    update_form_pathologie,
 
     delete_fiche_client,
-    delete_fiche_ordonnance
+    delete_fiche_ordonnance,
+    delete_fiche_medecin,
+    delete_fiche_mutuelle,
+    delete_fiche_pathologie
 }
 
