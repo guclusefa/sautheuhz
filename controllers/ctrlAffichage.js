@@ -28,8 +28,15 @@ const afficher_dir = (req, res) => {
 const afficher_accueil = (req, res) => {
     mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
         if (!err) {
-            console.log(lignes)
-            res.render('./accueil', { contenu: lignes, titre: "Liste des clients" })
+            var lesMeds =[]
+            var lesDonnesMeds =[]
+            for(let i=0; i<lignes.length;i++){
+                lesMeds.push(lignes[i].Medicaments_libelle)
+                lesDonnesMeds.push(lignes[i].Stocks_quantite)
+            }
+            console.log(JSON.stringify(lesDonnesMeds))
+            console.log(JSON.parse(JSON.stringify(lesMeds)))
+            res.render('./accueil', { lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: lignes, titre: "Liste des clients" })
         }
     })
 }
