@@ -84,15 +84,19 @@ const afficher_liste_clients = (req, res) => {
 
 const afficher_liste_ordonnances = (req, res) => {
     // 73 = numero variable en fonction du numero de l'ordonnance test (de preference la mettre en 1)
-    mysqlconnexion.query('SELECT * FROM Ordonnances WHERE Ordonnances_id >73', (err, contenuordo, champs) => {
+    let requeteSQL1 = 'SELECT * FROM Ordonnances WHERE Ordonnances_id >73'
+    let requeteSQL2 = 'SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id AND Ordonnances_id >73 GROUP BY idOrdo ORDER BY dureeOrdonnance DESC '
+    let requeteSQL3 = 'SELECT *, Prescriptions_dateFin - Ordonnances_date as duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id'
+   
+    mysqlconnexion.query(requeteSQL1, (err, contenuordo, champs) => {
         if (!err) {
 
-            mysqlconnexion.query('SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id AND Ordonnances_id >73 GROUP BY idOrdo ORDER BY dureeOrdonnance DESC ', (err, contenudate, champs) => {
+            mysqlconnexion.query(requeteSQL2, (err, contenudate, champs) => {
                 if (!err) {
-                    mysqlconnexion.query('SELECT *, Prescriptions_dateFin - Ordonnances_date as duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id', (err, contenupresciptions, champs) => {
+                    mysqlconnexion.query(requeteSQL3, (err, contenupresciptions, champs) => {
                         if (!err) {
                             console.log(contenudate)
-                            res.render('./liste_ordonnances', { prescriptions: contenupresciptions, contenu: contenuordo, date: contenudate, titre: "Les ordonnances" })
+                            res.render('./liste_ordonnances', { contenu: contenuordo, date: contenudate, prescriptions: contenupresciptions,  titre: "Les ordonnances" })
                         }
                     })
                 }
@@ -518,7 +522,7 @@ const executer_form_pathologie = (req, res) => {
 
 
 const update_form_client = (req, res) => {
-    id = req.params.id
+    let id = req.params.id
 
 
     let clientNom = req.body.inputNom
@@ -535,20 +539,18 @@ const update_form_client = (req, res) => {
 
     //reverse la date de naissance pour la mettre au format mysql
     clientBirthday = clientBirthday.split("/").reverse().join("/");
-
+    //enleve les espaces des variablessuivantes
     clientTel = clientTel.split(' ').join('')
     clientNoSS = clientNoSS.split(' ').join('')
 
-    let requeteSQL = `UPDATE Clients SET idMutuelle = ${clientMutuelle} , clients_noSS ='${clientNoSS}' , clients_nom = '${clientNom}', clients_prenom = '${clientPrenom}', clients_sexe = '${clientSexe}', clients_dateNaissance = '${clientBirthday}', clients_tel = ${clientTel}, clients_mail = '${clientMail}', clients_adresse = '${clientAdresse}', clients_ville = '${clientVille}', clients_cp = '${clientCp}' WHERE clients_id = ` + id
-
-
-    mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
+    let requeteSQL = `UPDATE Clients SET idMutuelle = ${clientMutuelle} , clients_noSS ='${clientNoSS}' , clients_nom = '${clientNom}', clients_prenom = '${clientPrenom}', clients_sexe = '${clientSexe}', clients_dateNaissance = '${clientBirthday}', clients_tel = ${clientTel}, clients_mail = '${clientMail}', clients_adresse = '${clientAdresse}', clients_ville = '${clientVille}', clients_cp = '${clientCp}' WHERE clients_id =` + id
+    mysqlconnexion.query(requeteSQL, (err,champs) => {
         if (!err) {
             console.log("Insertion terminé");
             res.redirect('./../liste_clients')
         } else {
             console.log("Insertion echouée");
-
+            console.log(requeteSQL)
             console.log("Erreur lors de l'enregistrment")
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
@@ -563,9 +565,8 @@ const update_form_ordonnance = (req, res) => {
     let ordonnanceMedecin = req.body.selectMedecin
     let ordonnancePathologie = req.body.selectPathologie
     let ordonnanceDateDebut = req.body.inputDateDebut
-
+//reverse de a date pour la mettre au format SQL
     ordonnanceDateDebut = ordonnanceDateDebut.split("/").reverse().join("/");
-    //prescriptionDateFin = prescriptionDateFin.split("/").reverse().join("/");
 
     let requeteSQL = `UPDATE Ordonnances SET idPath = ${ordonnancePathologie} , idMedecin = '${ordonnanceMedecin}', idClient = '${ordonnanceClient}' , Ordonnances_date = '${ordonnanceDateDebut}' WHERE Ordonnances_id = ` + id
     mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
