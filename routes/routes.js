@@ -25,10 +25,10 @@ routeur.get('/', affichageControl.afficher_accueil)
     
     .get('/fiche_client/:id', affichageControl.afficher_fiche_client)
     .get('/fiche_ordonnance/:id', affichageControl.afficher_fiche_ordonnance)
+    .get('/fiche_stock/:id', affichageControl.afficher_fiche_stock)
     .get('/fiche_medecin/:id', affichageControl.afficher_fiche_medecin)
     .get('/fiche_mutuelle/:id', affichageControl.afficher_fiche_mutuelle)
     .get('/fiche_pathologie/:id', affichageControl.afficher_fiche_pathologie)
-    .get('/fiche_stock/:id', affichageControl.afficher_fiche_stock)
 
     //executer les formulaires
     .post('/form_ordonnance', affichageControl.executer_form_ordonnance)
@@ -44,6 +44,7 @@ routeur.get('/', affichageControl.afficher_accueil)
     .post('/fiche_medecin/:id', affichageControl.update_form_medecin)
     .post('/fiche_mutuelle/:id', affichageControl.update_form_mutuelle)
     .post('/fiche_pathologie/:id', affichageControl.update_form_pathologie)
+    .post('/fiche_stock/:id', affichageControl.update_form_stock)
 
     .post('/delete_client/:id', affichageControl.delete_fiche_client) 
     .post('/delete_ordonnances/:id', affichageControl.delete_fiche_ordonnance)

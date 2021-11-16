@@ -13,13 +13,13 @@
         </div>
 
         <div class="row mt-3">
-            <form action="/sautheuhz/form_stock" method="POST" class="container" id="form_stock" novalidate>
+            <form action="/sautheuhz/fiche_stock/<%= contenu[0].Medicaments_id %>" method="POST" class="container" id="form_stock" novalidate>
                 <!-- médciament et qte-->
                 <div class="row">
                     <div class="form-group  col-sm-12 col-xl-6">
                         <label for="inputMed" class="form-label required">Médicament</label>
                         <input type="text" class="form-control" id="inputMed" name="inputMed"
-                            placeholder="Nom du médicament"  required>
+                            placeholder="Nom du médicament" value="<%= contenu[0].Medicaments_libelle %>" required>
                         <div class="invalid-feedback">
                             Veuillez fournir un médicament valide.
                         </div>
@@ -27,7 +27,7 @@
                     <div class="form-group col-sm-12 col-xl-6">
                         <label for="inputQte" class="form-label required">Quantité</label>
                         <input type="number" class="form-control" id="inputQte" name="inputQte" placeholder="Quantité"
-                            min="2" max="20"  required>
+                            min="2" max="20" value="<%= contenu[0].Stocks_quantite %>" required>
                         <div class="invalid-feedback">
                             Veuillez fournir une quantité valide.
                         </div>

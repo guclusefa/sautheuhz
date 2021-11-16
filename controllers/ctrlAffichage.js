@@ -282,7 +282,7 @@ const afficher_fiche_pathologie = (req, res) => {
 }
 const afficher_fiche_stock = (req, res) => {
     id = req.params.id
-    requeteSQL = `SELECT * FROM Stocks WHERE Stocks_id =` + id
+    requeteSQL = `SELECT * FROM Stocks, Medicaments WHERE Medicaments_id =` + id + ` AND Medicaments_id = idMedicament `
     mysqlconnexion.query(requeteSQL, (err, stockinfo) => {
         if (!err) {
             console.log(stockinfo)
@@ -679,6 +679,37 @@ const update_form_pathologie = (req, res) => {
 
 }
 
+const update_form_stock = (req, res) => {
+    let id = req.params.id
+    let medicamentNom = req.body.inputMed
+    let medicamentQuantite = req.body.inputQte
+
+
+    let requeteSQL = `UPDATE Medicaments SET Medicaments_libelle = '${medicamentNom}' WHERE Medicaments_id = ` + id
+    mysqlconnexion.query(requeteSQL, (err) => {
+        if (!err) {
+            let requeteSQL = `UPDATE Stocks SET Stocks_quantite = '${medicamentQuantite}' WHERE idMedicament = ` + id
+            mysqlconnexion.query(requeteSQL, (err) => {
+                if (!err) {
+                    console.log("Insertion terminé");
+                    res.redirect('./../liste_stocks')
+                } else {
+                    console.log("Insertion echouée");
+
+                    console.log("Erreur lors de l'enregistrment")
+                    res.send("Erreur ajout : " + JSON.stringify(err))
+                }
+            })
+        } else {
+            console.log("Insertion echouée");
+
+            console.log("Erreur lors de l'enregistrment")
+            res.send("Erreur ajout : " + JSON.stringify(err))
+        }
+    })
+
+}
+
 //delete client
 const delete_fiche_client = (req, res) => {
     id = req.params.id
@@ -801,6 +832,7 @@ module.exports = {
     update_form_medecin,
     update_form_mutuelle,
     update_form_pathologie,
+    update_form_stock,
 
     delete_fiche_client,
     delete_fiche_ordonnance,
