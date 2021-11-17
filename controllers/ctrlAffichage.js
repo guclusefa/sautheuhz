@@ -559,9 +559,9 @@ const update_form_client = (req, res) => {
     let requeteSQL = `UPDATE Clients SET idMutuelle = ${clientMutuelle} , clients_noSS ='${clientNoSS}' , clients_nom = '${clientNom}', clients_prenom = '${clientPrenom}', clients_sexe = '${clientSexe}', clients_dateNaissance = '${clientBirthday}', clients_tel = ${clientTel}, clients_mail = '${clientMail}', clients_adresse = '${clientAdresse}', clients_ville = '${clientVille}', clients_cp = '${clientCp}' WHERE clients_id =` + id
     mysqlconnexion.query(requeteSQL, (err, champs) => {
         if (!err) {
-            res.redirect('./../liste_clients', valid = "Modification terminé")
+            res.redirect('./../liste_clients')
         } else {
-            res.redirect('./../liste_clients', erreur = "Modification echouée")
+            res.redirect('./../liste_clients')
         }
     })
 
