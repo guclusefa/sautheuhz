@@ -26,8 +26,8 @@ const afficher_dir = (req, res) => {
 
 // afficher page
 const afficher_accueil = (req, res) => {
-    mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
-        mysqlconnexion.query('SELECT  *, COUNT(*) as total FROM Pathologies, Ordonnances WHERE idPath = Pathologies_id GROUP BY idPath', (err, resPath, champs) => {
+    mysqlconnexion.query('SELECT  *, COUNT(*) as total FROM Pathologies, Ordonnances WHERE idPath = Pathologies_id GROUP BY idPath', (err, resPath, champs) => {
+        if (!err) {
             mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
                 if (!err) {
                     // chart stock
@@ -43,6 +43,7 @@ const afficher_accueil = (req, res) => {
                     // chart stock a prevoir
                     lesMois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
                     var d = new Date();
+                    var annee = d.getFullYear()
                     var prochainMois = [lesMois[d.getMonth()]]
                     var prochainMoisEnNombre = [d.getMonth() + 1]
                     for (let i = 0; i < 6; i++) {
@@ -50,6 +51,13 @@ const afficher_accueil = (req, res) => {
                         prochainMois.push(lesMois[d.getMonth()])
                         prochainMoisEnNombre.push(d.getMonth() + 1)
                     }
+
+                    for (let mois in prochainMoisEnNombre) {
+                        mysqlconnexion.query('SELECT *, SUM(Prescriptions_quantite*Prescriptions_frequence) as total, Prescriptions_dateFin - Ordonnances_date as duree FROM Medicaments, Prescriptions, Ordonnances WHERE Medicaments_id = idMedicament AND Ordonnances_id = idOrdo AND MONTH(Prescriptions_dateFin) = ' + prochainMoisEnNombre[mois] + ' AND YEAR(Prescriptions_dateFin) = ' + annee + ' GROUP BY idMedicament', (err, resMois, champs) => {
+                            console.log(resMois)
+                        })
+                    }
+                    /* console.log(resMois) */
                     /* console.log(prochainMois)
                     console.log(prochainMoisEnNombre) */
 
@@ -60,11 +68,11 @@ const afficher_accueil = (req, res) => {
                         lesPath.push(resPath[i].Pathologies_libelle)
                         lesDonnesPaths.push(resPath[i].total)
                     }
-                    console.log(resPath)
+                    /* console.log(resPath) */
                     res.render('./accueil', { lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: lignes, titre: "Liste des clients" })
                 }
             })
-        })
+        }
     })
 }
 
@@ -85,9 +93,9 @@ const afficher_liste_clients = (req, res) => {
 const afficher_liste_ordonnances = (req, res) => {
     // 73 = numero variable en fonction du numero de l'ordonnance test (de preference la mettre en 1)
     let requeteSQL1 = 'SELECT * FROM Ordonnances WHERE Ordonnances_id >73'
-    let requeteSQL2 = 'SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id AND Ordonnances_id >73 GROUP BY idOrdo ORDER BY dureeOrdonnance DESC '
-    let requeteSQL3 = 'SELECT *, Prescriptions_dateFin - Ordonnances_date as duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id'
-   
+    let requeteSQL2 = 'SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(DATEDIFF(Prescriptions_dateFin, Ordonnances_date)) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id AND Ordonnances_id >73 GROUP BY idOrdo ORDER BY dureeOrdonnance DESC '
+    let requeteSQL3 = 'SELECT *, DATEDIFF(Prescriptions_dateFin, Ordonnances_date) as duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id'
+
     mysqlconnexion.query(requeteSQL1, (err, contenuordo, champs) => {
         if (!err) {
 
@@ -96,7 +104,7 @@ const afficher_liste_ordonnances = (req, res) => {
                     mysqlconnexion.query(requeteSQL3, (err, contenupresciptions, champs) => {
                         if (!err) {
                             console.log(contenudate)
-                            res.render('./liste_ordonnances', { contenu: contenuordo, date: contenudate, prescriptions: contenupresciptions,  titre: "Les ordonnances" })
+                            res.render('./liste_ordonnances', { contenu: contenuordo, date: contenudate, prescriptions: contenupresciptions, titre: "Les ordonnances" })
                         }
                     })
                 }
@@ -544,7 +552,7 @@ const update_form_client = (req, res) => {
     clientNoSS = clientNoSS.split(' ').join('')
 
     let requeteSQL = `UPDATE Clients SET idMutuelle = ${clientMutuelle} , clients_noSS ='${clientNoSS}' , clients_nom = '${clientNom}', clients_prenom = '${clientPrenom}', clients_sexe = '${clientSexe}', clients_dateNaissance = '${clientBirthday}', clients_tel = ${clientTel}, clients_mail = '${clientMail}', clients_adresse = '${clientAdresse}', clients_ville = '${clientVille}', clients_cp = '${clientCp}' WHERE clients_id =` + id
-    mysqlconnexion.query(requeteSQL, (err,champs) => {
+    mysqlconnexion.query(requeteSQL, (err, champs) => {
         if (!err) {
             console.log("Insertion terminé");
             res.redirect('./../liste_clients')
@@ -565,7 +573,7 @@ const update_form_ordonnance = (req, res) => {
     let ordonnanceMedecin = req.body.selectMedecin
     let ordonnancePathologie = req.body.selectPathologie
     let ordonnanceDateDebut = req.body.inputDateDebut
-//reverse de a date pour la mettre au format SQL
+    //reverse de a date pour la mettre au format SQL
     ordonnanceDateDebut = ordonnanceDateDebut.split("/").reverse().join("/");
 
     let requeteSQL = `UPDATE Ordonnances SET idPath = ${ordonnancePathologie} , idMedecin = '${ordonnanceMedecin}', idClient = '${ordonnanceClient}' , Ordonnances_date = '${ordonnanceDateDebut}' WHERE Ordonnances_id = ` + id
