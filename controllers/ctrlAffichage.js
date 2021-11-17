@@ -123,14 +123,14 @@ const afficher_liste_stocks = (req, res) => {
     })
 }
 
-const afficher_liste_medecins = (req, res) => {
+/*const afficher_liste_medecins = (req, res) => {
     mysqlconnexion.query('SELECT * FROM Medecins ', (err, medinfo, champs) => {
         if (!err) {
             console.log(medinfo)
             res.render('./liste_medecins', { contenu: medinfo, titre: "Les médecins" })
         }
     })
-}
+}*/
 
 const afficher_liste_mutuelles = (req, res) => {
     mysqlconnexion.query('SELECT * FROM Mutuelles ', (err, mutinfo, champs) => {
@@ -801,7 +801,7 @@ module.exports = {
     afficher_liste_clients,
     afficher_liste_ordonnances,
     afficher_liste_stocks,
-    afficher_liste_medecins,
+    //afficher_liste_medecins,
     afficher_liste_mutuelles,
     afficher_liste_pathologies,
 
