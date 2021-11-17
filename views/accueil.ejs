@@ -1,197 +1,199 @@
 <%- include('header') %>
   <div class="container">
-    <!-- Titre -->
-    <div class="row d-flex justify-content-center text-center">
-      <div class="col-xl-12 col-md-12 mt-3">
-        <div class="card">
-          <div class="card-body">
-            <h1 class="">Pharmacie Sautheuhz</h1>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%- include('msgErreur') %>
+            <!-- Titre -->
+            <div class="row d-flex justify-content-center text-center">
+              <div class="col-xl-12 col-md-12 mt-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h1 class="">Pharmacie Sautheuhz</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <!-- Chart -->
-    <div class="row mt-3">
-      <div class="col-xl-12 col-md-12 mt-3">
-        <div class="card">
-          <div class="card-body titreChart">
-            <h5 class="card-title">Stock à prevoir pour les 6 prochain mois</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-          </div>
-          <canvas id="myChart" class="m-3"></canvas>
-        </div>
-      </div>
-    </div>
+            <!-- Chart -->
+            <div class="row mt-3">
+              <div class="col-xl-12 col-md-12 mt-3">
+                <div class="card">
+                  <div class="card-body titreChart">
+                    <h5 class="card-title">Stock à prevoir pour les 6 prochains mois</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                      card's
+                      content.</p>
+                  </div>
+                  <canvas id="myChart" class="m-3"></canvas>
+                </div>
+              </div>
+            </div>
 
-    <script>
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: <%- JSON.stringify(prochainMois) %>,
-          datasets: [{
-            label: 'Stock de doliprane',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-          },
-          {
-            label: 'Stock de doliprane',
-            data: [15, 11, 23, 25, 22, 13],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-          }
-        ]
-        },
-        options: {
-          plugins: {
-            legend: {
-              display: true,
-              position: 'bottom',
-              align: 'start'
-            }
-          }
-        }
-      });
+            <script>
+              var ctx = document.getElementById('myChart').getContext('2d');
+              var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: <%- JSON.stringify(prochainMois) %>,
+                  datasets: [{
+                    label: 'Stock de doliprane',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                  },
+                  {
+                    label: 'Stock de doliprane',
+                    data: [15, 11, 23, 25, 22, 13],
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                  }
+                  ]
+                },
+                options: {
+                  plugins: {
+                    legend: {
+                      display: true,
+                      position: 'bottom',
+                      align: 'start'
+                    }
+                  }
+                }
+              });
 
-    </script>
+            </script>
 
-    <div class="row">
-      <div class="col-xl-6 col-md-12 mt-5">
-        <div class="card">
-          <div class="card-body titreChart">
-            <h5 class="card-title">Stock des médicaments</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's
-              content.</p>
-          </div>
-          <canvas id="myChart3" class="m-3"></canvas>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-xl-6 col-md-12 mt-5">
+                <div class="card">
+                  <div class="card-body titreChart">
+                    <h5 class="card-title">Stock des médicaments</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                      card's
+                      content.</p>
+                  </div>
+                  <canvas id="myChart3" class="m-3"></canvas>
+                </div>
+              </div>
 
-      <script>
-        var ctx = document.getElementById('myChart3').getContext('2d');
-        var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: <%- JSON.stringify(lesMeds) %>,
-            datasets: [{
-              label: 'Stock de doliprane',
-              data: <%- lesDonnesMeds %>,
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)'
-              ],
-              borderWidth: 1
-            }],
-          },
-          options: {
-            indexAxis: 'y',
-            responsive: true,
-            plugins: {
-              legend: {
-                display: false,
-                position: 'bottom',
-                align: 'start'
-              }
-            }
-          }
-        });
-      </script>
+              <script>
+                var ctx = document.getElementById('myChart3').getContext('2d');
+                var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                    labels: <%- JSON.stringify(lesMeds) %>,
+                    datasets: [{
+                      label: 'Stock de doliprane',
+                      data: <%- lesDonnesMeds %>,
+                      backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                      ],
+                      borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                      ],
+                      borderWidth: 1
+                    }],
+                  },
+                  options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: {
+                      legend: {
+                        display: false,
+                        position: 'bottom',
+                        align: 'start'
+                      }
+                    }
+                  }
+                });
+              </script>
 
-      <div class="col-xl-6 col-md-12 mt-5">
-        <div class="card">
-          <div class="card-body titreChart">
-            <h5 class="card-title">Pourcentage des pathologies</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's
-              content.</p>
-          </div>
-          <canvas id="myChart2" class="m-3"></canvas>
-        </div>
-      </div>
+              <div class="col-xl-6 col-md-12 mt-5">
+                <div class="card">
+                  <div class="card-body titreChart">
+                    <h5 class="card-title">Pourcentage des pathologies</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                      card's
+                      content.</p>
+                  </div>
+                  <canvas id="myChart2" class="m-3"></canvas>
+                </div>
+              </div>
 
-      <script>
-        var ctx = document.getElementById('myChart2').getContext('2d');
-        var myChart = new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            labels: <%- JSON.stringify(lesPath) %>,
-            datasets: [{
-              label: 'Stock de doliprane',
-              data: <%- lesDonnesPaths %>,
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            plugins: {
-              legend: {
-                display: true,
-                position: 'bottom',
-                align: 'start'
-              }
-            }
-          }
-        });
-      </script>
-    </div>
+              <script>
+                var ctx = document.getElementById('myChart2').getContext('2d');
+                var myChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                    labels: <%- JSON.stringify(lesPath) %>,
+                    datasets: [{
+                      label: 'Stock de doliprane',
+                      data: <%- lesDonnesPaths %>,
+                      backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                      ],
+                      borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    plugins: {
+                      legend: {
+                        display: true,
+                        position: 'bottom',
+                        align: 'start'
+                      }
+                    }
+                  }
+                });
+              </script>
+            </div>
   </div>
   <%- include('footer') %>
