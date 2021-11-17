@@ -141,7 +141,7 @@ const afficher_liste_stocks = (req, res) => {
     })
 }*/
 
-const afficher_liste_pathologies = (req, res) => {
+/*const afficher_liste_pathologies = (req, res) => {
 
     mysqlconnexion.query('SELECT * FROM Pathologies ', (err, pathinfo, champs) => {
         if (!err) {
@@ -149,7 +149,7 @@ const afficher_liste_pathologies = (req, res) => {
             res.render('./liste_pathologies', { contenu: pathinfo, titre: "Les pathologies" })
         }
     })
-}
+}*/
 
 
 
@@ -204,10 +204,10 @@ const afficher_form_stock = (req, res) => {
     res.render('./form_mutuelle', { titre: "Formulaire mutuelle" })
 }
 */
-const afficher_form_pathologie = (req, res) => {
+/*const afficher_form_pathologie = (req, res) => {
     res.render('./form_pathologie', { titre: "Formulaire pathologie" })
 }
-
+*/
 // les fiches
 const afficher_fiche_client = (req, res) => {
     id = req.params.id
@@ -273,7 +273,7 @@ const afficher_fiche_ordonnance = (req, res) => {
     })
 }
 */
-const afficher_fiche_pathologie = (req, res) => {
+/*const afficher_fiche_pathologie = (req, res) => {
 
     id = req.params.id
     requeteSQL = `SELECT * FROM Pathologies WHERE Pathologies_id =` + id
@@ -284,7 +284,7 @@ const afficher_fiche_pathologie = (req, res) => {
 
         }
     })
-}
+}*/
 const afficher_fiche_stock = (req, res) => {
     id = req.params.id
     requeteSQL = `SELECT * FROM Stocks, Medicaments WHERE Medicaments_id =` + id + ` AND Medicaments_id = idMedicament `
@@ -503,7 +503,7 @@ const executer_form_stock = (req, res) => {
 }*/
 
 //ajouter une pathologie
-const executer_form_pathologie = (req, res) => {
+/*const executer_form_pathologie = (req, res) => {
     let pathologieNom = req.body.inputNomMutu
     let requeteSQL = "INSERT INTO Pathologies (Pathologies_libelle) VALUES"
     requeteSQL += ` ('${pathologieNom}')`
@@ -520,7 +520,7 @@ const executer_form_pathologie = (req, res) => {
         }
     })
 }
-
+*/
 
 const update_form_client = (req, res) => {
     let id = req.params.id
@@ -662,7 +662,7 @@ const update_form_ordonnance = (req, res) => {
 
 }*/
 
-const update_form_pathologie = (req, res) => {
+/*const update_form_pathologie = (req, res) => {
     id = req.params.id
     let pathologieLibelle = req.body.inputNomMutu
 
@@ -680,7 +680,7 @@ const update_form_pathologie = (req, res) => {
     })
 
 }
-
+*/
 const update_form_stock = (req, res) => {
     let id = req.params.id
     let medicamentNom = req.body.inputMed
@@ -779,7 +779,7 @@ const delete_fiche_ordonnance = (req, res) => {
     })
 }
 */
-const delete_fiche_pathologie = (req, res) => {
+/*const delete_fiche_pathologie = (req, res) => {
     id = req.params.id
     let requeteSQL = `DELETE FROM Pathologies WHERE Pathologies_id = ` + id
     mysqlconnexion.query(requeteSQL, (err, champs) => {
@@ -793,7 +793,7 @@ const delete_fiche_pathologie = (req, res) => {
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
     })
-}
+}*/
 
 module.exports = {
     afficher_accueil,
@@ -804,14 +804,14 @@ module.exports = {
     afficher_liste_stocks,
     //afficher_liste_medecins,
    // afficher_liste_mutuelles,
-    afficher_liste_pathologies,
+    //afficher_liste_pathologies,
 
     afficher_form_client,
     afficher_form_ordonnance,
     afficher_form_stock,
     //afficher_form_medecin,
     //afficher_form_mutuelle,
-    afficher_form_pathologie,
+   // afficher_form_pathologie,
     afficher_dir,
 
     afficher_fiche_client,
@@ -819,27 +819,27 @@ module.exports = {
     afficher_fiche_stock,
     //afficher_fiche_medecin,
    // afficher_fiche_mutuelle,
-    afficher_fiche_pathologie,
+    //afficher_fiche_pathologie,
 
     executer_form_ordonnance,
     executer_form_client,
     executer_form_stock,
     //executer_form_medecin,
     //executer_form_mutuelle,
-    executer_form_pathologie,
+   // executer_form_pathologie,
 
 
     update_form_client,
     update_form_ordonnance,
     //update_form_medecin,
    // update_form_mutuelle,
-    update_form_pathologie,
+    //update_form_pathologie,
     update_form_stock,
 
     delete_fiche_client,
     delete_fiche_ordonnance,
     //delete_fiche_medecin,
    // delete_fiche_mutuelle,
-    delete_fiche_pathologie
+    //delete_fiche_pathologie
 }
 
