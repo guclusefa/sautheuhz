@@ -2,8 +2,10 @@
 const express = require('express');
 const routeur = express.Router();
 const affichageControl = require('../controllers/ctrlAffichage');
-
+var myController = require('../controllers/ctrlAffichageMVC')
 // afficher les pages
+routeur.get('/liste_medecins',myController.afficher_liste_medecins)
+
 routeur.get('/', affichageControl.afficher_accueil)
     .get('/accueil', affichageControl.afficher_accueil)
     .get('/connexion', affichageControl.afficher_connexion)
@@ -11,7 +13,8 @@ routeur.get('/', affichageControl.afficher_accueil)
     .get('/liste_clients', affichageControl.afficher_liste_clients)
     .get('/liste_ordonnances', affichageControl.afficher_liste_ordonnances)
     .get('/liste_stocks', affichageControl.afficher_liste_stocks)
-    .get('/liste_medecins', affichageControl.afficher_liste_medecins)
+    //.get('/liste_medecins', affichageControl.afficher_liste_medecins)
+    
     .get('/liste_mutuelles', affichageControl.afficher_liste_mutuelles)
     .get('/liste_pathologies', affichageControl.afficher_liste_pathologies)
 
@@ -52,6 +55,7 @@ routeur.get('/', affichageControl.afficher_accueil)
     .post('/delete_mutuelle/:id', affichageControl.delete_fiche_mutuelle)
     .post('/delete_pathologie/:id', affichageControl.delete_fiche_pathologie)
 
+    
 
     
 module.exports = routeur;
