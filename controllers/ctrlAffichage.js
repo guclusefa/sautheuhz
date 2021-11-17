@@ -23,7 +23,6 @@ const afficher_dir = (req, res) => {
     res.render('./' + req.params.dir)
 }
 
-
 // afficher page
 const afficher_accueil = (req, res) => {
     mysqlconnexion.query('SELECT  *, COUNT(*) as total FROM Pathologies, Ordonnances WHERE idPath = Pathologies_id GROUP BY idPath', (err, resPath, champs) => {
@@ -37,6 +36,7 @@ const afficher_accueil = (req, res) => {
                         lesMeds.push(lignes[i].Medicaments_libelle)
                         lesDonnesMeds.push(lignes[i].Stocks_quantite)
                     }
+                    console.log(lesDonnesMeds)
                     /* console.log(JSON.stringify(lesDonnesMeds))
                     console.log(JSON.parse(JSON.stringify(lesMeds))) */
 
@@ -52,11 +52,14 @@ const afficher_accueil = (req, res) => {
                         prochainMoisEnNombre.push(d.getMonth() + 1)
                     }
 
+                    var aPrevoir = []
                     for (let mois in prochainMoisEnNombre) {
-                        mysqlconnexion.query('SELECT *, SUM(Prescriptions_quantite*Prescriptions_frequence) as total, Prescriptions_dateFin - Ordonnances_date as duree FROM Medicaments, Prescriptions, Ordonnances WHERE Medicaments_id = idMedicament AND Ordonnances_id = idOrdo AND MONTH(Prescriptions_dateFin) = ' + prochainMoisEnNombre[mois] + ' AND YEAR(Prescriptions_dateFin) = ' + annee + ' GROUP BY idMedicament', (err, resMois, champs) => {
+                        mysqlconnexion.query('SELECT *, SUM(Prescriptions_quantite*Prescriptions_frequence) as total, DATEDIFF(Prescriptions_dateFin, Ordonnances_date) as duree FROM Medicaments, Prescriptions, Ordonnances WHERE Medicaments_id = idMedicament AND Ordonnances_id = idOrdo AND MONTH(Prescriptions_dateFin) = ' + prochainMoisEnNombre[mois] + ' AND YEAR(Prescriptions_dateFin) = ' + annee + ' GROUP BY idMedicament', (err, resMois, champs) => {
+                            console.log("mois " + mois)
                             console.log(resMois)
                         })
                     }
+                    console.log(aPrevoir)
                     /* console.log(resMois) */
                     /* console.log(prochainMois)
                     console.log(prochainMoisEnNombre) */
@@ -69,6 +72,7 @@ const afficher_accueil = (req, res) => {
                         lesDonnesPaths.push(resPath[i].total)
                     }
                     /* console.log(resPath) */
+
                     res.render('./accueil', { lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: lignes, titre: "Liste des clients" })
                 }
             })
@@ -120,6 +124,7 @@ const afficher_liste_stocks = (req, res) => {
         if (!err) {
             console.log(lignes)
 
+            
             mysqlconnexion.query('SELECT idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(Prescriptions_dateFin - Ordonnances_date)) as stock_necessaire FROM Prescriptions, Ordonnances WHERE idOrdo = Ordonnances_id AND Prescriptions_dateFin >= NOW() GROUP BY idMedicament ', (err, lignesd, champs) => {
                 if (!err) {
                     console.log(lignesd)
@@ -554,13 +559,9 @@ const update_form_client = (req, res) => {
     let requeteSQL = `UPDATE Clients SET idMutuelle = ${clientMutuelle} , clients_noSS ='${clientNoSS}' , clients_nom = '${clientNom}', clients_prenom = '${clientPrenom}', clients_sexe = '${clientSexe}', clients_dateNaissance = '${clientBirthday}', clients_tel = ${clientTel}, clients_mail = '${clientMail}', clients_adresse = '${clientAdresse}', clients_ville = '${clientVille}', clients_cp = '${clientCp}' WHERE clients_id =` + id
     mysqlconnexion.query(requeteSQL, (err, champs) => {
         if (!err) {
-            console.log("Insertion terminé");
-            res.redirect('./../liste_clients')
+            res.redirect('./../liste_clients', valid = "Modification terminé")
         } else {
-            console.log("Insertion echouée");
-            console.log(requeteSQL)
-            console.log("Erreur lors de l'enregistrment")
-            res.send("Erreur ajout : " + JSON.stringify(err))
+            res.redirect('./../liste_clients', erreur = "Modification echouée")
         }
     })
 
@@ -722,19 +723,22 @@ const update_form_stock = (req, res) => {
 //delete client
 const delete_fiche_client = (req, res) => {
     id = req.params.id
+    let requeteSQL = []
+    requeteSQL[0] = `DELETE FROM Clients WHERE clients_id = ` + id
+    requeteSQL[1] = `DELETE FROM Ordonnances WHERE idClient = ` + id
+    console.log(requeteSQL)
+    for (requete in requeteSQL) {
+        mysqlconnexion.query(requeteSQL[requete], (err, lignes, champs) => {
+            if (!err) {
+                console.log("Suppression  terminé");
+            } else {
+                console.log("Insertion echouée");
 
-    let requeteSQL = `DELETE FROM Clients WHERE clients_id = ` + id
-    mysqlconnexion.query(requeteSQL, (err, lignes, champs) => {
-        if (!err) {
-            console.log("Suppression  terminé");
-            res.redirect('./../liste_clients')
-        } else {
-            console.log("Insertion echouée");
-
-            console.log("Erreur lors de l'enregistrment")
-            res.send("Erreur ajout : " + JSON.stringify(err))
-        }
-    })
+                console.log("Erreur lors de l'enregistrment")
+            }
+        })
+    }
+    res.redirect('./../liste_clients')
 }
 
 const delete_fiche_ordonnance = (req, res) => {
