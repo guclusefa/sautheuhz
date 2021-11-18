@@ -73,14 +73,14 @@ const afficher_connexion = (req, res) => {
 }
 
 // les listes
-const afficher_liste_clients = (req, res) => {
+/*const afficher_liste_clients = (req, res) => {
     mysqlconnexion.query('SELECT clients_id, idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, DATE_FORMAT(clients_dateNaissance, "%d/%m/%Y") as clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville , clients_cp, idMutuelle, Mutuelles_id, Mutuelles_Nom FROM Clients, Mutuelles WHERE idMutuelle = Mutuelles_id AND clients_id <>29', (err, lignes, champs) => {
         if (!err) {
             console.log(lignes)
             res.render('./liste_clients', { contenu: lignes, titre: "Liste des clients" })
         }
     })
-}
+}*/
 
 const afficher_liste_ordonnances = (req, res) => {
     // 73 = numero variable en fonction du numero de l'ordonnance test (de preference la mettre en 1)
@@ -154,7 +154,7 @@ const afficher_liste_stocks = (req, res) => {
 
 
 // les forumalires
-const afficher_form_client = (req, res) => {
+/*const afficher_form_client = (req, res) => {
 
     mysqlconnexion.query('SELECT Mutuelles_nom, Mutuelles_id FROM Mutuelles', (err, lignes, champs) => {
         if (!err) {
@@ -163,7 +163,7 @@ const afficher_form_client = (req, res) => {
     })
 
 
-}
+}*/
 
 const afficher_form_ordonnance = (req, res) => {
     mysqlconnexion.query('SELECT clients_id, clients_nom, clients_prenom FROM Clients', (err, lignes, champs) => {
@@ -209,7 +209,7 @@ const afficher_form_stock = (req, res) => {
 }
 */
 // les fiches
-const afficher_fiche_client = (req, res) => {
+/*const afficher_fiche_client = (req, res) => {
     id = req.params.id
     mysqlconnexion.query('SELECT *, DATE_FORMAT(clients_dateNaissance, "%Y-%m-%d") as dateN FROM Clients WHERE clients_id =' + id, (err, info_client, champs) => {
         mysqlconnexion.query('SELECT Mutuelles_nom, Mutuelles_id FROM Mutuelles', (err, lignes, champs) => {
@@ -219,7 +219,7 @@ const afficher_fiche_client = (req, res) => {
         })
     })
 }
-
+*/
 const afficher_fiche_ordonnance = (req, res) => {
     id = req.params.id
     mysqlconnexion.query('SELECT clients_id, clients_nom, clients_prenom FROM Clients', (err, lignes, champs) => {
@@ -351,7 +351,7 @@ const executer_form_ordonnance = (req, res) => {
     })
 }
 
-const executer_form_client = (req, res) => {
+/*const executer_form_client = (req, res) => {
 
     let clientNom = req.body.inputNom
     let clientPrenom = req.body.inputPrenom
@@ -386,7 +386,7 @@ const executer_form_client = (req, res) => {
         }
     })
 
-}
+}*/
 
 //ajouter un medicament 
 
@@ -522,7 +522,7 @@ const executer_form_stock = (req, res) => {
 }
 */
 
-const update_form_client = (req, res) => {
+/*const update_form_client = (req, res) => {
     let id = req.params.id
 
 
@@ -558,7 +558,7 @@ const update_form_client = (req, res) => {
     })
 
 }
-
+*/
 const update_form_ordonnance = (req, res) => {
     let id = req.params.id
 
@@ -713,7 +713,7 @@ const update_form_stock = (req, res) => {
 }
 
 //delete client
-const delete_fiche_client = (req, res) => {
+/*const delete_fiche_client = (req, res) => {
     id = req.params.id
 
     let requeteSQL = `DELETE FROM Clients WHERE clients_id = ` + id
@@ -728,7 +728,7 @@ const delete_fiche_client = (req, res) => {
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
     })
-}
+}*/
 
 const delete_fiche_ordonnance = (req, res) => {
     id = req.params.id
@@ -799,14 +799,14 @@ module.exports = {
     afficher_accueil,
     afficher_connexion,
 
-    afficher_liste_clients,
+    //afficher_liste_clients,
     afficher_liste_ordonnances,
     afficher_liste_stocks,
     //afficher_liste_medecins,
    // afficher_liste_mutuelles,
     //afficher_liste_pathologies,
 
-    afficher_form_client,
+    //afficher_form_client,
     afficher_form_ordonnance,
     afficher_form_stock,
     //afficher_form_medecin,
@@ -814,7 +814,7 @@ module.exports = {
    // afficher_form_pathologie,
     afficher_dir,
 
-    afficher_fiche_client,
+    //afficher_fiche_client,
     afficher_fiche_ordonnance,
     afficher_fiche_stock,
     //afficher_fiche_medecin,
@@ -822,21 +822,21 @@ module.exports = {
     //afficher_fiche_pathologie,
 
     executer_form_ordonnance,
-    executer_form_client,
+    //executer_form_client,
     executer_form_stock,
     //executer_form_medecin,
     //executer_form_mutuelle,
    // executer_form_pathologie,
 
 
-    update_form_client,
+   // update_form_client,
     update_form_ordonnance,
     //update_form_medecin,
    // update_form_mutuelle,
     //update_form_pathologie,
     update_form_stock,
 
-    delete_fiche_client,
+    //delete_fiche_client,
     delete_fiche_ordonnance,
     //delete_fiche_medecin,
    // delete_fiche_mutuelle,
