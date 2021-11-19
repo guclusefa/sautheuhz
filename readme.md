@@ -6,8 +6,8 @@ L'objectif du projet sautheuhz est de créer une application web permettant à u
 
 ## Quelle technologie ? 
 **FrontEnd**  
--Nous avons opté pour l'utilisation de Bootstrap au niveau du css
--ainsi que mySql pour la base de données.
+-Nous avons opté pour l'utilisation de Bootstrap au niveau du css  
+-Utilisation de Chart.Js le graphique sur la page d'acceuil (prévoyant les stocks sur les 6 prochains mois)  
 
 Notre projet est hebergé chez AlwaysData pour avoir un visuel : 
 
