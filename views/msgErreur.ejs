@@ -1,4 +1,4 @@
-<% if (typeof erreur != 'undefined') { %>
+<% if (typeof erreur != 'undefined' && erreur != '') { %>
     <div class="row">
       <div class="col-xl-12 col-md-12 mt-3">
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -12,7 +12,7 @@
     </div>
     <% } %>
 
-      <% if (typeof valid != 'undefined') { %>
+      <% if (typeof valid != 'undefined' && valid != '') { %>
         <div class="row">
           <div class="col-xl-12 col-md-12 mt-3">
             <div class="alert alert-success alert-dismissible fade show" role="alert">

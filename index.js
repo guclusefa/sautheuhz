@@ -26,11 +26,32 @@ mysqlconnexion.connect((err) => {
     else console.log('BDD connexion échouée \n Erreur: ' + JSON.stringify(err))
 })
 
+
+
 app.listen(3000, () => console.log('Le serveur sautheuhz est actif'))
 app.get('/', (req, res) => {
     res.send('Le serveur sautheuhz est actif')
 })
 
+const session = require('express-session');
+const flash = require('connect-flash');
 
+app.use(session({
+	secret:'happy dog',
+	saveUninitialized: true,
+	resave: true
+}));
+
+app.use(flash());
+
+app.get('/test', (req, res) => {
+  req.flash('message', 'Modification terminé');
+  res.redirect('/contact');
+});
+
+app.get('/contact', (req, res) => {
+    const valid = req.flash('message') 
+    res.render('connexion', { titre:"fdsfd", valid});
+});
 
 app.use('/sautheuhz', Routeur)
