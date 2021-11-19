@@ -2,7 +2,7 @@
 const { Router } = require('express');
 const express = require('express');
 const routeur = express.Router();
-Z
+
 var accueilController = require('../controllers/ctrlAccueil')
 var medecinController = require('../controllers/ctrlMedecin');
 var mutuelleController = require('../controllers/ctrlMutuelle');
