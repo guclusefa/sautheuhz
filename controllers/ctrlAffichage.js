@@ -82,7 +82,7 @@ const afficher_connexion = (req, res) => {
     })
 }*/
 
-const afficher_liste_ordonnances = (req, res) => {
+/*const afficher_liste_ordonnances = (req, res) => {
     // 73 = numero variable en fonction du numero de l'ordonnance test (de preference la mettre en 1)
     let requeteSQL1 = 'SELECT * FROM Ordonnances WHERE Ordonnances_id >73'
     let requeteSQL2 = 'SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, max(Prescriptions_dateFin - Ordonnances_date) as dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id AND Ordonnances_id >73 GROUP BY idOrdo ORDER BY dureeOrdonnance DESC '
@@ -105,9 +105,9 @@ const afficher_liste_ordonnances = (req, res) => {
     })
 
 
-}
+}*/
 
-const afficher_liste_stocks = (req, res) => {
+/*const afficher_liste_stocks = (req, res) => {
     mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
         if (!err) {
             console.log(lignes)
@@ -121,7 +121,7 @@ const afficher_liste_stocks = (req, res) => {
 
         }
     })
-}
+}*/
 
 /*const afficher_liste_medecins = (req, res) => {
     mysqlconnexion.query('SELECT * FROM Medecins ', (err, medinfo, champs) => {
@@ -165,7 +165,7 @@ const afficher_liste_stocks = (req, res) => {
 
 }*/
 
-const afficher_form_ordonnance = (req, res) => {
+/*const afficher_form_ordonnance = (req, res) => {
     mysqlconnexion.query('SELECT clients_id, clients_nom, clients_prenom FROM Clients', (err, lignes, champs) => {
         if (!err) {
             mysqlconnexion.query('SELECT Medecins_id, Medecins_nom, Medecins_prenom FROM Medecins', (err, medlignes, champs) => {
@@ -190,10 +190,10 @@ const afficher_form_ordonnance = (req, res) => {
 
 
 }
-
-const afficher_form_stock = (req, res) => {
+*/
+/*const afficher_form_stock = (req, res) => {
     res.render('./form_stock', { titre: "Formulaire stock" })
-}
+}*/
 
 /*const afficher_form_medecin = (req, res) => {
     res.render('./form_medecin', { contenu: medinfo, titre: "Formulaire médecin" })
@@ -220,7 +220,7 @@ const afficher_form_stock = (req, res) => {
     })
 }
 */
-const afficher_fiche_ordonnance = (req, res) => {
+/*const afficher_fiche_ordonnance = (req, res) => {
     id = req.params.id
     mysqlconnexion.query('SELECT clients_id, clients_nom, clients_prenom FROM Clients', (err, lignes, champs) => {
         if (!err) {
@@ -247,7 +247,7 @@ const afficher_fiche_ordonnance = (req, res) => {
         }
     })
 }
-
+*/
 /*const afficher_fiche_medecin = (req, res) => {
 
     id = req.params.id
@@ -285,7 +285,7 @@ const afficher_fiche_ordonnance = (req, res) => {
         }
     })
 }*/
-const afficher_fiche_stock = (req, res) => {
+/*const afficher_fiche_stock = (req, res) => {
     id = req.params.id
     requeteSQL = `SELECT * FROM Stocks, Medicaments WHERE Medicaments_id =` + id + ` AND Medicaments_id = idMedicament `
     mysqlconnexion.query(requeteSQL, (err, stockinfo) => {
@@ -295,9 +295,9 @@ const afficher_fiche_stock = (req, res) => {
 
         }
     })
-}
+}*/
 
-const executer_form_ordonnance = (req, res) => {
+/*const executer_form_ordonnance = (req, res) => {
 
     let ordonnanceClient = req.body.selectClient
     let ordonnanceMedecin = req.body.selectMedecin
@@ -350,7 +350,7 @@ const executer_form_ordonnance = (req, res) => {
         }
     })
 }
-
+*/
 /*const executer_form_client = (req, res) => {
 
     let clientNom = req.body.inputNom
@@ -559,7 +559,7 @@ const executer_form_stock = (req, res) => {
 
 }
 */
-const update_form_ordonnance = (req, res) => {
+/*const update_form_ordonnance = (req, res) => {
     let id = req.params.id
 
     let ordonnanceClient = req.body.selectClient
@@ -610,7 +610,7 @@ const update_form_ordonnance = (req, res) => {
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
     })
-}
+}*/
 
 
 /*const update_form_medecin = (req, res) => {
@@ -730,7 +730,7 @@ const update_form_stock = (req, res) => {
     })
 }*/
 
-const delete_fiche_ordonnance = (req, res) => {
+/*const delete_fiche_ordonnance = (req, res) => {
     id = req.params.id
 
     let requeteSQL = `DELETE FROM Ordonnances WHERE Ordonnances_id = ` + id
@@ -745,7 +745,7 @@ const delete_fiche_ordonnance = (req, res) => {
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
     })
-}
+}*/
 
 /*const delete_fiche_medecin = (req, res) => {
     id = req.params.id
@@ -800,28 +800,28 @@ module.exports = {
     afficher_connexion,
 
     //afficher_liste_clients,
-    afficher_liste_ordonnances,
-    afficher_liste_stocks,
+   // afficher_liste_ordonnances,
+   // afficher_liste_stocks,
     //afficher_liste_medecins,
    // afficher_liste_mutuelles,
     //afficher_liste_pathologies,
 
     //afficher_form_client,
-    afficher_form_ordonnance,
-    afficher_form_stock,
+    //afficher_form_ordonnance,
+    //afficher_form_stock,
     //afficher_form_medecin,
     //afficher_form_mutuelle,
    // afficher_form_pathologie,
     afficher_dir,
 
     //afficher_fiche_client,
-    afficher_fiche_ordonnance,
-    afficher_fiche_stock,
+    //afficher_fiche_ordonnance,
+   // afficher_fiche_stock,
     //afficher_fiche_medecin,
    // afficher_fiche_mutuelle,
     //afficher_fiche_pathologie,
 
-    executer_form_ordonnance,
+    //executer_form_ordonnance,
     //executer_form_client,
     executer_form_stock,
     //executer_form_medecin,
@@ -830,16 +830,17 @@ module.exports = {
 
 
    // update_form_client,
-    update_form_ordonnance,
+   // update_form_ordonnance,
     //update_form_medecin,
    // update_form_mutuelle,
     //update_form_pathologie,
     update_form_stock,
 
     //delete_fiche_client,
-    delete_fiche_ordonnance,
+    //delete_fiche_ordonnance,
     //delete_fiche_medecin,
    // delete_fiche_mutuelle,
     //delete_fiche_pathologie
+    //=================delete_fiche_stock
 }
 
