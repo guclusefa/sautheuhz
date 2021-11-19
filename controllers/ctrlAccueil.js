@@ -15,6 +15,15 @@ module.exports = {
             /* console.log(JSON.stringify(lesDonnesMeds))
             console.log(JSON.parse(JSON.stringify(lesMeds))) */
 
+
+            // chart pathologies
+            var lesPath = []
+            var lesDonnesPaths = []
+            for (let i = 0; i < data2.length; i++) {
+                lesPath.push(data2[i].Pathologies_libelle)
+                lesDonnesPaths.push(data2[i].total)
+            }
+
             // chart stock a prevoir
             lesMois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
             var d = new Date();
@@ -25,17 +34,18 @@ module.exports = {
                 prochainMois.push(lesMois[d.getMonth()])
                 prochainMoisEnNombre.push(d.getMonth() + 1)
             }
-            /* console.log(prochainMois)
-            console.log(prochainMoisEnNombre) */
 
-            // chart pathologies
-            var lesPath = []
-            var lesDonnesPaths = []
-            for (let i = 0; i < data2.length; i++) {
-                lesPath.push(data2[i].Pathologies_libelle)
-                lesDonnesPaths.push(data2[i].total)
+            let test = []
+            for (let i = 0; i < lesMeds.length; i++) {
+                testArray = Array.from({length: 7}, () => Math.floor(Math.random() * 20));
+                test.push([testArray])
+                test[i].push(lesMeds[i])
             }
-            res.render('./accueil', { lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: data3, titre: "Liste des clients" })
+
+            console.log(test[0][1])
+            console.log(prochainMois)
+
+            res.render('./accueil', {test, lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: data3, titre: "Liste des clients" })
         });
     },
 }

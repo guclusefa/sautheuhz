@@ -26,41 +26,41 @@
                 <table class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+                            <th scope="col">Action</th>
                             <th scope="col">Client</th>
                             <th scope="col">Médecin</th>
                             <th scope="col">Pathologie</th>
                             <th scope="col">Date</th>
                             <th scope="col">Durée</th>
-                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% let compteur = 0 %>
                         <% contenu.forEach(function(user){ %>
                             <tr>
+                                <td>
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-primary btn-sm rounded-0" type="button"
+                                                data-toggle="modal" data-target="#detail_<%= date[compteur].idOrdo %>" title="Détails"><i
+                                                    class="fa fa-eye"></i></button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-success btn-sm rounded-0" type="button"
+                                                title="Modifier" onclick="location.href = 'fiche_ordonnance/<%= date[compteur].idOrdo %>';"><i class="fa fa-edit"></i></button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                                data-toggle="modal" data-target="#supprimer_<%= date[compteur].idOrdo %>" title="Supprimer"><i
+                                                    class="fa fa-trash"></i></button>
+                                        </li>
+                                    </ul>
+                                </td>
                             <td><%= date[compteur].clients_nom %>  <%= date[compteur].clients_prenom %></td>
                             <td><%= date[compteur].Medecins_nom %> <%= date[compteur].Medecins_prenom %></td>
                             <td><%= date[compteur].Pathologies_libelle %></td>
                             <td><%= date[compteur].dateOrdo %></td>
                             <td><%= date[compteur].dureeOrdonnance %> jour(s)</td>
-                            <td>
-                                <ul class="list-inline m-0">
-                                    <li class="list-inline-item">
-                                        <button class="btn btn-primary btn-sm rounded-0" type="button"
-                                            data-toggle="modal" data-target="#detail_<%= date[compteur].idOrdo %>" title="Détails"><i
-                                                class="fa fa-eye"></i></button>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <button class="btn btn-success btn-sm rounded-0" type="button"
-                                            title="Modifier" onclick="location.href = 'fiche_ordonnance/<%= date[compteur].idOrdo %>';"><i class="fa fa-edit"></i></button>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button"
-                                            data-toggle="modal" data-target="#supprimer_<%= date[compteur].idOrdo %>" title="Supprimer"><i
-                                                class="fa fa-trash"></i></button>
-                                    </li>
-                                </ul>
-                            </td>
                         </tr>
                         <% compteur = compteur+1 %>
                         <% })%>
