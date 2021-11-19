@@ -17,8 +17,6 @@
         <div class="card">
           <div class="card-body titreChart">
             <h5 class="card-title">Stock à prevoir pour les 6 prochain mois</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
           </div>
           <canvas id="myChart" class="m-3"></canvas>
         </div>
@@ -27,6 +25,14 @@
 
     <script>
       var ctx = document.getElementById('myChart').getContext('2d');
+      var borderColor =  [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ]
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -36,15 +42,9 @@
             {
             label: '<%- test[i][1] %>',
             data: [<%- test[i][0] %>],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
+            borderColor: borderColor[<%- i %>],
+            borderWidth: 1,
+            tension: 0.1
           },
           <% })%>
           ]
@@ -66,9 +66,6 @@
         <div class="card">
           <div class="card-body titreChart">
             <h5 class="card-title">Stock des médicaments</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's
-              content.</p>
           </div>
           <canvas id="myChart3" class="m-3"></canvas>
         </div>
@@ -122,10 +119,7 @@
       <div class="col-xl-6 col-md-12 mt-5">
         <div class="card">
           <div class="card-body titreChart">
-            <h5 class="card-title">Pourcentage des pathologies</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's
-              content.</p>
+            <h5 class="card-title">Part des pathologies par ordonnace</h5>
           </div>
           <canvas id="myChart2" class="m-3"></canvas>
         </div>
