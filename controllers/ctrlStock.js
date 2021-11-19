@@ -19,7 +19,31 @@ module.exports = {
         });
     },
     executer_form_stock: function (req, res) {
-        
+        let Medicaments_libelle = req.body.inputMed
+        let Stocks_quantite = req.body.inputQte
+        sqlParam1 ={Medicaments_libelle}
+
+        modelStock.executer_form_stock(sqlParam1, function(medicamentId){
+            medicamentId = JSON.parse(JSON.stringify(medicamentId))
+            let idMedicament = medicamentId[0].Medicaments_id
+            slqParam2 = {idMedicament, Stocks_quantite }
+
+            let idOrdo= 73
+            let Prescriptions_quantite = 0 
+            let Prescriptions_frequence = 0 
+            let Prescriptions_dateFin ='2099-11-01'
+
+            modelStock.executer_form_stock_suite(slqParam2, function(data){
+                let  sqlParam3 = {idOrdo,idMedicament,Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin }
+
+                modelStock.executer_form_stock_suite2(sqlParam3, function(sqlParam3){
+
+                })
+
+            })
+            res.redirect('./liste_stocks')
+
+        })
 
     },
 }
