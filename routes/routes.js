@@ -54,6 +54,7 @@ routeur.get('/liste_ordonnances', ordonnanceController.afficher_liste_ordonnance
 routeur.get('/liste_stocks', stockController.afficher_liste_stocks)
     .get('/form_stock', stockController.afficher_form_stock)
     .get('/fiche_stock/:id', stockController.afficher_fiche_stock)
+    .post('/form_stock', stockController.executer_form_stock)
 
 
     // afficher les pages
@@ -85,7 +86,7 @@ routeur.get('/', affichageControl.afficher_accueil)
     //executer les formulaires
     //.post('/form_ordonnance', affichageControl.executer_form_ordonnance)
     //.post('/form_client', affichageControl.executer_form_client)
-    .post('/form_stock', affichageControl.executer_form_stock)
+   // .post('/form_stock', affichageControl.executer_form_stock)
    // .post('/form_medecin', affichageControl.executer_form_medecin)
     //.post('/form_mutuelle', affichageControl.executer_form_mutuelle)
     //.post('/form_pathologie', affichageControl.executer_form_pathologie)

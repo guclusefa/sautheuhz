@@ -390,7 +390,7 @@ const afficher_connexion = (req, res) => {
 
 //ajouter un medicament 
 
-const executer_form_stock = (req, res) => {
+/*const executer_form_stock = (req, res) => {
     let medicamentNom = req.body.inputMed
     let medicamentQuantite = req.body.inputQte
 
@@ -446,7 +446,7 @@ const executer_form_stock = (req, res) => {
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
     })
-}
+}*/
 
 
 //ajouter un medecin 
@@ -823,7 +823,7 @@ module.exports = {
 
     //executer_form_ordonnance,
     //executer_form_client,
-    executer_form_stock,
+    //executer_form_stock,
     //executer_form_medecin,
     //executer_form_mutuelle,
    // executer_form_pathologie,

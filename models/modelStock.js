@@ -22,5 +22,19 @@ module.exports= {
             return callback(data);
         });
     },
-  
+    executer_form_stock: function(MedLibelParam, callback){
+        var sql= 'INSERT INTO Medicaments SET ? ' ;
+        var sql2 = 'SELECT Medicaments_id FROM Medicaments ORDER BY Medicaments_id DESC'
+        
+        db.query(sql,MedLibelParam, function(err, data){
+            if(err)throw err;
+            db.query(sql2, function(err, dataMedic){
+                if(err)throw err;
+                return callback(dataMedic);
+            });
+        });
+    },
+    executer_form_stock_suite: function(stockParam,idMedicament, callback){
+        
+    },
 }

@@ -72,27 +72,7 @@ module.exports = {
 
             })
         })
-
-
-
-
-
-
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-    delete_fiche_ordonnance: function (req, res) {
+    },    delete_fiche_ordonnance: function (req, res) {
         id = req.params.id
         modelOrdonnance.delete_fiche_ordonnance(id, function (data) {
             console.log(data);

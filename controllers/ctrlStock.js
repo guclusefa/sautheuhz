@@ -18,4 +18,8 @@ module.exports = {
             res.render('./fiche_stock', { contenu: data, titre: "Fiche stock" })
         });
     },
+    executer_form_stock: function (req, res) {
+        
+
+    },
 }
