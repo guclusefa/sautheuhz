@@ -3,7 +3,6 @@ var modelAccueil = require('../models/modelAccueil');
 module.exports = {
 
     afficher_accueil: function (req, res) {
-
         modelAccueil.afficher_accueil(function (data, data2, data3) {
             // chart stock
             var lesMeds = []
@@ -12,9 +11,6 @@ module.exports = {
                 lesMeds.push(data3[i].Medicaments_libelle)
                 lesDonnesMeds.push(data3[i].Stocks_quantite)
             }
-            /* console.log(JSON.stringify(lesDonnesMeds))
-            console.log(JSON.parse(JSON.stringify(lesMeds))) */
-
 
             // chart pathologies
             var lesPath = []
@@ -41,9 +37,6 @@ module.exports = {
                 test.push([testArray])
                 test[i].push(lesMeds[i])
             }
-
-            console.log(test[0][1])
-            console.log(prochainMois)
 
             res.render('./accueil', {test, lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: data3, titre: "Liste des clients" })
         });
