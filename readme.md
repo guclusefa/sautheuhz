@@ -9,6 +9,11 @@ L'objectif du projet sautheuhz est de créer une application web permettant à u
 -Nous avons opté pour l'utilisation de Bootstrap au niveau du css  
 -Utilisation de Chart.Js le graphique sur la page d'acceuil (prévoyant les stocks sur les 6 prochains mois)  
 
+**BackEnd**  
+Du côté serveur nous utilisons deux frameworks principaux pour ce projet :  
+-NodeJS  
+-ExpressJs  
+-MySQL  
 Notre projet est hebergé chez AlwaysData pour avoir un visuel : 
 
 
