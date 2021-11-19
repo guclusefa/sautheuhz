@@ -26,23 +26,26 @@ const afficher_dir = (req, res) => {
 
 // afficher page
 const afficher_accueil = (req, res) => {
-    mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
-        mysqlconnexion.query('SELECT  *, COUNT(*) as total FROM Pathologies, Ordonnances WHERE idPath = Pathologies_id GROUP BY idPath', (err, resPath, champs) => {
-            mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
+    mysqlconnexion.query('SELECT  *, COUNT(*) as total FROM Pathologies, Ordonnances WHERE idPath = Pathologies_id GROUP BY idPath', (err, resPath, champs) => {
+        if (!err) {
+            mysqlconnexion.query('SELECT Medicaments_libelle, Medicaments_id, SUM(Prescriptions_quantite*Prescriptions_frequence*(Prescriptions_dateFin - Ordonnances_date))/30 as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE idOrdo = Ordonnances_id AND Medicaments_id  = idMedicament AND Prescriptions_dateFin >= NOW() GROUP BY idMedicament ', (err, lignes, champs) => {
                 if (!err) {
                     // chart stock
                     var lesMeds = []
                     var lesDonnesMeds = []
                     for (let i = 0; i < lignes.length; i++) {
                         lesMeds.push(lignes[i].Medicaments_libelle)
-                        lesDonnesMeds.push(lignes[i].Stocks_quantite)
+                        lesDonnesMeds.push(lignes[i].stock_necessaire)
                     }
+                    console.log(lesMeds)
+                    console.log(lesDonnesMeds)
                     /* console.log(JSON.stringify(lesDonnesMeds))
                     console.log(JSON.parse(JSON.stringify(lesMeds))) */
 
                     // chart stock a prevoir
                     lesMois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
                     var d = new Date();
+                    var annee = d.getFullYear()
                     var prochainMois = [lesMois[d.getMonth()]]
                     var prochainMoisEnNombre = [d.getMonth() + 1]
                     for (let i = 0; i < 6; i++) {
@@ -50,8 +53,6 @@ const afficher_accueil = (req, res) => {
                         prochainMois.push(lesMois[d.getMonth()])
                         prochainMoisEnNombre.push(d.getMonth() + 1)
                     }
-                    /* console.log(prochainMois)
-                    console.log(prochainMoisEnNombre) */
 
                     // chart pathologies
                     var lesPath = []
@@ -60,11 +61,12 @@ const afficher_accueil = (req, res) => {
                         lesPath.push(resPath[i].Pathologies_libelle)
                         lesDonnesPaths.push(resPath[i].total)
                     }
-                    console.log(resPath)
-                    res.render('./accueil', { lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: lignes, titre: "Liste des clients" })
+                    /* console.log(resPath) */
+
+                    res.render('./accueil', {lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: lignes, titre: "Liste des clients" })
                 }
             })
-        })
+        }
     })
 }
 

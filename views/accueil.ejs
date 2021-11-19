@@ -24,15 +24,19 @@
         </div>
       </div>
     </div>
-
+    <% lesMeds.forEach(function(unMed){ %>
+      <%= unMed.stock_necessaire %>
+      <% })%>
     <script>
       var ctx = document.getElementById('myChart').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: <%- JSON.stringify(prochainMois) %>,
-          datasets: [{
-            label: 'Stock de doliprane',
+          datasets: [
+          <% lesMeds.forEach(function(unMed){ %>
+            {
+            label: '<%- unMed %>',
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
@@ -51,14 +55,11 @@
               'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
-          }]
+          },
+          <% })%>
+          ]
         },
         options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          },
           plugins: {
             legend: {
               display: true,
@@ -68,7 +69,6 @@
           }
         }
       });
-
     </script>
 
     <div class="row">
