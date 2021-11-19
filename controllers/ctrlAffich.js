@@ -79,6 +79,6 @@ const executer_form_stock = (req, res) => {
 }
 
 
-module.exports= {
+module.exports = {
     executer_form_stock
 }

@@ -65,7 +65,7 @@ routeur.get('/liste_stocks', stockController.afficher_liste_stocks)
 
 
 //executer form stock (bug async)
-// routeur.post('/form_stock', affichageControl.executer_form_stock)
+routeur.post('/form_stock', affichageControl.executer_form_stock)
 
    
 module.exports = routeur;
