@@ -5,16 +5,16 @@ Notre premier projet nodeJS en MVC.
 L'objectif du projet sautheuhz est de créer une application web permettant à une pharmacie et ses employés de gerer ses clients, ordonnances et stocks de manières aussi simple qu'intuitive.
 
 ## Quelles technologies ? 
-<u>**FrontEnd**</u>    
+**FrontEnd**    
 -Nous avons opté pour l'utilisation de Bootstrap au niveau du css.  
 -Utilisation de Chart.Js le graphique sur la page d'acceuil (prévoyant les stocks sur les 6 prochains mois).  
 
-<u>**BackEnd**  </u>  
+**BackEnd**   
 Du côté serveur nous utilisons deux frameworks principaux pour ce projet :  
 -NodeJS  
 -ExpressJs  
 
-<u>**Base de données** </u>   
+**Base de données**  
 La base de données est hébergé sur AlwaysData sous PhpMyAdmin.  
 
 Lien pour accéder aux projet hébergé: 
