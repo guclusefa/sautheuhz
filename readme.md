@@ -1,9 +1,12 @@
-<p align="center">
 ![This is an image](/assets/images/logo.png)
-</p>
+
 ## Projet SAUTHEUHZ
-Notre premier projet node JS en MVC. 
-L'objectif du projet sautheuhz est de créer une application web permettant à une pharmacie et ses employés de gerer ses clients, ordonnances et stock de manières aussi simple qu'intuitive.
+Notre premier projet nodeJS en MVC. 
+L'objectif du projet sautheuhz est de créer une application web permettant à une pharmacie et ses employés de gerer ses clients, ordonnances et stocks de manières aussi simple qu'intuitive.
+
+Nous avons opté pour l'utilisation de Bootstrap au niveau du css ainsi que mySql pour la base de données.
+
+Notre projet est hebergé chez AlwaysData pour avoir un visuel : 
 
 
 ## Auteurs
