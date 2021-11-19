@@ -1,5 +1,6 @@
 <%- include('header') %>
     <div class="container">
+        <%- include('msgErreur') %>
         <!-- Titre -->
         <div class="row d-flex justify-content-center text-center">
             <div class="col-xl-12 col-md-12 mt-3">
@@ -28,43 +29,49 @@
                         <table class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th scope="col">Action</th>
                                     <th scope="col">Médicament</th>
                                     <th scope="col">Stock</th>
                                     <th scope="col">En demande</th>
-                                    <th scope="col">Stock à garder?(trouve un nom)</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Stock Effectif </th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <% contenu.forEach(function(med,i){ %>
                                 <tr>
-                                    <td>GUCLU Sefa (18)</td>
-                                    <td>15</td>
-                                    <td>-5</td>
-                                    <td>10</td>
                                     <td>
                                         <ul class="list-inline m-0">
                                             <li class="list-inline-item">
                                                 <button class="btn btn-primary btn-sm rounded-0" type="button"
-                                                    data-toggle="modal" data-target="#detail_id" title="Détails"><i
+                                                    data-toggle="modal" data-target="#detail_<%= med.Medicaments_id %>" title="Détails"><i
                                                         class="fa fa-eye"></i></button>
                                             </li>
                                             <li class="list-inline-item">
                                                 <button class="btn btn-success btn-sm rounded-0" type="button"
-                                                    title="Modifier" onclick="location.href = 'fiche_client/id';"><i class="fa fa-edit"></i></button>
+                                                    title="Modifier" onclick="location.href = 'fiche_stock/<%= med.Medicaments_id %>';"><i class="fa fa-edit"></i></button>
                                             </li>
                                             <li class="list-inline-item">
                                                 <button class="btn btn-danger btn-sm rounded-0" type="button"
-                                                    data-toggle="modal" data-target="#supprimer_id" title="Supprimer"><i
+                                                    data-toggle="modal" data-target="#supprimer_<%= med.Medicaments_id %>" title="Supprimer"><i
                                                         class="fa fa-trash"></i></button>
                                             </li>
                                         </ul>
                                     </td>
+                                    <td> <%= med.Medicaments_libelle %> </td>
+                                    <td><%= med.Stocks_quantite %></td>
+                                    
+                                    <td><%= contenud[i].stock_necessaire %></td>                                 
+
+                                    <td><%= med.Stocks_quantite - contenud[i].stock_necessaire %> </td>
+
                                 </tr>
+                                <% })%>
                             </tbody>
                         </table>
+                        <% contenu.forEach(function(med,i){ %>
 
                         <!-- Détails -->
-                        <div class="modal fade" id="detail_id">
+                        <div class="modal fade" id="detail_<%= med.Medicaments_id %>">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -74,10 +81,10 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p><b>Médicament : </b></p>
-                                        <p><b>Stock : </b></p>
-                                        <p><b>En demande : </b></p>
-                                        <p><b>Stock à garder : </b></p>
+                                        <p><b>Médicament : </b> <%= med.Medicaments_libelle %></p>
+                                        <p><b>Stock : </b><%= med.Stocks_quantite %></p>
+                                        <p><b>En demande : </b><%= contenud[i].stock_necessaire %></p>
+                                        <p><b>Stock à garder : </b><%= med.Stocks_quantite - contenud[i].stock_necessaire %></p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
@@ -89,7 +96,7 @@
                         </div>
 
                         <!-- Supprimer -->
-                        <div class="modal fade" id="supprimer_id">
+                        <div class="modal fade" id="supprimer_<%= med.Medicaments_id %>">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -104,11 +111,14 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-success" data-dismiss="modal">Non</button>
-                                        <button type="button" class="btn btn-danger">Oui</button>
+                                        <form action="/sautheuhz/delete_stock/<%= med.Medicaments_id %>" method="POST">
+                                        <button type="submit" class="btn btn-danger">Oui</button></form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <% })%>
+
                     </div>
                 </div>
             </div>

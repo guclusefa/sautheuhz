@@ -1,0 +1,157 @@
+<%- include('header') %>
+
+    <div class="container">
+        <%- include('msgErreur') %>
+        <!-- Tittre -->
+        <div class="row d-flex justify-content-center text-center">
+            <div class="col-xl-12 col-md-12 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="">Modifier les informations du client <%= info_client[0].clients_id %>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <form action="/sautheuhz/fiche_client/<%= info_client[0].clients_id%>" method="POST" class="container" id="client" name="form_client"
+                novalidate>
+                <!-- Nom et prénom -->
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputNom">Nom</label>
+                            <input type="text" class="form-control" id="inputNom" name="inputNom" placeholder="Nom"
+                                onkeyup="this.value = this.value.toUpperCase();"
+                                value="<%= info_client[0].clients_nom %>" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputPrenom">Prénom</label>
+                            <input type="text" class="form-control" id="inputPrenom" name="inputPrenom"
+                                value="<%= info_client[0].clients_prenom %>" placeholder="Prénom" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email et tél -->
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputEmail">Email</label>
+                            <input type="email" class="form-control" id="inputEmail" name="inputEmail"
+                                placeholder="Email" value="<%= info_client[0].clients_mail %>" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputTel">Tél</label>
+                            <input type="tel" minlength="14" maxlength="14" class="form-control" id="inputTel"
+                                name="inputTel" placeholder="Téléphone" value="0<%= info_client[0].clients_tel %>"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sexe et date de naissance -->
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="selectSexe">Sexe</label>
+                            <select class="custom-select d-block form-control" id="selectSexe" name="selectSexe"
+                                required>
+                                <option value="" disabled selected>Choisir un sexe</option>
+                                <option value="N" <% if(info_client[0].clients_sexe == 'N') { %>selected <% } %>>Non binaire</option>
+                                <option value="M" <% if(info_client[0].clients_sexe == 'M') { %>selected <% } %>>Masculin</option>
+                                <option value="F" <% if(info_client[0].clients_sexe == 'F') { %>selected <% } %>>Féminin</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputDate">Date de naissance</label>
+                            <input type="date" class="form-control" id="inputDate" name="inputDate"
+                                value="<%= info_client[0].dateN %>" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ville et code postal -->
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputVille">Ville</label>
+                            <input type="text" class="form-control" id="inputVille" name="inputVille"
+                                placeholder="Ville" value="<%= info_client[0].clients_ville %>" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputCp">Code postal</label>
+                            <input type="text" class="form-control" id="inputCp" name="inputCp"
+                                placeholder="Code postal" value="<%= info_client[0].clients_cp %>" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adresse -->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputAdresse">Adresse</label>
+                            <input type="text" class="form-control" id="inputAdresse" name="inputAdresse"
+                                placeholder="Adresse" value="<%= info_client[0].clients_adresse %>" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No SS -->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="inputSS">N° de sécurité social</label>
+                            <input type="text" class="form-control" id="inputSS" name="inputSS" minlength="18"
+                                maxlength="18" placeholder="N° de sécurité social"
+                                value="<%= info_client[0].clients_noSS %>" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mutuelle -->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="text-inverse" for="selectMutuelle">Mutuelle</label>
+                            <select class="custom-select d-block form-control" id="selectMutuelle" name="selectMutuelle"
+                                required>
+                                <option value="" disabled selected>Choisir une mutuelle</option>
+                                <% contenu.forEach(function(user){ 
+                                    if(user.Mutuelles_id == info_client[0].idMutuelle) { %>
+                                    <option value="<%= user.Mutuelles_id %>" selected>
+                                        <%= user.Mutuelles_nom %>
+                                    </option>
+                                    <% } else {%>
+                                        <option value="<%= user.Mutuelles_id %>">
+                                            <%= user.Mutuelles_nom %>
+                                        </option>
+                                    <% }})%>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Validation du formulaire -->
+                <hr>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-12 text-center">
+                        <button class="btn btn-primary" style="width: 100%;" type="submit">Valider le
+                            formulaire</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <%- include('footer') %>

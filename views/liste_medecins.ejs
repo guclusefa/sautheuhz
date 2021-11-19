@@ -1,0 +1,148 @@
+<%- include('header') %>
+    <div class="container">
+        <%- include('msgErreur') %>
+        <!-- Titre -->
+        <div class="row d-flex justify-content-center text-center">
+            <div class="col-xl-12 col-md-12 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="">Liste des médecins</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton -->
+        <div class="row mt-3">
+            <div class="col-lg-12 col-sm-12 col-12 text-center">
+                <button class="btn btn-primary" style="width: 100%;" onclick="location.href = 'form_medecin';">Ajouter un
+                    médecin</button>
+            </div>
+        </div>
+
+        <!-- Tableau -->
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-12 col-md-12 mt-3">
+                <!-- Tableau -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xl-12 col-md-12 mt-3">
+                        <table class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Tél</th>
+                                    <th scope="col">Mail</th>
+                                    <th scope="col">N°Ordre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% contenu.forEach(function(user){ %>
+
+                                    <tr>
+                                        <td>
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item">
+                                                    <button class="btn btn-primary btn-sm rounded-0" type="button"
+                                                        data-toggle="modal" data-target="#detail_<%= user.Medecins_id %>"
+                                                        title="Détails"><i class="fa fa-eye"></i></button>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <button class="btn btn-success btn-sm rounded-0" type="button"
+                                                        title="Modifier"
+                                                        onclick="location.href = '/sautheuhz/fiche_medecin/<%= user.Medecins_id %>';"><i
+                                                            class="fa fa-edit"></i></button>
+                                                </li>
+                                                <li class="list-inline-item">
+
+                                                    <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                                        data-toggle="modal"
+                                                        data-target="#supprimer_<%= user.Medecins_id %>"
+                                                        title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td><%= user.Medecins_nom %>
+                                            <%= user.Medecins_prenom %>
+                                        </td>
+                                        <td>0<%= user.Medecins_tel %>
+                                        </td>
+                                        <td><%= user.Medecins_mail %>
+                                        </td>
+                                        <td><%= user.Medecins_noOrdre %>
+                                        </td>
+                                    </tr>
+                                    <% })%>
+
+                            </tbody>
+                        </table>
+                        <% contenu.forEach(function(user){ %>
+
+                            <!-- Détails -->
+                            <div class="modal fade" id="detail_<%= user.Medecins_id %>">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Détails médecin n°<%= user.Medecins_id %>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><b>Nom : </b><%= user.Medecins_nom %> 
+                                            </p>
+                                            <p><b>Prénom : </b><%= user.Medecins_prenom %>
+                                            </p>
+                                            <p><b>Tél : </b>0<%= user.Medecins_tel %>
+                                            </p>
+                                            <p><b>Email : </b><%= user.Medecins_mail %>
+                                            </p>
+                                            <p><b>N°Ordre : </b><%= user.Medecins_noOrdre %>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Fermer</button>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="location.href = 'fiche_medecin/<%= user.Medecins_id %>';">Fiche</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <!-- Supprimer -->
+                            <div class="modal fade" id="supprimer_<%= user.Medecins_id %>">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Supprimer médecin n°
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                Êtes-vous sûr de vouloir supprimer ce médecin ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success"
+                                                data-dismiss="modal">Non</button>
+                                            <form action="/sautheuhz/delete_medecin/<%= user.Medecins_id %>"
+                                                method="post">
+                                                <button type="submit" class="btn btn-danger" name="supp"
+                                                    value="supp">Oui</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% })%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('footer') %>

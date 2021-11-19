@@ -25,7 +25,7 @@ $(function () {
         newEntry = (currentEntry.clone()).appendTo(dynaForm);
 
         $("#compteur").attr("id", "compteur" + i);
-        $("#compteur" + i).html(i-1);
+        $("#compteur" + i).html(i - 1);
         $("#compteur").attr("id", "compteur").html(i);
 
         newEntry.find('input').val('');
@@ -36,8 +36,8 @@ $(function () {
     })
 
         .on('click', '.btn-remove', function (e) {
-/*             i = i - 1
-            $("#compteur").attr("id", "compteur").html(i); */
+            /*             i = i - 1
+                        $("#compteur").attr("id", "compteur").html(i); */
             $(this).parents('.entry:first').remove();
 
             e.preventDefault();
@@ -68,7 +68,7 @@ $(document).ready(function () {
     });
 
     $.validator.addMethod("ville", function (value, element) {
-        return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(value);
+        return this.optional(element) || /^[a-zA-ZÀ-ÿ0-9'\-\s]+$/i.test(value);
     }, "Veuillez fournir seulement des lettres, nombres et espaces.");
 
     $("#client").validate({
@@ -148,6 +148,95 @@ $(document).ready(function () {
     });
 });
 
+//form medecin
+$(document).ready(function () {
+    $("#medecin").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            inputNom: {
+                minlength: 2,
+                maxlength: 50,
+                lettersonly: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            },
+            inputPrenom: {
+                minlength: 2,
+                maxlength: 50,
+                lettersonly: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            },
+            inputEmail: {
+                email: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            },
+            inputTel: {
+                minlength: 14,
+                maxlength: 14,
+            },
+            inputOrdre: {
+                number: true,
+                min: 0
+            }
+        }
+    });
+});
+
+//form mutuelle
+$(document).ready(function () {
+    $("#mutuelle").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            inputNom: {
+                minlength: 2,
+                maxlength: 50,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            }
+        }
+    });
+});
+
+//form pathologie
+$(document).ready(function () {
+    $("#pathologie").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            inputNom: {
+                minlength: 2,
+                maxlength: 50,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            }
+        }
+    });
+});
+
 // jQuery validate formulaire connexion
 $(document).ready(function () {
     $("#connexion").validate({
@@ -164,6 +253,39 @@ $(document).ready(function () {
                 minlength: 5,
                 maxlength: 50,
                 nowhitespace: true
+            }
+        }
+    });
+
+
+});
+
+// jQuery validate formulaire connexion
+$(document).ready(function () {
+    $("#form_stock").validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            inputMed: {
+                minlength: 2,
+                maxlength: 50,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
+            },
+            inputQte: {
+                min: 0,
+                max: 999,
+                nowhitespace: true,
+                normalizer: function (value) {
+                    // Update the value of the element
+                    this.value = $.trim(value);
+                    // Use the trimmed value for validation
+                    return this.value;
+                }
             }
         }
     });
@@ -218,3 +340,11 @@ $.extend($.validator.messages, {
     postalCodeCA: "Veuillez fournir un code postal valide.",
     pattern: "Format non valide."
 });
+
+format_tel = document.getElementById("inputTel").value;
+format_tel = format_tel.replace(/[^\dA-Z]/g, '').replace(/(.{2})/g, '$1 ').trim();
+document.getElementById("inputTel").value = format_tel;
+
+format_ss = document.getElementById("inputSS").value;
+format_ss = format_ss.replace(/[^\dA-Z]/g, '').replace(/^(.{1})(.{2})(.{2})(.{2})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4 $5 $6");
+document.getElementById("inputSS").value = format_ss;
