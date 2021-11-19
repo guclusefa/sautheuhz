@@ -22,19 +22,29 @@ module.exports= {
             return callback(data);
         });
     },
-    executer_form_stock: function(MedLibelParam, callback){
-        var sql= 'INSERT INTO Medicaments SET ? ' ;
+    executer_form_stock: async function(sqlParam1, callback){
+        var sql = 'INSERT INTO Medicaments SET ? ';
         var sql2 = 'SELECT Medicaments_id FROM Medicaments ORDER BY Medicaments_id DESC'
-        
-        db.query(sql,MedLibelParam, function(err, data){
-            if(err)throw err;
-            db.query(sql2, function(err, dataMedic){
-                if(err)throw err;
-                return callback(dataMedic);
+        db.query(sql, sqlParam1, function (err, data) {
+            if (err) throw err;
+            db.query(sql2, function (err, medicamentId) {
+                if (err) throw err;
+                return callback(medicamentId);
             });
         });
     },
-    executer_form_stock_suite: function(stockParam,idMedicament, callback){
-        
+    executer_form_stock_suite: function(slqParam2,sqlParam3, callback){
+        var sql = 'INSERT INTO Stocks SET ? ';
+        db.query(sql, slqParam2, function(err,fields){
+            if(err)throw err;
+        });
+    },
+    executer_form_stock_suite2:function(sqlParam3, callback){
+        var sql2 = 'INSERT INTO Prescriptions SET ?  '
+        db.query(sql2, sqlParam3, function(err,data,fields){
+            console.log(sql2)
+            if(err)throw err;
+            return callback(data);
+        });
     },
 }
