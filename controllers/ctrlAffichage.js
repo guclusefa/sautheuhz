@@ -25,7 +25,7 @@ const afficher_dir = (req, res) => {
 
 
 // afficher page
-const afficher_accueil = (req, res) => {
+/*const afficher_accueil = (req, res) => {
     mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
         mysqlconnexion.query('SELECT  *, COUNT(*) as total FROM Pathologies, Ordonnances WHERE idPath = Pathologies_id GROUP BY idPath', (err, resPath, champs) => {
             mysqlconnexion.query('SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ', (err, lignes, champs) => {
@@ -38,7 +38,7 @@ const afficher_accueil = (req, res) => {
                         lesDonnesMeds.push(lignes[i].Stocks_quantite)
                     }
                     /* console.log(JSON.stringify(lesDonnesMeds))
-                    console.log(JSON.parse(JSON.stringify(lesMeds))) */
+                    console.log(JSON.parse(JSON.stringify(lesMeds))) 
 
                     // chart stock a prevoir
                     lesMois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
@@ -51,7 +51,7 @@ const afficher_accueil = (req, res) => {
                         prochainMoisEnNombre.push(d.getMonth() + 1)
                     }
                     /* console.log(prochainMois)
-                    console.log(prochainMoisEnNombre) */
+                    console.log(prochainMoisEnNombre) 
 
                     // chart pathologies
                     var lesPath = []
@@ -66,7 +66,7 @@ const afficher_accueil = (req, res) => {
             })
         })
     })
-}
+}*/
 
 const afficher_connexion = (req, res) => {
     res.render('./connexion', { titre: "Connexion" })
@@ -390,7 +390,7 @@ const afficher_connexion = (req, res) => {
 
 //ajouter un medicament 
 
-/*const executer_form_stock = (req, res) => {
+const executer_form_stock = (req, res) => {
     let medicamentNom = req.body.inputMed
     let medicamentQuantite = req.body.inputQte
 
@@ -446,7 +446,7 @@ const afficher_connexion = (req, res) => {
             res.send("Erreur ajout : " + JSON.stringify(err))
         }
     })
-}*/
+}
 
 
 //ajouter un medecin 
@@ -681,7 +681,7 @@ const afficher_connexion = (req, res) => {
 
 }
 */
-const update_form_stock = (req, res) => {
+/*const update_form_stock = (req, res) => {
     let id = req.params.id
     let medicamentNom = req.body.inputMed
     let medicamentQuantite = req.body.inputQte
@@ -710,7 +710,7 @@ const update_form_stock = (req, res) => {
         }
     })
 
-}
+}*/
 
 //delete client
 /*const delete_fiche_client = (req, res) => {
@@ -796,8 +796,7 @@ const update_form_stock = (req, res) => {
 }*/
 
 module.exports = {
-    afficher_accueil,
-    afficher_connexion,
+    //afficher_accueil,
 
     //afficher_liste_clients,
    // afficher_liste_ordonnances,
@@ -823,7 +822,7 @@ module.exports = {
 
     //executer_form_ordonnance,
     //executer_form_client,
-    //executer_form_stock,
+    executer_form_stock,
     //executer_form_medecin,
     //executer_form_mutuelle,
    // executer_form_pathologie,
@@ -834,7 +833,7 @@ module.exports = {
     //update_form_medecin,
    // update_form_mutuelle,
     //update_form_pathologie,
-    update_form_stock,
+    //update_form_stock,
 
     //delete_fiche_client,
     //delete_fiche_ordonnance,

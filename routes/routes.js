@@ -3,6 +3,7 @@ const { Router } = require('express');
 const express = require('express');
 const routeur = express.Router();
 const affichageControl = require('../controllers/ctrlAffichage');
+var accueilController = require('../controllers/ctrlAccueil')
 var medecinController = require('../controllers/ctrlMedecin');
 var mutuelleController = require('../controllers/ctrlMutuelle');
 var pathologieController = require('../controllers/ctrlPathologie');
@@ -10,6 +11,9 @@ var clientController = require('../controllers/ctrlClient')
 var ordonnanceController = require('../controllers/ctrlOrdonnance')
 var stockController = require('../controllers/ctrlStock')
 
+//routage accueil
+routeur.get('/accueil', accueilController.afficher_accueil)
+    .get('/', accueilController.afficher_accueil)
 //routage medecin 
 routeur.get('/liste_medecins',medecinController.afficher_liste_medecins)
     .get('/form_medecin', medecinController.afficher_form_medecin)
@@ -54,13 +58,13 @@ routeur.get('/liste_ordonnances', ordonnanceController.afficher_liste_ordonnance
 routeur.get('/liste_stocks', stockController.afficher_liste_stocks)
     .get('/form_stock', stockController.afficher_form_stock)
     .get('/fiche_stock/:id', stockController.afficher_fiche_stock)
-    .post('/form_stock', stockController.executer_form_stock)
+    //.post('/form_stock', stockController.executer_form_stock)
+    .post('/fiche_stock/:id', stockController.update_form_stock)
+    .post('/delete_stock/:id', stockController.delete_fiche_stock)
 
 
-    // afficher les pages
-routeur.get('/', affichageControl.afficher_accueil)
-    .get('/accueil', affichageControl.afficher_accueil)
-    .get('/connexion', affichageControl.afficher_connexion)
+//executer form stock (bug async)
+routeur.post('/form_stock', affichageControl.executer_form_stock)
 
     //.get('/liste_clients', affichageControl.afficher_liste_clients)
     //.get('/liste_ordonnances', affichageControl.afficher_liste_ordonnances)
@@ -86,7 +90,6 @@ routeur.get('/', affichageControl.afficher_accueil)
     //executer les formulaires
     //.post('/form_ordonnance', affichageControl.executer_form_ordonnance)
     //.post('/form_client', affichageControl.executer_form_client)
-   // .post('/form_stock', affichageControl.executer_form_stock)
    // .post('/form_medecin', affichageControl.executer_form_medecin)
     //.post('/form_mutuelle', affichageControl.executer_form_mutuelle)
     //.post('/form_pathologie', affichageControl.executer_form_pathologie)
@@ -94,7 +97,7 @@ routeur.get('/', affichageControl.afficher_accueil)
     //modifier / supprimer données
     //.post('/fiche_client/:id', affichageControl.update_form_client)
     //.post('/fiche_ordonnances/:id', affichageControl.update_form_ordonnance)
-    .post('/fiche_stock/:id', affichageControl.update_form_stock)
+    //.post('/fiche_stock/:id', affichageControl.update_form_stock)
     //.post('/fiche_medecin/:id', affichageControl.update_form_medecin)
     //.post('/fiche_mutuelle/:id', affichageControl.update_form_mutuelle)
     //.post('/fiche_pathologie/:id', affichageControl.update_form_pathologie)

@@ -18,7 +18,7 @@ module.exports = {
             res.render('./fiche_stock', { contenu: data, titre: "Fiche stock" })
         });
     },
-    executer_form_stock: function (req, res) {
+    /*executer_form_stock: function (req, res) {
         let Medicaments_libelle = req.body.inputMed
         let Stocks_quantite = req.body.inputQte
         sqlParam1 ={Medicaments_libelle}
@@ -34,9 +34,8 @@ module.exports = {
             let Prescriptions_dateFin ='2099-11-01'
 
             modelStock.executer_form_stock_suite(slqParam2, function(data){
-                let  sqlParam3 = {idOrdo,idMedicament,Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin }
 
-                modelStock.executer_form_stock_suite2(sqlParam3, function(sqlParam3){
+                modelStock.executer_form_stock_suite2(idMedicament, function(idMedicament){
 
                 })
 
@@ -45,5 +44,34 @@ module.exports = {
 
         })
 
+    },*/
+    update_form_stock: function (req, res) {
+        let id = req.params.id
+         let Medicaments_libelle = req.body.inputMed
+         let Stocks_quantite = req.body.inputQte
+        let Medicaments_id = id
+         sql1Param = {Medicaments_libelle}
+
+         modelStock.update_form_stock([sql1Param, Medicaments_id], function (data) {
+            let idMedicament =id
+            sql2Param= {Stocks_quantite}
+
+            modelStock.update_form_stock2([sql2Param, idMedicament], function (data) {
+        
+                res.redirect('./../liste_stocks')
+
+            })
+            
+        })
     },
+
+
+    
+    delete_fiche_stock: function (req, res) {
+        id = req.params.id
+        modelStock.delete_fiche_stock(id, function (data) {
+            console.log(data);
+            res.redirect('./../liste_stocks')
+        });
+    }
 }
