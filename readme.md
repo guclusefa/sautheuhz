@@ -19,6 +19,23 @@ La base de données est hébergé sur AlwaysData sous PhpMyAdmin.
 
 Lien pour accéder aux projet hébergé: 
 
+## Installer le projet sur votre ordinateur ? 
+
+Après avoir installer git ainsi que node sur votre pc, clonez le projet grâce a la commande : 
+```
+git clone https://github.com/guclusefa/sautheuhz.git
+```
+Récuperez la base de données et importer là dans votre gestionnaire de base de données.  
+Il s'agit du fichier : sautheuhz_bdd.sql
+
+Il vous suffit alors d'écrire dans votre terminal la commande suivante : 
+```
+node index.js
+```
+Pour finir, pour accèder au site web, rendez vous sur l'url suivante : 
+``` 
+localhost:3000/sautheuhz
+```
 ## Auteurs
 - [IlianCode](https://github.com/IlianCode)
 - [guclusefa](https://github.com/guclusefa)
