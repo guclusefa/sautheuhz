@@ -1,4 +1,4 @@
-![This is an image](/assets/images/logo2.png)
+![This is an image](/assets/images/logo.png)
 
 ## Projet SAUTHEUHZ
 Notre premier projet node JS en MVC. 
