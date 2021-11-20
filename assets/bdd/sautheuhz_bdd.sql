@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-sautheuhz.alwaysdata.net
--- Generation Time: Nov 19, 2021 at 04:32 PM
+-- Generation Time: Nov 20, 2021 at 02:57 PM
 -- Server version: 10.5.11-MariaDB
 -- PHP Version: 7.4.19
 
@@ -42,13 +42,6 @@ CREATE TABLE `Clients` (
   `clients_cp` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `Clients`
---
-
-INSERT INTO `Clients` (`clients_id`, `idMutuelle`, `clients_noSS`, `clients_nom`, `clients_prenom`, `clients_sexe`, `clients_dateNaissance`, `clients_tel`, `clients_mail`, `clients_adresse`, `clients_ville`, `clients_cp`) VALUES
-(29, 2, '3333333333333', 'TEST', 'MEDOC', 'M', '2021-11-11', 666666666, 'mailfictig@comptetest.COM', '8 rue du test', 'MEDICAMENT', '75222');
-
 -- --------------------------------------------------------
 
 --
@@ -64,7 +57,7 @@ CREATE TABLE `Medecins` (
   `Medecins_mail` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `Medicaments`
@@ -72,9 +65,9 @@ CREATE TABLE `Medecins` (
 
 CREATE TABLE `Medicaments` (
   `Medicaments_id` int(11) NOT NULL,
-  `Medicaments_libelle` varchar(50) NOT NULL
+  `Medicaments_libelle` varchar(50) NOT NULL,
+  `Medicaments_qte` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 -- --------------------------------------------------------
 
@@ -88,7 +81,8 @@ CREATE TABLE `Mutuelles` (
   `Mutuelles_tel` int(10) NOT NULL,
   `Mutuelles_mail` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-------------------------------------
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `Ordonnances`
@@ -102,12 +96,6 @@ CREATE TABLE `Ordonnances` (
   `Ordonnances_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `Ordonnances`
---
-
-INSERT INTO `Ordonnances` (`Ordonnances_id`, `idPath`, `idMedecin`, `idClient`, `Ordonnances_date`) VALUES
-(0, 2, 1, 29, '2021-11-12')
 -- --------------------------------------------------------
 
 --
@@ -118,7 +106,6 @@ CREATE TABLE `Pathologies` (
   `Pathologies_id` int(11) NOT NULL,
   `Pathologies_libelle` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 -- --------------------------------------------------------
 
@@ -135,28 +122,15 @@ CREATE TABLE `Prescriptions` (
   `Prescriptions_dateFin` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Indexes for dumped tables
+--
 
 --
--- Table structure for table `Stocks`
---
-
-CREATE TABLE `Stocks` (
-  `Stocks_id` int(11) NOT NULL,
-  `idMedicament` int(11) NOT NULL,
-  `Stocks_quantite` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
 -- Indexes for table `Clients`
 --
 ALTER TABLE `Clients`
   ADD PRIMARY KEY (`clients_id`);
-
---
--- Indexes for table `Employes`
---
-ALTER TABLE `Employes`
-  ADD PRIMARY KEY (`Employes_id`);
 
 --
 -- Indexes for table `Medecins`
@@ -195,12 +169,6 @@ ALTER TABLE `Prescriptions`
   ADD PRIMARY KEY (`Prescriptions_id`);
 
 --
--- Indexes for table `Stocks`
---
-ALTER TABLE `Stocks`
-  ADD PRIMARY KEY (`Stocks_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -208,55 +176,43 @@ ALTER TABLE `Stocks`
 -- AUTO_INCREMENT for table `Clients`
 --
 ALTER TABLE `Clients`
-  MODIFY `clients_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
-
---
--- AUTO_INCREMENT for table `Employes`
---
-ALTER TABLE `Employes`
-  MODIFY `Employes_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `clients_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Medecins`
 --
 ALTER TABLE `Medecins`
-  MODIFY `Medecins_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Medecins_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Medicaments`
 --
 ALTER TABLE `Medicaments`
-  MODIFY `Medicaments_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `Medicaments_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Mutuelles`
 --
 ALTER TABLE `Mutuelles`
-  MODIFY `Mutuelles_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Mutuelles_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Ordonnances`
 --
 ALTER TABLE `Ordonnances`
-  MODIFY `Ordonnances_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `Ordonnances_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Pathologies`
 --
 ALTER TABLE `Pathologies`
-  MODIFY `Pathologies_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Pathologies_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Prescriptions`
 --
 ALTER TABLE `Prescriptions`
-  MODIFY `Prescriptions_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
-
---
--- AUTO_INCREMENT for table `Stocks`
---
-ALTER TABLE `Stocks`
-  MODIFY `Stocks_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `Prescriptions_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
