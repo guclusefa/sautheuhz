@@ -1,4 +1,3 @@
-var db = require('../config/database');
 var modelPathologie = require('../models/modelPathologie');
 module.exports = {
     afficher_liste_pathologies: function (req, res) {

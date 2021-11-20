@@ -1,9 +1,7 @@
 // création du routeur Express pour ce module
-const { Router } = require('express');
 const express = require('express');
 const routeur = express.Router();
 
-const affichageControl = require('../controllers/ctrlAffich');
 var accueilController = require('../controllers/ctrlAccueil')
 var medecinController = require('../controllers/ctrlMedecin');
 var mutuelleController = require('../controllers/ctrlMutuelle');
@@ -59,15 +57,10 @@ routeur.get('/liste_ordonnances', ordonnanceController.afficher_liste_ordonnance
 routeur.get('/liste_stocks', stockController.afficher_liste_stocks)
     .get('/form_stock', stockController.afficher_form_stock)
     .get('/fiche_stock/:id', stockController.afficher_fiche_stock)
-    //.post('/form_stock', stockController.executer_form_stock)
+    .post('/form_stock', stockController.executer_form_stock)
     .post('/fiche_stock/:id', stockController.update_form_stock)
     .post('/delete_stock/:id', stockController.delete_fiche_stock)
 
-
-//executer form stock (bug async)
-routeur.post('/form_stock', affichageControl.executer_form_stock)
-
-   
 module.exports = routeur;
 
 

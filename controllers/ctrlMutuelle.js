@@ -1,4 +1,3 @@
-var db = require('../config/database');
 var modelMutuelle = require('../models/modelMutuelle');
 
 module.exports = {

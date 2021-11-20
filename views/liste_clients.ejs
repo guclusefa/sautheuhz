@@ -66,7 +66,7 @@
                                         </td>
                                         <td>
                                             <%= user.clients_nom %>
-                                                <%= user.clients_prenom %>
+                                                <%= user.clients_prenom %> (<%= user.age %>)
                                         </td>
                                         <td>
                                             <%= user.clients_sexe %>
@@ -119,7 +119,7 @@
                                                 <%= user.clients_sexe %>
                                             </p>
                                             <p><b>Date de naissance : </b>
-                                                <%= user.clients_dateNaissance %>
+                                                <%= user.clients_dateNaissance %> (<%= user.age %> ans)
                                             </p>
                                             <p><b>Ville : </b>
                                                 <%= user.clients_ville %>

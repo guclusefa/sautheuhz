@@ -1,8 +1,8 @@
-var db = require('../config/database');
 var modelClient = require('../models/modelClient');
 module.exports = {
     afficher_liste_clients: function (req, res) {
         modelClient.afficher_liste_clients(function (data) {
+            console.log(data)
             res.render('./liste_clients', { contenu: data, titre: "Liste des clients", valid: req.flash('valid'), erreur: req.flash('erreur') });
         });
     },
