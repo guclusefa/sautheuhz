@@ -3,6 +3,9 @@ var modelStock = require('../models/modelStock');
 module.exports = {
     afficher_liste_stocks: function (req, res) {
         modelStock.afficher_liste_stocks(function (data, data2, data3) {
+            console.log(data2)
+            console.log("--------------------------------")
+            console.log(data3)
             lesStock = []
             for(i in data2){
                 lesStock.push([data2[i].idMedicament, data2[i].Medicaments_libelle, data2[i].Medicaments_qte, data2[i].stock_necessaire])
