@@ -23,10 +23,26 @@ module.exports = {
         let idPath = req.body.selectPathologie
         let Ordonnances_date = req.body.inputDateDebut
 
-        if (idClient === "" || idMedecin === "" || idPath === "" || Ordonnances_date === "") {
-            req.flash('erreur', 'Remplir tout les champs');
+        let erreurDate
+        for (i in req.body.selectDateMed) {
+            dateDebut = new Date(Ordonnances_date);
+            dateFin = new Date(req.body.selectDateMed[i]);
+            if (dateFin < dateDebut) {
+                erreurDate = true
+            }
+        }
+
+        if (idClient === "" || idMedecin === "" || idPath === "" || Ordonnances_date === "" || erreurDate) {
+            if (erreurDate) {
+                req.flash('erreur', 'Date de fin doit être supérieur a date de debut');
+
+            } else {
+                req.flash('erreur', 'Remplir tout les champs');
+
+            }
             res.redirect('./form_ordonnance')
         } else {
+
             Ordonnances_date = Ordonnances_date.split("/").reverse().join("/");
             ordonnanceParam = { idPath, idMedecin, idClient, Ordonnances_date }
 
@@ -41,15 +57,10 @@ module.exports = {
                     Prescriptions_frequence = req.body.inputFrequence[i]
                     Prescriptions_dateFin = req.body.selectDateMed[i]
 
-                    if (idMedicament === "" || Prescriptions_quantite === "" || Prescriptions_frequence === "" || Prescriptions_dateFin === "") {
-                        req.flash('erreur', 'Remplir tout les champs');
-                        res.redirect('./form_ordonnance')
-                    }
-                    else {
-                        prescriptionParam = { idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin }
-                        modelOrdonnance.executer_form_ordonnance_prescription(prescriptionParam, function (data2) { })
-                    }
+                    prescriptionParam = { idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin }
+                    modelOrdonnance.executer_form_ordonnance_prescription(prescriptionParam, function (data2) { })
                 }
+
                 req.flash('valid', "Ajout d'ordonnance terminé");
                 res.redirect('./liste_ordonnances')
             })
@@ -62,27 +73,47 @@ module.exports = {
         let idMedecin = req.body.selectMedecin
         let idPath = req.body.selectPathologie
         let Ordonnances_date = req.body.inputDateDebut
-        Ordonnances_date = Ordonnances_date.split("/").reverse().join("/");
 
-        let ordonnanceParam = { idPath, idMedecin, idClient, Ordonnances_date }
+        let erreurDate2
+        for (i in req.body.selectDateMed) {
+            dateDebut = new Date(Ordonnances_date);
+            dateFin = new Date(req.body.selectDateMed[i]);
+            console.log(dateDebut + " " + dateFin)
+            if (dateFin < dateDebut) {
+               erreurDate2 = true
+            }
+        }
 
-        modelOrdonnance.update_form_ordonnance([ordonnanceParam, idOrdo], function (data) {
-            modelOrdonnance.update_form_ordonnance_delete(idOrdo, function (data) {
+        if (idClient === "" || idMedecin === "" || idPath === "" || Ordonnances_date === "" || erreurDate2) {
+            if (erreurDate2) {
+                req.flash('erreur', 'Date de fin doit être supérieur a date de debut');
+            } else {
+                req.flash('erreur', 'Remplir tout les champs');
 
-                for (i in req.body.selectMedicament) {
-                    idMedicament = req.body.selectMedicament[i]
-                    Prescriptions_quantite = req.body.selectQte[i]
-                    Prescriptions_frequence = req.body.inputFrequence[i]
-                    Prescriptions_dateFin = req.body.selectDateMed[i]
+            }
+            res.redirect('../fiche_ordonnance/'+idOrdo)
+        } else {
+            Ordonnances_date = Ordonnances_date.split("/").reverse().join("/");
+            let ordonnanceParam = { idPath, idMedecin, idClient, Ordonnances_date }
 
-                    prescriptionParam = { idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin }
-                    modelOrdonnance.executer_form_ordonnance_prescription(prescriptionParam, function (data2) {
-                    })
-                }
-                req.flash('valid', `Modification d'ordonnance terminé`);
-                res.redirect('.././liste_ordonnances')
+            modelOrdonnance.update_form_ordonnance([ordonnanceParam, idOrdo], function (data) {
+                modelOrdonnance.update_form_ordonnance_delete(idOrdo, function (data) {
+
+                    for (i in req.body.selectMedicament) {
+                        idMedicament = req.body.selectMedicament[i]
+                        Prescriptions_quantite = req.body.selectQte[i]
+                        Prescriptions_frequence = req.body.inputFrequence[i]
+                        Prescriptions_dateFin = req.body.selectDateMed[i]
+
+                        prescriptionParam = { idOrdo, idMedicament, Prescriptions_quantite, Prescriptions_frequence, Prescriptions_dateFin }
+                        modelOrdonnance.executer_form_ordonnance_prescription(prescriptionParam, function (data2) {
+                        })
+                    }
+                    req.flash('valid', `Modification d'ordonnance terminé`);
+                    res.redirect('./../liste_ordonnances')
+                })
             })
-        })
+        }
     },
     delete_fiche_ordonnance: function (req, res) {
         id = req.params.id
