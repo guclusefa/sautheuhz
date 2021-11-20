@@ -1,7 +1,7 @@
 var db = require('../config/database');
 module.exports = {
     afficher_liste_clients: function (callback) {
-        var sql = 'SELECT TIMESTAMPDIFF(YEAR, clients_dateNaissance, CURDATE()) AS age, clients_id, idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, DATE_FORMAT(clients_dateNaissance, "%d/%m/%Y") as clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville , clients_cp, idMutuelle, Mutuelles_id, Mutuelles_Nom FROM Clients, Mutuelles WHERE idMutuelle = Mutuelles_id AND clients_id <>29';
+        var sql = 'SELECT TIMESTAMPDIFF(YEAR, clients_dateNaissance, CURDATE()) AS age, clients_id, idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, DATE_FORMAT(clients_dateNaissance, "%d/%m/%Y") as clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville , clients_cp, idMutuelle, Mutuelles_id, Mutuelles_Nom FROM Clients, Mutuelles WHERE idMutuelle = Mutuelles_id ';
         db.query(sql, function (err, data, fields) {
             if (err) throw err;
             return callback(data);
