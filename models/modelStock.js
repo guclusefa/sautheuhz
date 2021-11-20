@@ -1,6 +1,9 @@
 var db = require('../config/database');
 module.exports = {
     afficher_liste_stocks: function (callback) {
+        // marche mais il faut prendre en compte les jours restant et non les jours total lors du calcul de la fréquence, fix a faire dans la requete sql2 -> a faire
+        // sql prend les prescriptions finis, sql2 prend tout les meds, sql3 prend les meds qui nont pas de prescriptions
+        // il suffit de soustraire les stock nessaire de la sql1 (car fini) et sql2 pour avoir le stock necessaire réel, puis d'ajouter dans la liste les meds dans aucun prescription -> fix le probleme de bdd avec colonnes intermdiaire
         var sql = 'SELECT *, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(Prescriptions_dateFin - Ordonnances_date)) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id AND Prescriptions_dateFin < NOW() GROUP BY idMedicament ORDER BY Prescriptions_dateFin, idMedicament';
         var sql2 = 'SELECT *, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(Prescriptions_dateFin - Ordonnances_date)) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id GROUP BY idMedicament ORDER BY Prescriptions_dateFin, idMedicament';
         var sql3 = 'SELECT * FROM Medicaments WHERE Medicaments_id NOT IN (SELECT idMedicament FROM Prescriptions)'

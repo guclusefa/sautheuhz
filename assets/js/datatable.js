@@ -1,6 +1,6 @@
 // datable en francais
 $(document).ready(function () {
-    $('table').DataTable({
+    $('.table-striped').DataTable({
         "language": {
             "sProcessing": "Traitement en cours...",
             "sSearch": "Rechercher&nbsp;:",

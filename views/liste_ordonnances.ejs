@@ -1,142 +1,187 @@
 <%- include('header') %>
     <div class="container">
         <%- include('msgErreur') %>
-        <!-- Titre -->
-        <div class="row d-flex justify-content-center text-center">
-            <div class="col-xl-12 col-md-12 mt-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="">Liste des ordonnances</h1>
+            <!-- Titre -->
+            <div class="row d-flex justify-content-center text-center">
+                <div class="col-xl-12 col-md-12 mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="">Liste des ordonnances</h1>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Bouton -->
-        <div class="row mt-3">
-            <div class="col-lg-12 col-sm-12 col-12 text-center">
-                <button class="btn btn-primary" style="width: 100%;"
-                    onclick="location.href = 'form_ordonnance';">Ajouter une ordonnance</button>
+            <!-- Bouton -->
+            <div class="row mt-3">
+                <div class="col-lg-12 col-sm-12 col-12 text-center">
+                    <button class="btn btn-primary" style="width: 100%;"
+                        onclick="location.href = 'form_ordonnance';">Ajouter une ordonnance</button>
+                </div>
             </div>
-        </div>
 
-        <!-- Tableau -->
-        <div class="row d-flex justify-content-center">
-            <div class="col-xl-12 col-md-12 mt-3">
-                <table class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th scope="col">Action</th>
-                            <th scope="col">Client</th>
-                            <th scope="col">Médecin</th>
-                            <th scope="col">Pathologie</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Durée</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% let compteur = 0 %>
-                        <% contenu.forEach(function(user){ %>
+            <!-- Tableau -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-12 col-md-12 mt-3">
+                    <table class="table table-striped table-bordered" style="width:100%">
+                        <thead>
                             <tr>
-                                <td>
-                                    <ul class="list-inline m-0">
-                                        <li class="list-inline-item">
-                                            <button class="btn btn-primary btn-sm rounded-0" type="button"
-                                                data-toggle="modal" data-target="#detail_<%= date[compteur].idOrdo %>" title="Détails"><i
-                                                    class="fa fa-eye"></i></button>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <button class="btn btn-success btn-sm rounded-0" type="button"
-                                                title="Modifier" onclick="location.href = 'fiche_ordonnance/<%= date[compteur].idOrdo %>';"><i class="fa fa-edit"></i></button>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <button class="btn btn-danger btn-sm rounded-0" type="button"
-                                                data-toggle="modal" data-target="#supprimer_<%= date[compteur].idOrdo %>" title="Supprimer"><i
-                                                    class="fa fa-trash"></i></button>
-                                        </li>
-                                    </ul>
-                                </td>
-                            <td><%= date[compteur].clients_nom %>  <%= date[compteur].clients_prenom %></td>
-                            <td><%= date[compteur].Medecins_nom %> <%= date[compteur].Medecins_prenom %></td>
-                            <td><%= date[compteur].Pathologies_libelle %></td>
-                            <td><%= date[compteur].dateOrdo %></td>
-                            <td><%= date[compteur].dureeOrdonnance %> jour(s)</td>
-                        </tr>
-                        <% compteur = compteur+1 %>
-                        <% })%>
+                                <th scope="col">Action</th>
+                                <th scope="col">Client</th>
+                                <th scope="col">Médecin</th>
+                                <th scope="col">Pathologie</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Durée</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% let compteur=0 %>
+                                <% contenu.forEach(function(user){ %>
+                                    <tr>
+                                        <td>
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item">
+                                                    <button class="btn btn-primary btn-sm rounded-0" type="button"
+                                                        data-toggle="modal"
+                                                        data-target="#detail_<%= date[compteur].idOrdo %>"
+                                                        title="Détails"><i class="fa fa-eye"></i></button>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <button class="btn btn-success btn-sm rounded-0" type="button"
+                                                        title="Modifier"
+                                                        onclick="location.href = 'fiche_ordonnance/<%= date[compteur].idOrdo %>';"><i
+                                                            class="fa fa-edit"></i></button>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                                        data-toggle="modal"
+                                                        data-target="#supprimer_<%= date[compteur].idOrdo %>"
+                                                        title="Supprimer"><i class="fa fa-trash"></i></button>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <%= date[compteur].clients_nom %>
+                                                <%= date[compteur].clients_prenom %>
+                                        </td>
+                                        <td>
+                                            <%= date[compteur].Medecins_nom %>
+                                                <%= date[compteur].Medecins_prenom %>
+                                        </td>
+                                        <td>
+                                            <%= date[compteur].Pathologies_libelle %>
+                                        </td>
+                                        <td>
+                                            <%= date[compteur].dateOrdo %>
+                                        </td>
+                                        <td>
+                                            <%= date[compteur].dureeOrdonnance %> jour(s)
+                                        </td>
+                                    </tr>
+                                    <% compteur=compteur+1 %>
+                                        <% })%>
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-                <% compteur = 0 %>
-                <% contenu.forEach(function(user){ %>
-                <!-- Détails -->
-                <div class="modal fade" id="detail_<%= date[compteur].idOrdo %>">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Détails ordonnance n°<%= date[compteur].idOrdo %></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true" style="cursor: pointer;">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row" style="font-weight: bold;">
-                                    <div class="col">Médicament</div>
-                                    <div class="col">Quantité</div>
-                                    <div class="col">Fréquence</div>
-                                    <div class="col">Date fin</div>
-                                    <div class="col">Durée</div>
+                    <% compteur=0 %>
+                        <% contenu.forEach(function(user){ %>
+                            <!-- Détails -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="modal fade" id="detail_<%= date[compteur].idOrdo %>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Détails ordonnance n°<%=
+                                                            date[compteur].idOrdo %>
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Médicament</th>
+                                                                    <th>Quantité</th>
+                                                                    <th>Fréquence</th>
+                                                                    <th>Date fin</th>
+                                                                    <th>Durée</th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                <% prescriptions.forEach(function(presc){
+                                                                    if(date[compteur].idOrdo==presc.idOrdo) { %>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%= presc.Medicaments_libelle %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= presc.Prescriptions_quantite %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= presc.Prescriptions_frequence %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= presc.dateFin %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= presc.duree %> jours
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% } })%>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Fermer</button>
+                                                    <button type="button" class="btn btn-primary">Fiche</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <hr>
+                            </div>
 
-                                <% prescriptions.forEach(function(presc){ 
-                                    if(date[compteur].idOrdo == presc.idOrdo) { %>
-                                <div class="row">
-                                    <div class="col"><%= presc.Medicaments_libelle %></div>
-                                    <div class="col"><%= presc.Prescriptions_quantite %></div>
-                                    <div class="col"><%= presc.Prescriptions_frequence %></div>
-                                    <div class="col"><%= presc.dateFin %></div>
-                                    <div class="col"><%= presc.duree %> jours</div>
+                            <!-- Supprimer -->
+                            <div class="modal fade" id="supprimer_<%= date[compteur].idOrdo %>">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Supprimer ordonnance n°<%= date[compteur].idOrdo %>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" style="cursor: pointer;">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                Êtes-vous sûr de vouloir supprimer cette ordonnance ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success"
+                                                data-dismiss="modal">Non</button>
+
+                                            <form action="/sautheuhz/delete_ordonnances/<%= date[compteur].idOrdo %>"
+                                                method="post">
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="location.href = 'delete_ordonnance/<%= date[compteur].idOrdo %>';">Oui</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                                <hr>
-                                <% } })%>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                <button type="button" class="btn btn-primary">Fiche</button>
-                            </div>
-                        </div>
-                    </div>
+                            <% compteur=compteur+1 %>
+                                <% })%>
                 </div>
-
-                <!-- Supprimer -->
-                <div class="modal fade" id="supprimer_<%= date[compteur].idOrdo %>">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Supprimer ordonnance n°<%= date[compteur].idOrdo %></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true" style="cursor: pointer;">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    Êtes-vous sûr de vouloir supprimer cette ordonnance ?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" data-dismiss="modal">Non</button>
-
-                                <form action="/sautheuhz/delete_ordonnances/<%= date[compteur].idOrdo %>" method="post">
-                                <button type="submit" class="btn btn-danger" onclick="location.href = 'delete_ordonnance/<%= date[compteur].idOrdo %>';">Oui</button></form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <% compteur = compteur+1 %>
-                <% })%>
             </div>
-        </div>
     </div>
 
     <%- include('footer') %>

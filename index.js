@@ -26,4 +26,5 @@ app.listen(3000, () => console.log('Le serveur sautheuhz est actif'))
 app.get('/', (req, res) => {
     res.send('Le serveur sautheuhz est actif')
 })
+
 app.use('/sautheuhz', Routeur)
