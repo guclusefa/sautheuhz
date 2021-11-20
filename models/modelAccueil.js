@@ -2,7 +2,7 @@ var db = require('../config/database');
 module.exports= {
     afficher_accueil:function(callback){
         var sql ='SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament ';
-        var sql2 ='SELECT  *, COUNT(*) as total FROM Pathologies, Ordonnances WHERE idPath = Pathologies_id GROUP BY idPath';
+        var sql2 ='SELECT  *, COUNT(*) as total FROM Pathologies, Ordonnances WHERE idPath = Pathologies_id AND Ordonnances_id > 73 GROUP BY idPath';
         var sql3 = 'SELECT * FROM Stocks, Medicaments WHERE Medicaments_id = idMedicament '
         db.query(sql, function(err,data,fields){
             if (err)throw err;
