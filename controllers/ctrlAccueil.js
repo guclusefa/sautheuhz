@@ -9,7 +9,7 @@ module.exports = {
             var lesDonnesMeds = []
             for (let i = 0; i < data3.length; i++) {
                 lesMeds.push(data3[i].Medicaments_libelle)
-                lesDonnesMeds.push(data3[i].Stocks_quantite)
+                lesDonnesMeds.push(data3[i].Medicaments_qte)
             }
 
             // chart pathologies
