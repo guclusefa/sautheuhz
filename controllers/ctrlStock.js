@@ -2,6 +2,7 @@ var modelStock = require('../models/modelStock');
 module.exports = {
     afficher_liste_stocks: function (req, res) {
         modelStock.afficher_liste_stocks(function (data, data2, data3) {
+            //alvinccmoijetechiedessu#respectuflly
             console.log(data)
             console.log("--------------------------------")
             console.log(data2)
