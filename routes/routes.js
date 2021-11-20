@@ -1,5 +1,4 @@
 // création du routeur Express pour ce module
-const { Router } = require('express');
 const express = require('express');
 const routeur = express.Router();
 

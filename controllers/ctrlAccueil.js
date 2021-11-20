@@ -1,4 +1,3 @@
-var db = require('../config/database');
 var modelAccueil = require('../models/modelAccueil');
 module.exports = {
 

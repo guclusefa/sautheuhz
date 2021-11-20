@@ -2,7 +2,7 @@ var db = require('../config/database');
 module.exports = {
     afficher_liste_stocks: function (callback) {
         var sql = 'SELECT * FROM Medicaments';
-        var sql2 = 'SELECT *, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(Prescriptions_dateFin - Ordonnances_date)) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id AND Prescriptions_dateFin >= NOW() GROUP BY idMedicament ';
+        var sql2 = 'SELECT *, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(Prescriptions_dateFin - Ordonnances_date)) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id GROUP BY idMedicament ';
         var sql3 = 'SELECT * FROM Medicaments WHERE Medicaments_id NOT IN (SELECT idMedicament FROM Prescriptions)'
         db.query(sql, function (err, data, fields) {
             if (err) throw err;
@@ -18,7 +18,7 @@ module.exports = {
         return callback();
     },
     afficher_fiche_stock: function (myID, callback) {
-        var sql = 'SELECT * FROM Medicaments';
+        var sql = 'SELECT * FROM Medicaments WHERE Medicaments_id = ?';
         db.query(sql, myID, function (err, data, fields) {
             if (err) throw err;
             return callback(data);

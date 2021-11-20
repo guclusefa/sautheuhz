@@ -1,4 +1,3 @@
-var db = require('../config/database');
 var modelOrdonnance = require('../models/modelOrdonnance');
 module.exports = {
     afficher_liste_ordonnances: function (req, res) {

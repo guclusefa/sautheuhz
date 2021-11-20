@@ -1,4 +1,3 @@
-var db = require('../config/database');
 var modelClient = require('../models/modelClient');
 module.exports = {
     afficher_liste_clients: function (req, res) {

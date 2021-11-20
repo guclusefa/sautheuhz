@@ -1,4 +1,3 @@
-var db = require('../config/database');
 var modelMedecin = require('../models/modelMedecin');
 module.exports = {
     afficher_liste_medecins: function (req, res) {

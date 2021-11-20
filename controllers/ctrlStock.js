@@ -1,4 +1,3 @@
-var db = require('../config/database');
 var modelStock = require('../models/modelStock');
 module.exports = {
     afficher_liste_stocks: function (req, res) {
