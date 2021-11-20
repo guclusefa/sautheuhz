@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-sautheuhz.alwaysdata.net
--- Generation Time: Nov 20, 2021 at 02:57 PM
+-- Generation Time: Nov 21, 2021 at 12:54 AM
 -- Server version: 10.5.11-MariaDB
 -- PHP Version: 7.4.19
 
@@ -130,7 +130,8 @@ CREATE TABLE `Prescriptions` (
 -- Indexes for table `Clients`
 --
 ALTER TABLE `Clients`
-  ADD PRIMARY KEY (`clients_id`);
+  ADD PRIMARY KEY (`clients_id`),
+  ADD KEY `Clients_ibfk_1` (`idMutuelle`);
 
 --
 -- Indexes for table `Medecins`
@@ -154,7 +155,10 @@ ALTER TABLE `Mutuelles`
 -- Indexes for table `Ordonnances`
 --
 ALTER TABLE `Ordonnances`
-  ADD PRIMARY KEY (`Ordonnances_id`);
+  ADD PRIMARY KEY (`Ordonnances_id`),
+  ADD KEY `Ordonnances_ibfk_1` (`idPath`),
+  ADD KEY `Ordonnances_ibfk_2` (`idMedecin`),
+  ADD KEY `Ordonnances_ibfk_3` (`idClient`);
 
 --
 -- Indexes for table `Pathologies`
@@ -166,7 +170,9 @@ ALTER TABLE `Pathologies`
 -- Indexes for table `Prescriptions`
 --
 ALTER TABLE `Prescriptions`
-  ADD PRIMARY KEY (`Prescriptions_id`);
+  ADD PRIMARY KEY (`Prescriptions_id`),
+  ADD KEY `Prescriptions_ibfk_1` (`idOrdo`),
+  ADD KEY `Prescriptions_ibfk_2` (`idMedicament`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -213,6 +219,31 @@ ALTER TABLE `Pathologies`
 --
 ALTER TABLE `Prescriptions`
   MODIFY `Prescriptions_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Clients`
+--
+ALTER TABLE `Clients`
+  ADD CONSTRAINT `Clients_ibfk_1` FOREIGN KEY (`idMutuelle`) REFERENCES `Mutuelles` (`Mutuelles_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Ordonnances`
+--
+ALTER TABLE `Ordonnances`
+  ADD CONSTRAINT `Ordonnances_ibfk_1` FOREIGN KEY (`idPath`) REFERENCES `Pathologies` (`Pathologies_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Ordonnances_ibfk_2` FOREIGN KEY (`idMedecin`) REFERENCES `Medecins` (`Medecins_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Ordonnances_ibfk_3` FOREIGN KEY (`idClient`) REFERENCES `Clients` (`clients_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Prescriptions`
+--
+ALTER TABLE `Prescriptions`
+  ADD CONSTRAINT `Prescriptions_ibfk_1` FOREIGN KEY (`idOrdo`) REFERENCES `Ordonnances` (`Ordonnances_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Prescriptions_ibfk_2` FOREIGN KEY (`idMedicament`) REFERENCES `Medicaments` (`Medicaments_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
