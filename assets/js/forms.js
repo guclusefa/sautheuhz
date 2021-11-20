@@ -1,3 +1,16 @@
+$('select').select2({
+    language: "fr",
+    theme: 'bootstrap4',
+    class: 'form-control',
+    width: '100%',
+    dropdownAutoWidth: true,
+    language: {
+        noResults: function(params) {
+            return "Aucun résulat";
+        }
+    }
+});
+
 // validation formulaire bootstrap
 (function () {
     'use strict';
