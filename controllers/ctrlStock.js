@@ -21,39 +21,49 @@ module.exports = {
 
             for (i in data) {
                 lesStock[i][3] = lesStock[i][3] - data[i].stock_necessaire
-            } 
+            }
             console.log(lesStock)
-            res.render('./liste_stocks', { lesStock, contenu: data, contenud: data2, titre: "Les stocks" })
+            res.render('./liste_stocks', { valid: req.flash('valid'), erreur: req.flash('erreur'), lesStock, contenu: data, contenud: data2, titre: "Les stocks" })
         });
     },
     afficher_form_stock: function (req, res) {
         modelStock.afficher_form_stock(function (data) {
-            res.render('./form_stock', { titre: "Formulaire stock" })
+            res.render('./form_stock', { valid: req.flash('valid'), erreur: req.flash('erreur'), titre: "Formulaire stock" })
         });
     },
     afficher_fiche_stock: function (req, res) {
         let id = req.params.id;
         modelStock.afficher_fiche_stock(id, function (data) {
             console.log(data);
-            res.render('./fiche_stock', { contenu: data, titre: "Fiche stock" })
+            res.render('./fiche_stock', { valid: req.flash('valid'), erreur: req.flash('erreur'), contenu: data, titre: "Fiche stock" })
         });
     },
     executer_form_stock: function (req, res) {
         let Medicaments_libelle = req.body.inputMed
         let Medicaments_qte = req.body.inputQte
-
-        modelStock.executer_form_stock([Medicaments_libelle, Medicaments_qte], function (data) {
-            res.redirect('./liste_stocks')
-        })
+        if (Medicaments_libelle === "" || Medicaments_qte === "") {
+            req.flash('erreur', 'Remplir tout les champs');
+            res.redirect('/form_stock')
+        } else {
+            modelStock.executer_form_stock([Medicaments_libelle, Medicaments_qte], function (data) {
+                req.flash('valid', 'Ajout de stock terminé');
+                res.redirect('./liste_stocks')
+            })
+        }
     },
     update_form_stock: function (req, res) {
         let id = req.params.id
         let Medicaments_libelle = req.body.inputMed
         let Medicaments_qte = req.body.inputQte
-
-        modelStock.update_form_stock([Medicaments_libelle, Medicaments_qte, id], function (data) {
-            res.redirect('./../liste_stocks')
-        })
+        if (Medicaments_libelle === "" || Medicaments_qte === "") {
+            req.flash('erreur', 'Remplir tout les champs');
+            res.redirect('./../fiche_stock/' + id)
+        } else {
+            modelStock.update_form_stock([Medicaments_libelle, Medicaments_qte, id], function (data) {
+                req.flash('valid', 'Modification de stock terminé');
+                res.redirect('./../liste_stocks')
+            })
+        }
     },
 
 
@@ -62,6 +72,7 @@ module.exports = {
         id = req.params.id
         modelStock.delete_fiche_stock(id, function (data) {
             console.log(data);
+            req.flash('valid', 'Supression de stock terminé');
             res.redirect('./../liste_stocks')
         });
     }
