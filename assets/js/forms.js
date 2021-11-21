@@ -1,3 +1,4 @@
+//plugin select2 pour les select -> possibilité de chercher dans les select
 $('select').select2({
     language: "fr",
     theme: 'bootstrap4',
@@ -354,6 +355,7 @@ $.extend($.validator.messages, {
     pattern: "Format non valide."
 });
 
+//affichage des numéro de tel  et de nno ss avec les espaces lors des modification 
 format_tel = document.getElementById("inputTel").value;
 format_tel = format_tel.replace(/[^\dA-Z]/g, '').replace(/(.{2})/g, '$1 ').trim();
 document.getElementById("inputTel").value = format_tel;
