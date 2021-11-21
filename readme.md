@@ -30,7 +30,8 @@ Il s'agit du fichier : sautheuhz_bdd.sql
 
 Il vous suffit alors d'installer les middlewares et écrire dans votre terminal les commande suivante : 
 ```
-npm install mysql express ejs express-session connect-flash
+npm init
+npm iniparser install mysql express ejs express-session connect-flash
 node index.js
 ```
 Pour finir, pour accèder au site web, rendez vous sur l'url suivante : 
