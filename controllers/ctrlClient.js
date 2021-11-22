@@ -2,13 +2,12 @@
 Le controller permet d'excuter une fonction au moment voulu, c'est ici que l'on execute les requetes sql.
 Le controller Client permet d'executer les fonctions et requetes clients, à savoir : 
     -afficher la liste des clients avec leurs données
-    -afficher le formulaire d'ajout de clients en recupérant les données invariables (les mutuelles)
+    -afficher le formulaire d'ajout de clients en recupérant les données déja présentes dans la base(les mutuelles)
     -afficher une fiche individuelle sous forme de formulaire pour chaque client, permettant également de modifier les données
     -éxécuter le formulaire d'ajout de clients
     -éxécuter le formulaire de modification des données clients
     -supprimer les données clients 
 */
-
 
 var modelClient = require('../models/modelClient');
 module.exports = {
@@ -109,7 +108,6 @@ module.exports = {
     delete_fiche_client: function (req, res) {
         //recup l'id de l'objet cliqué
         id = req.params.id
-        //recup l'id de l'objet cliqué
         modelClient.delete_fiche_client(id, function (data) {
             console.log(data);
             req.flash('valid', 'Suppression du client terminé');

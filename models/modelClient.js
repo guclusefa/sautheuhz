@@ -2,7 +2,7 @@
 Le model permet en autre d'écrire les requetes sql des différentes fonctions.
 Le model Client permet de stocker les différentes requête concernant les clients, à savoir : 
     -afficher la liste des clients avec leurs données
-    -afficher le formulaire d'ajout de clients en recupérant les données invariables (les mutuelles)
+    -afficher le formulaire d'ajout de clients en recupérant les données déja présentes dans la base (les mutuelles)
     -afficher une fiche individuelle sous forme de formulaire pour chaque client, permettant également de modifier les données
     -éxécuter le formulaire d'ajout de clients
     -éxécuter le formulaire de modification des données clients
