@@ -26,7 +26,9 @@ Après avoir installer git ainsi que node sur votre pc, clonez le projet grâce 
 git clone https://github.com/guclusefa/sautheuhz.git
 ```
 Récuperez la base de données et importer là dans votre gestionnaire de base de données.  
-Il s'agit du fichier : sautheuhz_bdd.sql
+Il s'agit du fichier : assets/bdd/sautheuhz_bdd.sql
+Ensuite insérer vos identifiants dans le fichier de connexion à la base de données.
+Il s'agit du fichier : config/database.js
 
 Il vous suffit alors d'installer les middlewares  : 
 ```
