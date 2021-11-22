@@ -1,16 +1,29 @@
+/*
+Le model permet d'executer une fonction au moment voulu, c'est ici que l'on execute les requetes sql.
+Le model Mutuelle permet d'executer les fonctions et requetes Mutuelle, à savoir : 
+    -afficher la liste des Mutuelle avec leurs données
+    -afficher le formulaire d'ajout de Mutuelle 
+    -afficher une fiche individuelle sous forme de formulaire pour chaque Mutuelle, permettant également de modifier les données
+    -éxécuter le formulaire d'ajout de Mutuelle
+    -éxécuter le formulaire de modification des données Mutuelle
+    -supprimer les données Mutuelle 
+*/
 var modelMutuelle = require('../models/modelMutuelle');
 
 module.exports = {
+// afficher la liste des Mutuelle avec leurs données
     afficher_liste_mutuelles: function (req, res) {
         modelMutuelle.afficher_liste_mutuelles(function (data) {
             res.render('./liste_mutuelles', { valid: req.flash('valid'), erreur: req.flash('erreur'), contenu: data, titre: "Les mutuelles" });
         });
     },
+//afficher le formulaire d'ajout de Mutuelle 
     afficher_form_mutuelle: function (req, res) {
         modelMutuelle.afficher_form_mutuelle(function (data) {
             res.render('./form_mutuelle', { valid: req.flash('valid'), erreur: req.flash('erreur'), titre: "Formulaire mutuelle" });
         });
     },
+//afficher une fiche individuelle sous forme de formulaire pour chaque Mutuelle, permettant également de modifier les données
     afficher_fiche_mutuelle: function (req, res) {
         let id = req.params.id;
         modelMutuelle.afficher_fiche_mutuelle(id, function (data) {
@@ -18,6 +31,7 @@ module.exports = {
             res.render('./fiche_mutuelle', { valid: req.flash('valid'), erreur: req.flash('erreur'), contenu: data, titre: "Fiche mutuelle" })
         });
     },
+//éxécuter le formulaire d'ajout de Mutuelle
     executer_form_mutuelle: function (req, res) {
         let Mutuelles_nom = req.body.inputNomMutu
         let Mutuelles_mail = req.body.inputEmail
@@ -37,6 +51,7 @@ module.exports = {
             })
         }
     },
+//éxécuter le formulaire de modification des données Mutuelle
     update_form_mutuelle: function (req, res) {
         let id = req.params.id
         let Mutuelles_nom = req.body.inputNomMutu
@@ -57,6 +72,7 @@ module.exports = {
             })
         }
     },
+//supprimer les données Mutuelle
     delete_fiche_mutuelle: function (req, res) {
         id = req.params.id
         modelMutuelle.delete_fiche_mutuelle(id, function (data) {

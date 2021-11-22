@@ -1,5 +1,5 @@
 /*
-Le controller permet d'excuter une fonction au moment voulu, c'est ici que l'on execute les requetes sql.
+Le controller permet d'executer une fonction au moment voulu, c'est ici que l'on execute les requetes sql.
 Le controller Ordonnance permet d'executer les fonctions et requetes Ordonnances, à savoir : 
     -afficher la liste des Ordonnances avec leurs données
     -afficher le formulaire d'ajout de Ordonnances en recupérant les données déja présentes dans la base (liste clients/medecins/pathologies/medicaments)
