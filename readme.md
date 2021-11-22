@@ -38,7 +38,7 @@ node index.jsZ
 ```
 Et rendez vous sur l'url suivante
 ``` 
-localhost:3000/sautheuhz(http://localhost:3000/sautheuhz)
+[localhost:3000/sautheuhz](http://localhost:3000/sautheuhz)
 ```
 ## Auteurs
 - [IlianCode](https://github.com/IlianCode)
