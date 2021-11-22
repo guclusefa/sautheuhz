@@ -31,7 +31,6 @@ Il s'agit du fichier : sautheuhz_bdd.sql
 Il vous suffit alors d'installer les middlewares  : 
 ```
 npm install iniparser mysql express ejs express-session connect-flash
-
 ```
 Pour finir, pour accèder au site web, lancer le serveur et rendez vous sur l'url suivante : 
 ``` 
