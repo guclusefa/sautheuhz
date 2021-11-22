@@ -14,7 +14,7 @@ module.exports = {
 //afficher la liste des Stocks avec leurs données
     afficher_liste_stocks: function (callback) {
         var sql = 'SELECT *, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(Prescriptions_dateFin - Ordonnances_date)) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id AND Prescriptions_dateFin < NOW() GROUP BY idMedicament ORDER BY Prescriptions_dateFin, idMedicament';
-        var sql2 = 'SELECT *, DATEDIFF(Prescriptions_dateFin, NOW()) as joursRestant, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(DATEDIFF(Prescriptions_dateFin, NOW()))) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id GROUP BY idMedicament ORDER BY Prescriptions_dateFin, idMedicament';
+        var sql2 = 'SELECT *, (Prescriptions_quantite*Prescriptions_frequence) as coefJour, ROUND(TIMESTAMPDIFF(DAY, NOW(), Prescriptions_dateFin)*12/365.24) as moisRestant, DATEDIFF(Prescriptions_dateFin, NOW()) as joursRestant, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(DATEDIFF(Prescriptions_dateFin, NOW()))) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id GROUP BY idMedicament ORDER BY Prescriptions_dateFin, idMedicament';
         var sql3 = 'SELECT * FROM Medicaments WHERE Medicaments_id NOT IN (SELECT idMedicament FROM Prescriptions)'
         db.query(sql, function (err, data, fields) {
             if (err) throw err;

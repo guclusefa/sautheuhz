@@ -72,6 +72,7 @@ module.exports = {
                 console.log(lesStockEffectif)
 
 
+                console.log(data2)
                 res.render('./accueil', { lesMeds, lesStockEffectif: JSON.stringify(lesStockEffectif), lesStock, test, lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: data3, titre: "Liste des clients" })
             });
         });
