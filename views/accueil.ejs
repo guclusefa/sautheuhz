@@ -66,7 +66,7 @@
       <div class="col-xl-6 col-md-12 mt-5">
         <div class="card">
           <div class="card-body titreChart">
-            <h5 class="card-title">Stock des médicaments</h5>
+            <h5 class="card-title">Stock effectif des médicaments</h5>
           </div>
           <canvas id="myChart3" class="m-3"></canvas>
         </div>
@@ -79,8 +79,8 @@
           data: {
             labels: <%- JSON.stringify(lesMeds) %>,
             datasets: [{
-              label: 'Stock de doliprane',
-              data: <%- lesDonnesMeds %>,
+              label: 'Stock effectif',
+              data: <%- [lesStockEffectif] %>,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -116,7 +116,7 @@
       <div class="col-xl-6 col-md-12 mt-5">
         <div class="card">
           <div class="card-body titreChart">
-            <h5 class="card-title">Part des pathologies par ordonnace</h5>
+            <h5 class="card-title">Part des pathologies par ordonnance</h5>
           </div>
           <canvas id="myChart2" class="m-3"></canvas>
         </div>
@@ -129,7 +129,6 @@
           data: {
             labels: <%- JSON.stringify(lesPath) %>,
             datasets: [{
-              label: 'Stock de doliprane',
               data: <%- lesDonnesPaths %>,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
