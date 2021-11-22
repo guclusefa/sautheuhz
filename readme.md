@@ -34,11 +34,11 @@ npm install iniparser mysql express ejs express-session connect-flash
 ```
 Pour finir, pour accèder au site web, lancer le serveur : 
 ``` 
-node index.jsZ
+node index.js
 ```
 Et rendez vous sur l'url suivante
 ``` 
-[localhost:3000/sautheuhz](http://localhost:3000/sautheuhz)
+localhost:3000/sautheuhz
 ```
 ## Auteurs
 - [IlianCode](https://github.com/IlianCode)
