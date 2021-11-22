@@ -5,7 +5,7 @@ module.exports = {
         // sql prend les prescriptions finis, sql2 prend tout les meds, sql3 prend les meds qui nont pas de prescriptions
         // il suffit de soustraire les stock nessaire de la sql1 (car fini) et sql2 pour avoir le stock necessaire réel, puis d'ajouter dans la liste les meds dans aucun prescription -> fix le probleme de bdd avec colonnes intermdiaire
         var sql = 'SELECT *, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(Prescriptions_dateFin - Ordonnances_date)) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id AND Prescriptions_dateFin < NOW() GROUP BY idMedicament ORDER BY Prescriptions_dateFin, idMedicament';
-        var sql2 = 'SELECT *, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(DATEDIFF(Prescriptions_dateFin, NOW()))) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id GROUP BY idMedicament ORDER BY Prescriptions_dateFin, idMedicament';
+        var sql2 = 'SELECT *, DATEDIFF(Prescriptions_dateFin, NOW()) as joursRestant, idMedicament, SUM(Prescriptions_quantite*Prescriptions_frequence*(DATEDIFF(Prescriptions_dateFin, NOW()))) as stock_necessaire FROM Prescriptions, Ordonnances, Medicaments WHERE Medicaments_id = idMedicament AND idOrdo = Ordonnances_id GROUP BY idMedicament ORDER BY Prescriptions_dateFin, idMedicament';
         var sql3 = 'SELECT * FROM Medicaments WHERE Medicaments_id NOT IN (SELECT idMedicament FROM Prescriptions)'
         db.query(sql, function (err, data, fields) {
             if (err) throw err;
