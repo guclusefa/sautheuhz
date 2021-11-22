@@ -9,7 +9,6 @@ module.exports = {
             console.log("--------------------------------")
             console.log(data3)
 
-            ajd = new Date();
             lesStock = []
             for (i in data2) {
                 lesStock.push([data2[i].idMedicament, data2[i].Medicaments_libelle, data2[i].Medicaments_qte, data2[i].stock_necessaire])
@@ -20,7 +19,7 @@ module.exports = {
             }
 
             for (i in data) {
-                lesStock[i][3] = lesStock[i][3] - data[i].stock_necessaire
+                lesStock[i][3] = lesStock[i][3] + data[i].stock_necessaire
             }
             console.log(lesStock)
             res.render('./liste_stocks', { valid: req.flash('valid'), erreur: req.flash('erreur'), lesStock, contenu: data, contenud: data2, titre: "Les stocks" })
