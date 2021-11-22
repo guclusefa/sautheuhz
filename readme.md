@@ -28,14 +28,14 @@ git clone https://github.com/guclusefa/sautheuhz.git
 Récuperez la base de données et importer là dans votre gestionnaire de base de données.  
 Il s'agit du fichier : sautheuhz_bdd.sql
 
-Il vous suffit alors d'installer les middlewares et écrire dans votre terminal les commande suivante : 
+Il vous suffit alors d'installer les middlewares  : 
 ```
-npm init
 npm install iniparser mysql express ejs express-session connect-flash
-node index.js
+
 ```
-Pour finir, pour accèder au site web, rendez vous sur l'url suivante : 
+Pour finir, pour accèder au site web, lancer le serveur et rendez vous sur l'url suivante : 
 ``` 
+node index.js
 localhost:3000/sautheuhz
 ```
 ## Auteurs
