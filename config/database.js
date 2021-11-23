@@ -1,9 +1,9 @@
 var mysql = require('mysql');
 var conn = mysql.createConnection({
-    host: 'mysql-sautheuhz.alwaysdata.net',
-    user: 'sautheuhz_root', 
-    password: 'IlianSefa386',  
-    database: 'sautheuhz_bdd' 
+    host: 'your host',
+    user: 'user', 
+    password: 'password',  
+    database: 'database_name' 
 });
 conn.connect(function (err) {
     if (err) throw err;
