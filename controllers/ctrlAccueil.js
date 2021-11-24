@@ -2,6 +2,7 @@ var modelAccueil = require('../models/modelAccueil');
 const modelStock = require('../models/modelStock');
 module.exports = {
 
+    // affichage accueil avec les différents charts (à prevoir, stock effectif et part pathologies)
     afficher_accueil: function (req, res) {
         modelAccueil.afficher_accueil(function (data, data2, data3) {
             // chart stock
