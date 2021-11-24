@@ -27,7 +27,6 @@ module.exports = {
     afficher_fiche_pathologie: function (req, res) {
         let id = req.params.id;
         modelPathologie.afficher_fiche_pathologie(id, function (data) {
-            console.log(data);
             res.render('./fiche_pathologie', { valid: req.flash('valid'), erreur: req.flash('erreur'), contenu: data, titre: "Fiche pathologie" })
         });
     },
@@ -40,7 +39,6 @@ module.exports = {
         } else {
             pathoLib = { Pathologies_libelle }
             modelPathologie.executer_form_pathologie(pathoLib, function (data) {
-                console.log(data)
                 req.flash('valid', 'Ajout de pathologie terminé');
                 res.redirect('./liste_pathologies')
             })
@@ -56,7 +54,6 @@ module.exports = {
             res.redirect('./../fiche_pathologie/' + id)
         } else {
             modelPathologie.update_form_pathologie([pathoLib, id], function (data) {
-                console.log(data)
                 req.flash('valid', 'Modification de pathologie terminé');
                 res.redirect('./../liste_pathologies')
             })
@@ -66,7 +63,6 @@ module.exports = {
     delete_fiche_pathologie: function (req, res) {
         id = req.params.id
         modelPathologie.delete_fiche_pathologie(id, function (data) {
-            console.log(data);
             req.flash('valid', 'Supression de pathologie terminé');
             res.redirect('./../liste_pathologies')
         });

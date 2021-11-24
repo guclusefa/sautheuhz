@@ -27,7 +27,6 @@ module.exports = {
     afficher_fiche_mutuelle: function (req, res) {
         let id = req.params.id;
         modelMutuelle.afficher_fiche_mutuelle(id, function (data) {
-            console.log(data);
             res.render('./fiche_mutuelle', { valid: req.flash('valid'), erreur: req.flash('erreur'), contenu: data, titre: "Fiche mutuelle" })
         });
     },
@@ -45,7 +44,6 @@ module.exports = {
             let mutuelleParam = { Mutuelles_nom, Mutuelles_tel, Mutuelles_mail }
 
             modelMutuelle.executer_form_mutuelle(mutuelleParam, function (data) {
-                console.log(data)
                 req.flash('valid', 'Ajout de mutuelle terminé');
                 res.redirect('./liste_mutuelles')
             })
@@ -66,7 +64,6 @@ module.exports = {
             let mutuelleParam = { Mutuelles_nom, Mutuelles_tel, Mutuelles_mail }
 
             modelMutuelle.update_form_mutuelle([mutuelleParam, id], function (data) {
-                console.log(data)
                 req.flash('valid', 'Modification de mutuelle terminé');
                 res.redirect('./../liste_mutuelles')
             })
@@ -76,7 +73,6 @@ module.exports = {
     delete_fiche_mutuelle: function (req, res) {
         id = req.params.id
         modelMutuelle.delete_fiche_mutuelle(id, function (data) {
-            console.log(data);
             req.flash('valid', 'Supression de mutuelle terminé');
             res.redirect('./../liste_mutuelles')
         });

@@ -14,7 +14,6 @@ module.exports = {
     //afficher la liste des clients avec leurs données
     afficher_liste_clients: function (req, res) {
         modelClient.afficher_liste_clients(function (data) {
-            console.log(data)
             res.render('./liste_clients', { contenu: data, titre: "Liste des clients", valid: req.flash('valid'), erreur: req.flash('erreur') });
         });
     },
@@ -28,7 +27,6 @@ module.exports = {
     afficher_fiche_client: function (req, res) {
         let id = req.params.id;
         modelClient.afficher_fiche_client(id, function (data, data2) {
-            console.log(data);
             res.render('./fiche_client', { info_client: data, contenu: data2, titre: "Fiche client", valid: req.flash('valid'), erreur: req.flash('erreur') })
         });
     },
@@ -56,7 +54,6 @@ module.exports = {
 
             let clientParam = { idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville, clients_cp }
             modelClient.executer_form_client(clientParam, function (data) {
-                console.log(data)
                 req.flash('valid', 'Ajout de client terminé');
                 res.redirect('./liste_clients')
             })
@@ -90,7 +87,6 @@ module.exports = {
             let clientParam = { idMutuelle, clients_noSS, clients_nom, clients_prenom, clients_sexe, clients_dateNaissance, clients_tel, clients_mail, clients_adresse, clients_ville, clients_cp }
 
             modelClient.update_form_client([clientParam, id], function (data) {
-                console.log(data)
                 req.flash('valid', 'Modification terminé');
                 res.redirect('./../liste_clients')
             })
@@ -100,7 +96,6 @@ module.exports = {
     delete_fiche_client: function (req, res) {
         id = req.params.id
         modelClient.delete_fiche_client(id, function (data) {
-            console.log(data);
             req.flash('valid', 'Suppression du client terminé');
             res.redirect('./../liste_clients')
         });

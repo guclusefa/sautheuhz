@@ -63,7 +63,6 @@ module.exports = {
             modelOrdonnance.executer_form_ordonnance(ordonnanceParam, function (data2) {
                 data2 = JSON.parse(JSON.stringify(data2))
                 idOrdo = data2[0].Ordonnances_id
-                console.log(idOrdo)
 
                 for (i in req.body.selectMedicament) {
                     idMedicament = req.body.selectMedicament[i]
@@ -93,7 +92,6 @@ module.exports = {
         for (i in req.body.selectDateMed) {
             dateDebut = new Date(Ordonnances_date);
             dateFin = new Date(req.body.selectDateMed[i]);
-            console.log(dateDebut + " " + dateFin)
             if (dateFin < dateDebut) {
                 erreurDate2 = true
             }
@@ -134,7 +132,6 @@ module.exports = {
     delete_fiche_ordonnance: function (req, res) {
         id = req.params.id
         modelOrdonnance.delete_fiche_ordonnance(id, function (data) {
-            console.log(data);
             req.flash('valid', `Supression d'ordonnance terminé`);
             res.redirect('./../liste_ordonnances')
         });

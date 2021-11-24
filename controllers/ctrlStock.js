@@ -14,11 +14,7 @@ module.exports = {
 //afficher la liste des Stocks avec leurs données
     afficher_liste_stocks: function (req, res) {
         modelStock.afficher_liste_stocks(function (data, data2, data3) {
-            console.log(data)
-            console.log("--------------------------------")
-            console.log(data2)
-            console.log("--------------------------------")
-            console.log(data3)
+           
 
             lesStock = []
             for (i in data2) {
@@ -32,7 +28,6 @@ module.exports = {
             for (i in data) {
                 lesStock[i][3] = lesStock[i][3] + data[i].stock_necessaire
             }
-            console.log(lesStock)
             res.render('./liste_stocks', { valid: req.flash('valid'), erreur: req.flash('erreur'), lesStock, contenu: data, contenud: data2, titre: "Les stocks" })
         });
     },
@@ -46,7 +41,6 @@ module.exports = {
     afficher_fiche_stock: function (req, res) {
         let id = req.params.id;
         modelStock.afficher_fiche_stock(id, function (data) {
-            console.log(data);
             res.render('./fiche_stock', { valid: req.flash('valid'), erreur: req.flash('erreur'), contenu: data, titre: "Fiche stock" })
         });
     },
@@ -83,7 +77,6 @@ module.exports = {
     delete_fiche_stock: function (req, res) {
         id = req.params.id
         modelStock.delete_fiche_stock(id, function (data) {
-            console.log(data);
             req.flash('valid', 'Supression de stock terminé');
             res.redirect('./../liste_stocks')
         });

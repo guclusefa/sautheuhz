@@ -27,7 +27,6 @@ module.exports = {
     afficher_fiche_medecin: function (req, res) {
         let id = req.params.id;
         modelMedecin.afficher_fiche_medecin(id, function (data) {
-            console.log(data);
             res.render('./fiche_medecin', { valid: req.flash('valid'), erreur: req.flash('erreur'), contenu: data, titre: "Fiche médecin" })
         });
     },
@@ -46,7 +45,6 @@ module.exports = {
             Medecins_tel = Medecins_tel.split(' ').join('')
             let medecinParam = { Medecins_noOrdre, Medecins_nom, Medecins_prenom, Medecins_tel, Medecins_mail }
             modelMedecin.executer_form_medecin(medecinParam, function (data) {
-                console.log(data)
                 req.flash('valid', 'Ajout de médecin terminé');
                 res.redirect('./liste_medecins')
             })
@@ -69,7 +67,6 @@ module.exports = {
 
             let medecinParam = { Medecins_noOrdre, Medecins_nom, Medecins_prenom, Medecins_tel, Medecins_mail }
             modelMedecin.update_form_medecin([medecinParam, id], function (data) {
-                console.log(data)
                 req.flash('valid', 'Modification de médecin terminé');
                 res.redirect('./../liste_medecins')
             })
@@ -79,7 +76,6 @@ module.exports = {
     delete_fiche_medecin: function (req, res) {
         id = req.params.id
         modelMedecin.delete_fiche_medecin(id, function (data) {
-            console.log(data);
             req.flash('valid', 'Supression de médecin terminé');
             res.redirect('./../liste_medecins')
         });

@@ -37,9 +37,6 @@ module.exports = {
                 prochainMoisEnNombre.push(d.getMonth() + 1)
                 joursProchainsMoisEnnombre.push(daysInMonth(d.getMonth(), new Date().getFullYear()))
             }
-            console.log(prochainMois)
-            console.log(prochainMoisEnNombre)
-            console.log(joursProchainsMoisEnnombre)
 
             let test = []
             for (let i = 0; i < lesMeds.length; i++) {
@@ -67,12 +64,8 @@ module.exports = {
                     lesMeds.push(lesStock[i][1])
                     lesStockEffectif.push(lesStock[i][2]-lesStock[i][3])
                 }
-                console.log(lesStock)
-                console.log(lesMeds)
-                console.log(lesStockEffectif)
 
 
-                console.log(data2)
                 res.render('./accueil', { lesMeds, lesStockEffectif: JSON.stringify(lesStockEffectif), lesStock, test, lesPath: lesPath, lesDonnesPaths: JSON.stringify(lesDonnesPaths), prochainMois: prochainMois, prochainMoisEnNombre: JSON.stringify(prochainMoisEnNombre), lesMeds: lesMeds, lesDonnesMeds: JSON.stringify(lesDonnesMeds), contenu: data3, titre: "Liste des clients" })
             });
         });
