@@ -1,5 +1,5 @@
 //plugin select2 pour les select -> possibilité de chercher dans les select
-$('select').select2({
+/* $('select').select2({
     language: "fr",
     theme: 'bootstrap4',
     class: 'form-control',
@@ -10,7 +10,7 @@ $('select').select2({
             return "Aucun résulat";
         }
     }
-});
+}); */
 
 // validation formulaire bootstrap
 (function () {

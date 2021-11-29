@@ -12,8 +12,8 @@ var db = require('../config/database');
 module.exports = {
     //afficher la liste des Ordonnances avec leurs données
     afficher_liste_ordonnances: function (callback) {
-        var sql = 'SELECT * FROM Ordonnances WHERE Ordonnances_id >73';
-        var sql2 = 'SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, DATEDIFF(max(Prescriptions_dateFin), Ordonnances_date) AS dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id AND Ordonnances_id >73 GROUP BY idOrdo ORDER BY dureeOrdonnance DESC'
+        var sql = 'SELECT * FROM Ordonnances';
+        var sql2 = 'SELECT DATE_FORMAT(Ordonnances_date, "%d/%m/%Y") as dateOrdo, idOrdo, DATEDIFF(max(Prescriptions_dateFin), Ordonnances_date) AS dureeOrdonnance, clients_nom, clients_prenom, Medecins_nom, Medecins_prenom, Pathologies_libelle FROM Pathologies, Medecins, Clients, Ordonnances, Prescriptions WHERE idPath = Pathologies_id AND idOrdo = Ordonnances_id AND clients_id = idClient AND idMedecin = Medecins_id GROUP BY idOrdo ORDER BY dureeOrdonnance DESC'
         var sql3 = 'SELECT *, DATEDIFF(Prescriptions_dateFin, Ordonnances_date) AS duree, DATE_FORMAT(Prescriptions_dateFin, "%d/%m/%Y") as dateFin FROM Prescriptions, Medicaments, Ordonnances WHERE idMedicament = Medicaments_id AND idOrdo = Ordonnances_id'
         db.query(sql, function (err, dataOrdo, fields) {
             if (err) throw err;
